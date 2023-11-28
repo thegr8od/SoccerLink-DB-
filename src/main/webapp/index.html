@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="EUC-KR">
+    <title>COMP322: Introduction to Databases </title>
+</head>
+<body>
+<h2> Lab #9: Repeating Lab #5-3 via JSP</h2>
+<form action="response.jsp" method="post">
+<h3> Query 1: Search for employees satisfying the following conditions</h3>
+    Project name starting with:
+        <select name = "pname1">
+            <option value="1">ProductX</option>
+            <option value="2">ProductY</option>
+            <option value="3">ProductZ</option>
+            <option value="10">Computerization</option>
+            <option value="20">Reorganization</option>
+            <option value="30">NewBenefits</option>
+        </select>
+    Department Number:
+    <select name = "dnum1">
+        <option value="1">1</option>
+        <option value="4">4</option>
+        <option value="5" selected>5</option>
+    </select>
+    Salary greater than or equal to:
+    <input type="text" name="sal1" />
+    <br>
+<h3> Query 2: Search for employees satisfying the following conditions</h3>
+    Supervisor's SSN:
+    <input type="text" name="sssn2" />
+    Address Including:
+    <input type="text" name="addr2" />
+    <br>
+<h3> Query 3: Search for employees working on</h3>
+    Project name:
+    <select name = "pname3">
+        <option value="1">ProductX</option>
+        <option value="2">ProductY</option>
+        <option value="3">ProductZ</option>
+        <option value="10">Computerization</option>
+        <option value="20">Reorganization</option>
+        <option value="30">NewBenefits</option>
+    </select>
+    Working hours more than:
+    <input type="text" name="work3" />
+    <br>
+<h3> Query 4: Search for employees working on</h3>
+    Project name starting with:
+    <input type="text" name="pname4" />
+    <br>
+    Working hours greater than or equal to:
+    <input type="text" name="work4" />
+    <br>
+<h3> Query 5: Search for supervisee(s) and his/her spouse(s) with</h3>
+    Supervisor's SSN:
+    <input type="text" name="sssn5" />
+    <br>
+<input type="submit" value="Submit"/>
+</form>
+</body>
+</html>
