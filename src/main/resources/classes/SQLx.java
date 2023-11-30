@@ -1,20 +1,15 @@
-package Phase3;
+package classes;
 
-import javax.xml.transform.Result;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class SQLx {
     private static final char apx = '\'';
     private static final char comma = ',';
     private static final String lparen = " (";
     private static final String rparen = ") ";
-    protected static void Insertx(String tbl, String[] data) {
-        try {
+    
+    public static String Insertx(String tbl, String[] data) {
             StringBuilder sb = new StringBuilder();
-            Statement stmt = ProjectMain.conn.createStatement();
             String sql = "";
             sb.append("INSERT INTO ").append(tbl);
             sb.append(" VALUES ");
@@ -106,20 +101,11 @@ public class SQLx {
                 System.exit(1);
             }
             sql = sb.toString();
-            int rs = stmt.executeUpdate(sql);
-            ProjectMain.conn.commit();
-        }
-        catch (SQLException e){
-            System.err.println("Error updating");
-            e.printStackTrace();
-        }
-
+            return sql;
     }
-    protected static void Updatex(String tbl, String target, String data, String[] key){
-        try{
+    public static String Updatex(String tbl, String target, String data, String[] key){
             StringBuilder sb = new StringBuilder();
             String sql = "";
-            Statement stmt = ProjectMain.conn.createStatement();
             sb.append("UPDATE "+tbl);
             sb.append(" SET "+target);
             sb.append(" = "+apx+data+apx);
@@ -154,19 +140,11 @@ public class SQLx {
                 sb.append("MEMBER_ID = "+apx+key[1]+apx);
             }
             sql = sb.toString();
-            int rs = stmt.executeUpdate(sql);
-            ProjectMain.conn.commit();
-        }
-        catch (SQLException e){
-            System.err.println("Error updating");
-            e.printStackTrace();
-        }
+            return sql;
     }
-    protected static void Deletex(String tbl, String[] key)  {
-        try {
+    public static String Deletex(String tbl, String[] key)  {
             StringBuilder sb = new StringBuilder();
             String sql = "";
-            Statement stmt = ProjectMain.conn.createStatement();
             sb.append("DELETE FROM "+tbl);
             sb.append(" WHERE ");
             if(tbl.equals("USERS"))
@@ -199,55 +177,26 @@ public class SQLx {
                 sb.append("MEMBER_ID = "+apx+key[1]+apx);
             }
             sql = sb.toString();
-            int rs = stmt.executeUpdate(sql);
-            if(rs == 0){
-                ProjectMain.conn.commit();
-            }
-        }
-        catch (SQLException e){
-            System.err.println("Error updating");
-            e.printStackTrace();
-        }
+            return sql;
     }
-    protected static ResultSet Selectx(String attr, String tbl) {
-        try{
+    public static String Selectx(String attr, String tbl) {
             StringBuilder sb = new StringBuilder();
             String sql = "";
             sb.append("SELECT "+attr);
             sb.append(" FROM "+tbl);
             sql = sb.toString();
-            PreparedStatement stmt = ProjectMain.conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet rs = stmt.executeQuery(sql);
-            ProjectMain.conn.commit();
-            return rs;
-        }
-        catch (SQLException e){
-            System.err.println("Error updating");
-            e.printStackTrace();
-        }
-        return null;
+            return sql;
     }
-    protected static ResultSet Selectx(String attr, String tbl, String opt) {
-        try {
+    public static String Selectx(String attr, String tbl, String opt) {
             StringBuilder sb = new StringBuilder();
             String sql = "";
             sb.append("SELECT "+attr);
             sb.append(" FROM "+tbl);
             sb.append(" "+opt);
             sql = sb.toString();
-            PreparedStatement stmt = ProjectMain.conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet rs = stmt.executeQuery(sql);
-            ProjectMain.conn.commit();
-            return rs;
-        }
-        catch (SQLException e){
-            System.err.println("Error updating");
-            e.printStackTrace();
-        }
-        return null;
+            return sql;
     }
-    protected static ResultSet Selectx(String attr, String tbl, String where, String opt)  {
-        try {
+    public static String Selectx(String attr, String tbl, String where, String opt)  {
             StringBuilder sb = new StringBuilder();
             String sql = "";
             sb.append("SELECT "+attr);
@@ -255,19 +204,9 @@ public class SQLx {
             sb.append(" WHERE "+where);
             sb.append(" "+opt);
             sql = sb.toString();
-            PreparedStatement stmt = ProjectMain.conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet rs = stmt.executeQuery(sql);
-            ProjectMain.conn.commit();
-            return rs;
-        }
-        catch (SQLException e){
-            System.err.println("Error updating");
-            e.printStackTrace();
-        }
-        return null;
+            return sql;
     }
-    protected static ResultSet Selectx(String attr, String tbl, String where, String groups, String opt) throws SQLException {
-        try {
+    public static String Selectx(String attr, String tbl, String where, String groups, String opt) throws SQLException {
             StringBuilder sb = new StringBuilder();
             String sql = "";
             sb.append("SELECT " + attr);
@@ -276,14 +215,6 @@ public class SQLx {
             sb.append(" GROUP BY " + groups);
             sb.append(" " + opt);
             sql = sb.toString();
-            PreparedStatement stmt = ProjectMain.conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet rs = stmt.executeQuery(sql);
-            ProjectMain.conn.commit();
-            return rs;
-        } catch (SQLException e) {
-            System.err.println("Error updating");
-            e.printStackTrace();
-        }
-        return null;
+            return sql;
     }
 }
