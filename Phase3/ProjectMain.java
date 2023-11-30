@@ -15,7 +15,8 @@ public class ProjectMain {
     public static final String USER_NAME = "TERMPROJECT";
     public static final String USER_PASSWD = "COMP0322";
     public static Connection conn = null;
-    public static Statement stmt = null;
+    //public static Statement stmt = null;
+    public static BufferedReader bf= new BufferedReader(new InputStreamReader(System.in));
     public static void main(String[] args) throws IOException, SQLException {
 
         //jdbc 드라이버 불러오기
@@ -38,11 +39,10 @@ public class ProjectMain {
         }
 
         conn.setAutoCommit(false);
-        stmt = conn.createStatement();
+        //stmt = conn.createStatement();
         System.out.println("------------------------------");
         System.out.println("Hello, Welcome to SoccerLink");
-        //while (true){
-            BufferedReader bfxx= new BufferedReader(new InputStreamReader(System.in));
+        while (true){
             System.out.println("------------------------------");
             System.out.println("Select Option");
             System.out.println("1. Log In");
@@ -51,7 +51,7 @@ public class ProjectMain {
             System.out.println("4. Quit");
             System.out.println("------------------------------");
             System.out.print("Option Number : ");
-            int mainOpt = Integer.parseInt(bfxx.readLine());
+            int mainOpt = Integer.parseInt(bf.readLine());
             boolean flag = false;
             switch (mainOpt) {
                 case 1 : USERS.LogIn(); break;
@@ -60,22 +60,23 @@ public class ProjectMain {
                 case 4 : flag = true; break;
                 default: System.out.println("Wrong number!, Re-enter");
             }
-            //if (flag) break;
-            bfxx.close();
-        //}
+            if (flag) break;
+
+        }
+
         conn.close();
-        stmt.close();
+        //stmt.close();
+        bf.close();
     }
     private static void Credits() throws IOException {
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("-----------------------------------");
         System.out.println("Credits");
         System.out.println("--------------------------------------------------------------------------");
         System.out.printf("|%-15s|%-40s|%-15s|\n", "Name", "Major", "ID_Number");
         System.out.println("--------------------------------------------------------------------------");
         System.out.printf("|%-15s|%-40s|%-15s|\n", "Dong-Hyeok Seo", "Computer Science and Engineering", "2021115360");
-        System.out.printf("|%-15s|%-40s|%-15s|\n", "Dong-Hyeok Seo", "Computer Science and Engineering", "2021115360");
-        System.out.printf("|%-15s|%-40s|%-15s|\n", "Dong-Hyeok Seo", "Computer Science and Engineering", "2021115360");
+        System.out.printf("|%-15s|%-40s|%-15s|\n", "Du-Young Hwang", "English Language and Literature", "2018110976");
+        System.out.printf("|%-15s|%-40s|%-15s|\n", "Seung-Jun Kim", "English Language and Literature", "2019110248");
         System.out.println("--------------------------------------------------------------------------");
         System.out.println(" SoccerLink, Project of Team 6, Updated : 2023.11.07");
         System.out.println(" Database(comp322), Instructor : Young-Kyoon Suh");
@@ -83,6 +84,5 @@ public class ProjectMain {
         System.out.println("--------------------------------------------------------------------------");
         System.out.println(" Press Enter to return Main Screen");
         bf.readLine();
-        bf.close();
     }
 }
