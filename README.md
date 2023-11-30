@@ -31,6 +31,6 @@
 7. Secession (진짜 탈퇴함? 인증 pop-up)
 
 Checker
-[] 1+2+3+6+7 : Manager + Rest
-[] 4 : Admin
-[] 5 : Member
+-[] 1+2+3+6+7 : Manager + Rest
+-[] 4 : Admin
+-[] 5 : Member
