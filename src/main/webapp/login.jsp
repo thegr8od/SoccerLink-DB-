@@ -18,7 +18,7 @@
     <input type="text" name="id" id="id">
     </br>
     <label>PW : </label>
-    <input type="text" name="pw" id="pw">
+    <input type="password" name="pw" id="pw">
     </br>
     <input type="submit"value="Log in">
     </br>

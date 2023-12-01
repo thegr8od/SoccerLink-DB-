@@ -19,7 +19,7 @@
 <form action="signUpProc.jsp" method="post">
     <!--비밀번호-->
     <label>Password : </label>
-    <input type="password" name="pw" id="pw" maxlength="20" required>
+    <input type="password" name="pw" id="pw" minlength="9" maxlength="20" required>
     </br>
     <!--이름-->
     <label>Name : </label>
@@ -46,6 +46,9 @@
         <option value="manager">Manager</option>
         <option value="member">Member</option>
     </select>
+    </br>
+    <label>Bank accout (manager only) : </label>
+    <input type = "text" name = "bankAccount" id = "bankAccout">
     </br>
     <input type="submit" value="signIn">
 </form>
