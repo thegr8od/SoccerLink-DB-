@@ -18,6 +18,8 @@
     String pw = request.getParameter("pw");
     // admin인지 먼저 확인
     if(id.equals("SOCCERLINK") && pw.equals("ADMIN!")){
+        HttpSession session1 = request.getSession();
+        session1.setAttribute("user","SOCCERLINK");
         response.sendRedirect("admin.jsp");
     }
     else{
@@ -37,6 +39,8 @@
             pst = conn.prepareStatement(checkMember);
             rs = pst.executeQuery();
             if (rs.next()) {
+                HttpSession session1 = request.getSession();
+                session1.setAttribute("user",id);
                 response.sendRedirect("member.jsp");
             }
             else {
@@ -45,9 +49,12 @@
                 pst = conn.prepareStatement(checkManager);
                 rs = pst.executeQuery();
                 if (rs.next()) {
+                    HttpSession session1 = request.getSession();
+                    session1.setAttribute("user",id);
                     response.sendRedirect("manager.jsp");
                 }
             }
+
         }
         else{
 %>
