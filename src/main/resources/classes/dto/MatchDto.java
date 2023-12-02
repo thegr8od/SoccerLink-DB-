@@ -10,6 +10,15 @@ public class MatchDto {
     private String sex;
     private int cost;
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    private String date;
     public String getMatchId() {
         return matchId;
     }

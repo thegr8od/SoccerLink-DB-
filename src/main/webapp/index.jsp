@@ -4,6 +4,8 @@
 <%@ page import="classes.dto.MatchDto" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.util.stream.Collectors" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.time.LocalDate" %>
 <%--
   Created by IntelliJ IDEA.
   User: 황경모
@@ -63,34 +65,85 @@
 <%
     String category = request.getParameter("category");
     String date = request.getParameter("date");
+//    if(date==null){
+//        // date = 오늘의 날짜;
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        String formattedDate = LocalDate.now().format(formatter);
+//        date = formattedDate;
+//    }
     List <MatchDto> matchDtoList = new ArrayList<>();
-
+    List <String> matchIdList = new ArrayList<>();
     if(category == null||category.equals("match")){
         String matchSearch = "SELECT M.*, F.NAME,F.ADDRESS FROM MATCH M \n" +
                 "INNER JOIN FIELD F ON M.PLACE_ID = F.FIELD_ID\n" +
                 "WHERE M.MATCH_ID IN\n" +
                 "(SELECT DISTINCT MATCH_ID\n" +
-                "FROM MATCH M1\n" +
-                "WHERE M1.DATE_TIME = '"+date+
-                "')";
-        pst = conn.prepareStatement(matchSearch);
+                "FROM MATCH M1\n";
+        StringBuilder matchSb= new StringBuilder(matchSearch);
+                if(date!=null) {
+                    matchSb.append("WHERE M1.DATE_TIME = '" + date+"\'");
+                }
+                matchSb.append(") order by M.date_time desc");
+
+        pst = conn.prepareStatement(matchSb.toString());
         rs = pst.executeQuery();
         while(rs.next()){
             MatchDto matchDto = new MatchDto();
-            matchDto.setMatchId(rs.getString("MATCH_ID"));
-            matchDto.setfName(rs.getString("NAME"));
-            matchDto.setfAddress(rs.getString("ADDRESS"));
-            matchDto.setType(rs.getString("TYPE"));
-//            matchDto.setCurrentNum(rs.getString("MATCH_ID"));
-            matchDto.setMaxNum(rs.getInt("MAX_NUM"));
-            matchDto.setSex(rs.getString("SEX_CONSTRAINT"));
-            matchDto.setCost(rs.getInt("COST_PER_ONE"));
-//            String searchCurNum = "select count(MATCH_ID)\n" +
-//                    "from MATCH_APP_MEMBER\n" +
-//                    "where MATCH_ID = \'"+rs.getString("MATCH_ID")+"\'";
+            String matchId = rs.getString((1));
+            matchDto.setMatchId(matchId);
+            matchDto.setfName(rs.getString(10));
+            matchDto.setfAddress(rs.getString(11));
+            matchDto.setType(rs.getString(4));
+            matchDto.setMaxNum(rs.getInt(5));
+            matchDto.setSex(rs.getString(6));
+            matchDto.setCost(rs.getInt(9));
+            matchDto.setDate(rs.getString(2));
+            matchIdList.add(matchId);
             matchDtoList.add(matchDto);
         }
-        matchDtoList.stream().map(item->item.getMatchId()).collect(Collectors.toList());
+        if(matchDtoList.size()!=0) {
+            StringBuilder where = new StringBuilder("MATCH_ID IN (");
+            for (int i = 0; i < matchIdList.size(); i++) {
+                if (i == matchIdList.size() - 1) {
+                    where.append("\'" + matchIdList.get(i) + "\')");
+                } else {
+                    where.append("\'" + matchIdList.get(i) + "\',");
+                }
+            }
+            String currNumSql = SQLx.Selectx("MATCH_ID, COUNT(MATCH_ID)", "MATCH_APP_MEMBER", where.toString(), " GROUP BY MATCH_ID");
+            pst = conn.prepareStatement(currNumSql);
+            rs = pst.executeQuery();
+            Map<String,Integer> matchCurrNum = new HashMap<>();
+            while(rs.next()){
+                matchCurrNum.put(rs.getString(1),rs.getInt(2));
+            }
+            for(int i = 0 ; i<matchDtoList.size();i++){
+                MatchDto matchDto = matchDtoList.get(i);
+                String matchId = matchDto.getMatchId();
+                Integer currentNum = matchCurrNum.get(matchId);
+                matchDto.setCurrentNum(currentNum);
+            }
+        }
+        %>
+<%--<p>--%>
+<%--    Selected Date: <%=date%>--%>
+<%--</p>--%>
+<%
+        for(int i =0; i<matchDtoList.size();i++){
+%>
+<p>
+    Date = <%=matchDtoList.get(i).getDate()%>
+    <%=matchDtoList.get(i).getMatchId()%>
+    <%=matchDtoList.get(i).getfName()%>
+    <%=matchDtoList.get(i).getfAddress()%>
+    <%=matchDtoList.get(i).getType()%>
+    Current Number = <%=matchDtoList.get(i).getCurrentNum()%>/
+    Max Number = <%=matchDtoList.get(i).getMaxNum()%>
+    Sex Constraint = <%=matchDtoList.get(i).getSex()%>
+    Cost = <%=matchDtoList.get(i).getCost()%>
+</p>
+<%
+        }
     }
     else{
 
