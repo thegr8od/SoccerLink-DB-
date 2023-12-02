@@ -1,5 +1,5 @@
-<%@ page import="classes.SQLx" %>
-<%@ page import="classes.SessionConst" %><%--
+<%@ page import="classes.SessionConst" %>
+<%@ page import="classes.SQLx" %><%--
   Created by IntelliJ IDEA.
   User: 황경모
   Date: 2023-12-01
@@ -20,7 +20,7 @@
     // admin인지 먼저 확인
     if(id.equals("SOCCERLINK") && pw.equals("ADMIN!")){
         session.setAttribute(SessionConst.USER,"SOCCERLINK");
-        response.sendRedirect("admin.jsp");
+        response.sendRedirect("../admin.jsp");
     }
     else{
         // USER table에 ID랑 PW가 동시에 일치하는 User가 있는지 체크
@@ -40,7 +40,7 @@
             rs = pst.executeQuery();
             if (rs.next()) {
                 session.setAttribute(SessionConst.USER,id);
-                response.sendRedirect("member.jsp");
+                response.sendRedirect("../member/member.jsp");
             }
             else {
                 // manager table에 존재하는지 확인
@@ -49,7 +49,7 @@
                 rs = pst.executeQuery();
                 if (rs.next()) {
                     session.setAttribute(SessionConst.USER,id);
-                    response.sendRedirect("manager.jsp");
+                    response.sendRedirect("../manager/manager.jsp");
                 }
             }
 

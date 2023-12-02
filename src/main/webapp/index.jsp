@@ -19,7 +19,7 @@
     if(user==null){
 
 %>
-<a href="login.jsp">login</a>
+<a href="common/login.jsp">login</a>
 <%
     }
     else{
