@@ -20,7 +20,7 @@
     if(id.equals("SOCCERLINK") && pw.equals("ADMIN!")){
         HttpSession session1 = request.getSession();
         session1.setAttribute("user","SOCCERLINK");
-        response.sendRedirect("admin.jsp");
+        response.sendRedirect("../admin/admin.jsp");
     }
     else{
         // USER table에 ID랑 PW가 동시에 일치하는 User가 있는지 체크
@@ -41,7 +41,7 @@
             if (rs.next()) {
                 HttpSession session1 = request.getSession();
                 session1.setAttribute("user",id);
-                response.sendRedirect("member.jsp");
+                response.sendRedirect("../member/member.jsp");
             }
             else {
                 // manager table에 존재하는지 확인
@@ -51,7 +51,7 @@
                 if (rs.next()) {
                     HttpSession session1 = request.getSession();
                     session1.setAttribute("user",id);
-                    response.sendRedirect("manager.jsp");
+                    response.sendRedirect("../manager/manager.jsp");
                 }
             }
 

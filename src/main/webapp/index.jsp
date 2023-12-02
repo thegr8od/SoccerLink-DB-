@@ -16,7 +16,7 @@
 <label> Match or Training Date : </label>
 <input type="date" name="date" id="date">
 </br>
-<a href="login.jsp">login</a>
+<a href="common/login.jsp">login</a>
 
 </body>
 </html>

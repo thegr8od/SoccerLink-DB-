@@ -1,4 +1,3 @@
-<%@ page import="java.util.Random" %>
 <%@ page import="java.sql.ResultSet" %>
 <%--
   Created by IntelliJ IDEA.
