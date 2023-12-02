@@ -25,6 +25,7 @@
 
 %>
 <a href="common/login.jsp">login</a>
+<hr>
 <%
     }
     else{
@@ -56,21 +57,18 @@
     }
 %>
 <h2>SoccerLink</h2>
+<hr>
 </br>
 <label> Match or Training Date : </label>
 <input type="date" name="date" id="date">
 </br>
 <input type ="button" onclick="searchMatch()" value="match">
 <input type ="button" onclick="searchTraining()" value="training">
+<hr>
 <%
     String category = request.getParameter("category");
     String date = request.getParameter("date");
-//    if(date==null){
-//        // date = 오늘의 날짜;
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        String formattedDate = LocalDate.now().format(formatter);
-//        date = formattedDate;
-//    }
+
     List <MatchDto> matchDtoList = new ArrayList<>();
     List <String> matchIdList = new ArrayList<>();
     if(category == null||category.equals("match")){
@@ -145,10 +143,42 @@
 <%
         }
     }
-    else{
+    else{// Training
+            String trainSearch = "select T.CLASS_ID,T.DATE_TIME,T.RECOMMEND_TIER,T.SUBJECT,T.COST_PER_ONE,T.MAX_NUM, count(E.CLASS_ID)\n" +
+                    "from training T inner join TRAIN_ENROLLS E on T.CLASS_ID=E.CLASS_ID\n" +
+                    "where T.CLASS_ID IN(\n" +
+                    "    select distinct T1.class_id\n" +
+                    "    from TRAINING T1\n" ;
+                    /*"    where T1.DATE_TIME = '2022-12-07')\n" +*/
+//
+//            "GROUP BY T.CLASS_ID,T.DATE_TIME,T.RECOMMEND_TIER,T.SUBJECT,T.COST_PER_ONE,T.MAX_NUM\n" +
+//                    "order by T.date_time desc;";
+            StringBuilder trainSb= new StringBuilder(trainSearch);
+            if(date!=null&&!date.equals("")) {
+                trainSb.append("WHERE T1.DATE_TIME = '" + date+"\'");
 
+            }
+            trainSb.append(")GROUP BY T.CLASS_ID,T.DATE_TIME,T.RECOMMEND_TIER,T.SUBJECT,T.COST_PER_ONE,T.MAX_NUM ");
+            trainSb.append("order by T.date_time desc");
+
+            pst = conn.prepareStatement(trainSb.toString());
+            rs = pst.executeQuery();
+
+            while(rs.next()){
+%>
+<p>
+    <%=rs.getString(1)%>
+    <%=rs.getString(2)%>
+    <%=rs.getString(3)%>
+    <%=rs.getString(4)%>
+    <%=rs.getString(5)%>
+    <%=rs.getString(6)%>
+    <%=rs.getString(7)%>
+</p>
+<%      }
     }
 %>
+<hr>
 <form id="searchForm">
 </form>
 <script>
