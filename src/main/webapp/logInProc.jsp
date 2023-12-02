@@ -1,4 +1,5 @@
-<%@ page import="classes.SQLx" %><%--
+<%@ page import="classes.SQLx" %>
+<%@ page import="classes.SessionConst" %><%--
   Created by IntelliJ IDEA.
   User: 황경모
   Date: 2023-12-01
@@ -18,8 +19,7 @@
     String pw = request.getParameter("pw");
     // admin인지 먼저 확인
     if(id.equals("SOCCERLINK") && pw.equals("ADMIN!")){
-        HttpSession session1 = request.getSession();
-        session1.setAttribute("user","SOCCERLINK");
+        session.setAttribute(SessionConst.USER,"SOCCERLINK");
         response.sendRedirect("admin.jsp");
     }
     else{
@@ -39,8 +39,7 @@
             pst = conn.prepareStatement(checkMember);
             rs = pst.executeQuery();
             if (rs.next()) {
-                HttpSession session1 = request.getSession();
-                session1.setAttribute("user",id);
+                session.setAttribute(SessionConst.USER,id);
                 response.sendRedirect("member.jsp");
             }
             else {
@@ -49,8 +48,7 @@
                 pst = conn.prepareStatement(checkManager);
                 rs = pst.executeQuery();
                 if (rs.next()) {
-                    HttpSession session1 = request.getSession();
-                    session1.setAttribute("user",id);
+                    session.setAttribute(SessionConst.USER,id);
                     response.sendRedirect("manager.jsp");
                 }
             }

@@ -1,4 +1,5 @@
 <%@ page import="classes.SQLx" %>
+<%@ page import="classes.SessionConst" %>
 <%@ include file="dbconn.jsp" %>
 <%--
   Created by IntelliJ IDEA.
@@ -14,8 +15,7 @@
 </head>
 <body>
 <%
-    HttpSession session1 = request.getSession();
-    String userId = (String) session1.getAttribute("user");
+    String userId = (String) session.getAttribute(SessionConst.USER);
     String[] userIdArr = {userId};
     String secessionUser = SQLx.Deletex("USERS",userIdArr);
     pst = conn.prepareStatement(secessionUser);
