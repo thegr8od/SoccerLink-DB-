@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<a href="/index.jsp">Soccer Link</a>
+<a href="../index.jsp">Soccer Link</a>
 </br>
 <form action="logInProc.jsp" method="post">
     <label>ID : </label>
