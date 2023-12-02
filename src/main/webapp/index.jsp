@@ -1,6 +1,9 @@
 <%@ include file="common/dbconn.jsp" %>
 <%@ page import="classes.SQLx" %>
 <%@ page import="classes.SessionConst" %>
+<%@ page import="classes.dto.MatchDto" %>
+<%@ page import="java.util.*" %>
+<%@ page import="java.util.stream.Collectors" %>
 <%--
   Created by IntelliJ IDEA.
   User: 황경모
@@ -60,21 +63,38 @@
 <%
     String category = request.getParameter("category");
     String date = request.getParameter("date");
-    System.out.println("cate ="+category);
-    System.out.println("date = "+date);
+    List <MatchDto> matchDtoList = new ArrayList<>();
 
-//    if(category == null||category.equals("match")){
-//        String date = request.getParameter("date");
-//        String apx = "\'";
-//        StringBuilder where = new StringBuilder();
-//        where.append("ID_NUMBER = " + apx + user + apx);
-//        String checkMember = SQLx.Selectx("ID_NUMBER", "MEMBER", where.toString(), "");
-//        pst = conn.prepareStatement(checkMember);
-//        rs = pst.executeQuery();
-//    }
-//    else{
-//
-//    }
+    if(category == null||category.equals("match")){
+        String matchSearch = "SELECT M.*, F.NAME,F.ADDRESS FROM MATCH M \n" +
+                "INNER JOIN FIELD F ON M.PLACE_ID = F.FIELD_ID\n" +
+                "WHERE M.MATCH_ID IN\n" +
+                "(SELECT DISTINCT MATCH_ID\n" +
+                "FROM MATCH M1\n" +
+                "WHERE M1.DATE_TIME = '"+date+
+                "')";
+        pst = conn.prepareStatement(matchSearch);
+        rs = pst.executeQuery();
+        while(rs.next()){
+            MatchDto matchDto = new MatchDto();
+            matchDto.setMatchId(rs.getString("MATCH_ID"));
+            matchDto.setfName(rs.getString("NAME"));
+            matchDto.setfAddress(rs.getString("ADDRESS"));
+            matchDto.setType(rs.getString("TYPE"));
+//            matchDto.setCurrentNum(rs.getString("MATCH_ID"));
+            matchDto.setMaxNum(rs.getInt("MAX_NUM"));
+            matchDto.setSex(rs.getString("SEX_CONSTRAINT"));
+            matchDto.setCost(rs.getInt("COST_PER_ONE"));
+//            String searchCurNum = "select count(MATCH_ID)\n" +
+//                    "from MATCH_APP_MEMBER\n" +
+//                    "where MATCH_ID = \'"+rs.getString("MATCH_ID")+"\'";
+            matchDtoList.add(matchDto);
+        }
+        matchDtoList.stream().map(item->item.getMatchId()).collect(Collectors.toList());
+    }
+    else{
+
+    }
 %>
 <form id="searchForm">
 </form>
