@@ -20,7 +20,7 @@
     // admin인지 먼저 확인
     if(id.equals("SOCCERLINK") && pw.equals("ADMIN!")){
         session.setAttribute(SessionConst.USER,"SOCCERLINK");
-        response.sendRedirect("../admin.jsp");
+        response.sendRedirect("../admin/admin.jsp");
     }
     else{
         // USER table에 ID랑 PW가 동시에 일치하는 User가 있는지 체크

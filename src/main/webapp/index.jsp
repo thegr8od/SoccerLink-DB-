@@ -1,4 +1,4 @@
-<%@ include file="dbconn.jsp" %>
+<%@ include file="common/dbconn.jsp" %>
 <%@ page import="classes.SQLx" %>
 <%@ page import="classes.SessionConst" %>
 <%--
@@ -31,7 +31,7 @@
         rs = pst.executeQuery();
         if (rs.next()) {
 %>
-<input type = "button" value="my page" onclick="window.location.href ='member.jsp'">
+<input type = "button" value="my page" onclick="window.location.href ='member/member.jsp'">
 <%
         }
         else {
@@ -41,12 +41,12 @@
             rs = pst.executeQuery();
             if (rs.next()) {
 %>
-<input type = "button" value="my page" onclick="window.location.href ='manager.jsp'">
+<input type = "button" value="my page" onclick="window.location.href ='manager/manager.jsp'">
 <%
             }
         }
 %>
-<input type="button" value="log out" onclick = "window.location.href='logOutProc.jsp'">
+<input type="button" value="log out" onclick = "window.location.href='common/logOutProc.jsp'">
 <%
     }
 %>

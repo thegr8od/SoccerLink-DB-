@@ -13,7 +13,7 @@
 </head>
 <body>
 <!--홈화면-->
-<a href="/index.jsp">Soccer Link</a>
+<a href="../index.jsp">Soccer Link</a>
 </br>
 <form action="signUpProc.jsp" method="post">
     <!--비밀번호-->

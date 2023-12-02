@@ -23,7 +23,7 @@
 %>
 <script>
     alert("성공적으로 탈퇴되었습니다.")
-    window.location.href = "index.jsp"
+    window.location.href = "../index.jsp"
 </script>
 </body>
 </html>
