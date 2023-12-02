@@ -49,7 +49,7 @@
                 rs = pst.executeQuery();
                 if (rs.next()) {
                     session.setAttribute(SessionConst.USER,id);
-                    response.sendRedirect("../manager/manager.jsp");
+                    response.sendRedirect("../mana/manager.jsp");
                 }
             }
 

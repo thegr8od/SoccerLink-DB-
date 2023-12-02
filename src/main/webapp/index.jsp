@@ -41,7 +41,7 @@
             rs = pst.executeQuery();
             if (rs.next()) {
 %>
-<input type = "button" value="my page" onclick="window.location.href ='manager/manager.jsp'">
+<input type = "button" value="my page" onclick="window.location.href ='mana/manager.jsp'">
 <%
             }
         }
