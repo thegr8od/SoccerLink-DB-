@@ -35,5 +35,5 @@
 
 # Checker
 - [ ] 1+2+3+6+7 : Manager + Rest
-- [ ] 4 : Admin
+- [X] 4 : Admin
 - [ ] 5 : Member
