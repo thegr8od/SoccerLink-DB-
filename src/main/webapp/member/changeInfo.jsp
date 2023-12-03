@@ -1,61 +1,100 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="classes.SessionConst" %>
 <%@ page import="classes.SQLx" %>
 <%@ include file="../common/dbconn.jsp" %>
 
-<html>
-<head>
-    <title>정보 변경</title>
-</head>
-<body>
 <%
-    String memberId = (String) session.getAttribute("USER");
-    String fieldToUpdate = request.getParameter("fieldToUpdate");
-    String newValue = request.getParameter("newValue");
-    String confirmValue = request.getParameter("confirmValue");
+    String userId = (String) session.getAttribute(SessionConst.USER);
+    String errorMessage = "";
 
-    if (memberId != null && fieldToUpdate != null && !fieldToUpdate.trim().isEmpty() && newValue != null && confirmValue != null) {
-        if (newValue.equals(confirmValue)) {
-            try {
-                String updateQuery = SQLx.Updatex("USERS", fieldToUpdate, newValue, new String[]{memberId});
-                pst = conn.prepareStatement(updateQuery);
-                int updated = pst.executeUpdate();
+    if (request.getParameter("updateInfo") != null) {
+        String selectedField = request.getParameter("selectedField");
+        String newValue = request.getParameter("newValue");
 
-                if (updated > 0) {
-                    out.println(fieldToUpdate + "이(가) 업데이트되었습니다.");
+        try {
+            String updateQuery = "";
+            if (selectedField.equals("sex")) {
+                if (newValue.equals("M") || newValue.equals("F")) {
+                    updateQuery = SQLx.Updatex("USERS", "SEX", newValue, new String[]{userId});
                 } else {
-                    out.println("정보 업데이트에 실패했습니다.");
+                    errorMessage = "올바른 성별 값을 입력하세요 (M 또는 F).";
                 }
-            } catch (Exception e) {
-                out.println("정보 업데이트 중 오류가 발생했습니다: " + e.getMessage());
+            } else if (selectedField.equals("yob")) {
+                updateQuery = SQLx.Updatex("USERS", "YOB", newValue, new String[]{userId});
+            } else if (selectedField.equals("job")) {
+                updateQuery = SQLx.Updatex("USERS", "JOB", newValue, new String[]{userId});
+            } else if (selectedField.equals("passwd")) {
+                updateQuery = SQLx.Updatex("USERS", "PASSWD", newValue, new String[]{userId});
+            } else {
+                errorMessage = "올바른 필드를 선택하세요.";
             }
-        } else {
-            out.println("입력한 값이 일치하지 않습니다. 다시 시도해주세요.");
+
+            if (!updateQuery.isEmpty()) {
+                PreparedStatement pstmt = conn.prepareStatement(updateQuery);
+                int updateCount = pstmt.executeUpdate();
+                if (updateCount > 0) {
+                    errorMessage = "사용자 정보가 업데이트되었습니다.";
+                } else {
+                    errorMessage = "업데이트할 데이터가 없습니다.";
+                }
+            }
+        } catch (SQLException e) {
+            errorMessage = "오류 발생: " + e.getMessage();
         }
+    }
+    // 사용자 정보 조회 SQL
+    String selectQuery = SQLx.Selectx("NAME, SEX, YOB, JOB", "USERS", "ID_NUMBER='" + userId + "'", "");
+    PreparedStatement selectPstmt = conn.prepareStatement(selectQuery);
+    rs = selectPstmt.executeQuery();
+
+    String name = "";
+    String sex = "";
+    String yob = "";
+    String job = "";
+
+    if (rs.next()) {
+    name = rs.getString("NAME");
+    sex = rs.getString("SEX");
+    yob = rs.getString("YOB");
+    job = rs.getString("JOB");
     }
 %>
 
-<form action="changeInfo.jsp" method="post">
-    <p>
-        <label for="fieldToUpdate">변경할 정보 선택:</label>
-        <select id="fieldToUpdate" name="fieldToUpdate" required>
-            <option value="PASSWD">비밀번호</option>
-            <option value="SEX">성별</option>
-            <option value="YOB">생년월일</option>
-            <option value="JOB">직업</option>
-        </select>
-    </p>
-    <p>
-        <label for="newValue">새로운 값:</label>
-        <input type="text" id="newValue" name="newValue" required>
-    </p>
-    <p>
-        <label for="confirmValue">새로운 값 확인:</label>
-        <input type="text" id="confirmValue" name="confirmValue" required>
-    </p>
-    <p>
-        <input type="submit" value="정보 변경하기">
-    </p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>사용자 정보 수정</title>
+</head>
+<body>
+<h1>사용자 정보 수정</h1>
+
+<!-- 에러 메시지 출력 -->
+<% if (!errorMessage.isEmpty()) { %>
+<p style="color: red;"><%= errorMessage %></p>
+<% } %>
+
+<!-- 사용자 정보 입력 폼 -->
+<form method="post">
+    <label for="name">이름:</label>
+    <input type="text" name="name" id="name" value="<%= name %>" disabled><br>
+
+    <label for="selectedField">수정할 항목 선택:</label>
+    <select name="selectedField" id="selectedField">
+        <option value="sex">성별</option>
+        <option value="yob">출생년도</option>
+        <option value="job">직업</option>
+        <option value="passwd">비밀번호</option>
+    </select><br>
+
+    <label for="newValue">새로운 값:</label>
+    <input type="text" name="newValue" id="newValue" required><br>
+
+    <input type="submit" name="updateInfo" value="정보 수정">
 </form>
+
+<!-- 뒤로 가기 버튼 -->
+<a href="member.jsp">뒤로 가기</a>
 </body>
 </html>

@@ -1,51 +1,55 @@
-<%@ page import="java.sql.*" %>
-<%@ page import="classes.SQLx" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.sql.*" %>
+<%@ page import="classes.SessionConst" %>
+<%@ page import="classes.SQLx" %>
 <%@ include file="../common/dbconn.jsp" %>
 
 <html>
 <head>
-    <title>Cash Charge</title>
+    <title>금액 충전</title>
+    <script type="text/javascript">
+        // 충전 완료 후 팝업 메시지 및 페이지 리디렉션을 위한 함수
+        function showChargeComplete() {
+            alert("충전이 완료되었습니다.");
+            window.location.href = "member.jsp";
+        }
+    </script>
 </head>
 <body>
+
 <%
-    String memberId = (String) session.getAttribute("USER");
-    String amountStr = request.getParameter("amount");
-    if (memberId != null && amountStr != null && !amountStr.trim().isEmpty()) {
-        int amount = Integer.parseInt(amountStr);
-
-        // 이미 선언된 pst와 rs를 사용하여 쿼리 실행
+    String userId = (String) session.getAttribute(SessionConst.USER);
+    if(request.getParameter("charge") != null) {
+        int chargeAmount = Integer.parseInt(request.getParameter("chargeAmount"));
+        String selectQuery = SQLx.Selectx("PREPAID_MONEY", "MEMBER", "ID_NUMBER = '" + userId + "'", "");
         try {
-            String query = "SELECT PREPAID_MONEY FROM MEMBER WHERE ID_NUMBER = ?";
-            pst = conn.prepareStatement(query);
-            pst.setString(1, memberId);
-            rs = pst.executeQuery();
-
-            if (rs.next()) {
-                int currentAmount = rs.getInt(1);
-                int newAmount = currentAmount + amount;
-
-                String updateQuery = "UPDATE MEMBER SET PREPAID_MONEY = ? WHERE ID_NUMBER = ?";
-                pst = conn.prepareStatement(updateQuery);
-                pst.setInt(1, newAmount);
-                pst.setString(2, memberId);
-                int updated = pst.executeUpdate();
-
-                if (updated > 0) {
-                    out.println("충전이 완료되었습니다. 현재 잔액: " + newAmount + "원");
-                }
+            PreparedStatement pstmt = conn.prepareStatement(selectQuery);
+            rs = pstmt.executeQuery();
+            int currentBalance = 0;
+            if(rs.next()) {
+                currentBalance = rs.getInt("PREPAID_MONEY");
             }
-        } catch (Exception e) {
-            out.println("충전 처리 중 오류가 발생했습니다: " + e.getMessage());
+            int newBalance = currentBalance + chargeAmount;
+            String[] updateKey = {userId};
+            String updateQuery = SQLx.Updatex("MEMBER", "PREPAID_MONEY", Integer.toString(newBalance), updateKey);
+            pstmt = conn.prepareStatement(updateQuery);
+            int result = pstmt.executeUpdate();
+            if (result > 0) {
+                out.println("<script type='text/javascript'>showChargeComplete();</script>"); // 충전 완료 후 팝업 메시지 및 리디렉션
+            } else {
+                out.println("<p>충전에 실패하였습니다.</p>");
+            }
+        } catch (SQLException e) {
+            out.println("<p>오류 발생: " + e.getMessage() + "</p>");
         }
-    } else {
-        out.println("충전할 금액을 입력해주세요.");
     }
 %>
+
 <form action="cashCharge.jsp" method="post">
-    <label for="amount">충전 금액:</label>
-    <input type="text" id="amount" name="amount">
-    <input type="submit" value="충전하기">
+    <label for="chargeAmount">충전할 금액을 입력하세요:</label>
+    <input type="number" name="chargeAmount" id="chargeAmount" required>
+    <input type="submit" name="charge" value="충전">
 </form>
+<a href="member.jsp">팀 목록으로 돌아가기</a>
 </body>
 </html>

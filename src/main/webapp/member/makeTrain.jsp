@@ -1,44 +1,66 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="classes.SQLx" %>
-<%@ page import="classes.SessionConst" %>
-<%@ page import="java.util.Random" %>
 <%@ include file="../common/dbconn.jsp" %>
+<%@ page import="java.util.UUID" %>
 
-<%
-    // "C"로 시작하는 랜덤한 CLASS_ID 생성 메서드
-    String generateRandomClassId() {
-    Random random = new Random();
-    return "C" + (100 + random.nextInt(900)) + "-" + (10 + random.nextInt(90)) + "-" + (1000 + random.nextInt(9000));
-}
-
-    String userId = (String) session.getAttribute(SessionConst.USER);
-
-    // 사용자로부터 입력 받은 트레이닝 정보를 가져옵니다.
-    String classId = generateRandomClassId(); // "C"로 시작하는 랜덤한 CLASS_ID 생성
-    String date = request.getParameter("date");
-    String trainer = request.getParameter("trainer");
-    String category = request.getParameter("category");
-    String description = request.getParameter("description");
-    String location = request.getParameter("location");
-    int maxParticipants = Integer.parseInt(request.getParameter("maxParticipants"));
-    double cost = Double.parseDouble(request.getParameter("cost"));
-
-    // 트레이닝 정보를 데이터베이스에 추가
-    String insertTrainingQuery = SQLx.Insertx("TRAINING", new String[]{classId, date, userId, category, description, location, String.valueOf(maxParticipants), String.valueOf(cost), trainer});
-    PreparedStatement insertTrainingPstmt = conn.prepareStatement(insertTrainingQuery);
-    insertTrainingPstmt.executeUpdate();
-%>
-<!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>트레이닝 만들기</title>
+    <title>트레이닝 생성</title>
 </head>
 <body>
-<h1>트레이닝 만들기 완료</h1>
-<p>트레이닝 정보가 성공적으로 생성되었습니다.</p>
-<a href="training.jsp">트레이닝 페이지로 돌아가기</a>
+<h1>트레이닝 생성</h1>
+
+<%
+    if ("POST".equalsIgnoreCase(request.getMethod())) {
+        // 폼 데이터 처리
+        String dateTime = request.getParameter("dateTime");
+        String subject = request.getParameter("subject");
+        String recommendTier = request.getParameter("recommendTier");
+        String place = request.getParameter("place");
+        int maxNum = Integer.parseInt(request.getParameter("maxNum"));
+        double wage = Double.parseDouble(request.getParameter("wage"));
+        double costPerOne = Double.parseDouble(request.getParameter("costPerOne"));
+        String tutorId = (String) session.getAttribute("USER");
+        String classId = "C" + UUID.randomUUID().toString().substring(0, 8);
+
+        // SQLx를 사용하여 INSERT 쿼리 생성
+        String insertQuery = SQLx.Insertx("TRAINING", new String[]{classId, dateTime, tutorId, recommendTier, subject, place, String.valueOf(maxNum), String.valueOf(wage), String.valueOf(costPerOne)});
+        PreparedStatement trainingPst = conn.prepareStatement(insertQuery);
+        int result = trainingPst.executeUpdate();
+
+        if (result > 0) {
+            out.println("<p>트레이닝이 성공적으로 생성되었습니다. 클래스 ID: " + classId + "</p>");
+        } else {
+            out.println("<p>트레이닝 생성에 실패했습니다.</p>");
+        }
+    }
+%>
+
+<form action="makeTrain.jsp" method="post">
+    <label for="dateTime">날짜 및 시간:</label>
+    <input type="datetime-local" id="dateTime" name="dateTime" required><br><br>
+
+    <label for="subject">주제:</label>
+    <input type="text" id="subject" name="subject" required><br><br>
+
+    <label for="recommendTier">추천 티어:</label>
+    <input type="text" id="recommendTier" name="recommendTier" required><br><br>
+
+    <label for="place">장소:</label>
+    <input type="text" id="place" name="place" required><br><br>
+
+    <label for="maxNum">최대 인원:</label>
+    <input type="number" id="maxNum" name="maxNum" required><br><br>
+
+    <label for="wage">강사 비용:</label>
+    <input type="number" id="wage" name="wage" step="0.01" required><br><br>
+
+    <label for="costPerOne">수강료(1인당):</label>
+    <input type="number" id="costPerOne" name="costPerOne" step="0.01" required><br><br>
+
+    <input type="submit" value="트레이닝 생성">
+</form>
+
 </body>
 </html>
