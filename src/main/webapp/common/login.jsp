@@ -12,7 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 </head>
 <body>
-<button type="button" class="btn btn-outline-danger ms-2 mt-2" onclick ="window.location.href='../index.jsp'">Soccer Link</button>
+<a onclick ="window.location.href='../index.jsp'"><img src="../image/webLogo.png" style ="width: 200px; margin-top:10px"></a>
 <hr>
 <div class="d-flex align-items-center justify-content-center">
 <form action="logInProc.jsp" method="post" class = "p-3 border border-black rounded" style ="width: 600px ; margin-top:50px">
