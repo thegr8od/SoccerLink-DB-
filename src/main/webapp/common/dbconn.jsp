@@ -11,7 +11,7 @@
     server[0] = "localhost";
     server[1] = "orcl";
     server[2] = "1521";
-    server[3] = "university";
+    server[3] = "UNIVERSITY";
     server[4] = "comp322";
     String url = "jdbc:oracle:thin:@"+server[0]+":"+server[2]+":"+server[1];
     Connection conn = null;

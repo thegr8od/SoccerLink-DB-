@@ -28,5 +28,17 @@
     }
 </script>
 
+<%-- Match 버튼 --%>
+<a href="match.jsp">Match</a>
+<%-- Training 버튼 --%>
+<a href="training.jsp">Training</a>
+<%-- Team 버튼 --%>
+<a href="team.jsp">Team</a>
+<%-- Cashcharge 버튼 --%>
+<a href="cashCharge.jsp">Cashcharge</a>
+<%-- Changeinfo 버튼 --%>
+<a href="changeInfo.jsp">Changeinfo</a>
+
+
 </body>
 </html>
