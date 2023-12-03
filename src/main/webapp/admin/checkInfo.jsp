@@ -5,10 +5,11 @@
 <html>
 <head>
     <title>Admin page - Check information</title>
-    <a href="../index.jsp">Soccer Link</a>
+    <a href="../index.jsp">SoccerLink</a>
+    |
+    <a href="../common/logOutProc.jsp">LogOut</a>
+    |
     <a href="admin.jsp">Back</a>
-    <a href="../common/logOutProc.jsp">Log Out</a>
-
 </head>
 <body>
 <br>
@@ -26,8 +27,8 @@
 <div style="width: 80%; height: 1px; background-color: grey; margin: 0 auto"></div>
 <br>
 <div style="display:flex;justify-content: center;width: 100%;gap: 80px">
-    <div style="font-size: 25pt; font-family: Consolas serif; background-color: white; border-radius: 8px">
-        오른쪽 버튼으로 조회할 것을 클릭해 주세요.</div>
+    <div style="font-family: Arial serif; font-size: 20pt; font-style: italic">
+        Check Information : 조회할 정보를 클릭해 주세요.</div>
 <input type ="button" onclick="searchField()" value="Owner & Field" style="font-size: 20pt; font-family: Consolas serif; background-color: white; border-radius: 8px"/>
 <input type ="button" onclick="searchMatch()" value="Match" style="font-size: 20pt; font-family: Consolas serif; background-color: white; border-radius: 8px"/>
 <input type ="button" onclick="searchTrain()" value="Training" style="font-size: 20pt; font-family: Consolas serif; background-color: white; border-radius: 8px"/>
