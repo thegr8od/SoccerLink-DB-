@@ -1,37 +1,43 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="classes.SQLx" %>
+<%@ page import="classes.SessionConst" %>
 <%@ include file="../common/dbconn.jsp" %>
 
 <html>
 <head>
-    <title>정보 변경</title>
+    <title>Cash Charge</title>
 </head>
 <body>
 <%
-    String memberId = (String) session.getAttribute("USER");
-    String fieldToUpdate = request.getParameter("fieldToUpdate");
-    String newValue = request.getParameter("newValue");
-    String confirmValue = request.getParameter("confirmValue");
+    String userId = (String) session.getAttribute(SessionConst.USER);
+    String amountStr = request.getParameter("amount");
+    if (userId != null && amountStr != null && !amountStr.trim().isEmpty()) {
+        int amount = Integer.parseInt(amountStr);
 
-    if (memberId != null && fieldToUpdate != null && !fieldToUpdate.trim().isEmpty() && newValue != null && confirmValue != null) {
-        if (newValue.equals(confirmValue)) {
-            try {
-                String updateQuery = SQLx.Updatex("USERS", fieldToUpdate, newValue, new String[]{memberId});
-                pst = conn.prepareStatement(updateQuery);
-                int updated = pst.executeUpdate();
+        String query = "SELECT PREPAID_MONEY FROM MEMBER WHERE ID_NUMBER = ?";
+        pst = conn.prepareStatement(query);
+        pst.setString(1, userId);
+        rs = pst.executeQuery();
 
-                if (updated > 0) {
-                    out.println(fieldToUpdate + "이(가) 업데이트되었습니다.");
-                } else {
-                    out.println("정보 업데이트에 실패했습니다.");
-                }
-            } catch (Exception e) {
-                out.println("정보 업데이트 중 오류가 발생했습니다: " + e.getMessage());
+        if (rs.next()) {
+            int currentAmount = rs.getInt(1);
+            int newAmount = currentAmount + amount;
+
+            String updateQuery = "UPDATE MEMBER SET PREPAID_MONEY = ? WHERE ID_NUMBER = ?";
+            pst = conn.prepareStatement(updateQuery);
+            pst.setInt(1, newAmount);
+            pst.setString(2, userId);
+            int updated = pst.executeUpdate();
+
+            if (updated > 0) {
+                out.println("<script type='text/javascript'>alert('충전이 완료되었습니다. 현재 잔액: " + newAmount + "원'); window.location.href = 'member.jsp';</script>");
+            } else {
+                out.println("<script type='text/javascript'>alert('충전 처리 중 오류가 발생했습니다.'); window.location.href = 'cashCharge.jsp';</script>");
             }
-        } else {
-            out.println("입력한 값이 일치하지 않습니다. 다시 시도해주세요.");
         }
+    } else {
+        out.println("<script type='text/javascript'>alert('충전할 금액을 입력해주세요.'); window.location.href = 'cashCharge.jsp';</script>");
     }
 %>
 
@@ -58,5 +64,12 @@
     </p>
 </form>
 <a href="member.jsp">뒤로 가기</a>
+
+<% if (!message.isEmpty()) { %>
+<script type="text/javascript">
+    alert('<%= message %>');
+    window.location.href = 'member.jsp';
+</script>
+<% } %>
 </body>
 </html>

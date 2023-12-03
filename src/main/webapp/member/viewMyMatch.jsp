@@ -12,14 +12,18 @@
 <h1>내 매치</h1>
 <%
   String userId = (String) session.getAttribute(SessionConst.USER);
-  String query = SQLx.Selectx("M.MATCH_ID, M.DATE_TIME, F.ADDRESS, M.TYPE, M.MAX_NUM, M.WAGE, M.COST_PER_ONE",
+  String selectQuery = SQLx.Selectx(
+          "M.MATCH_ID, M.DATE_TIME, F.ADDRESS, M.TYPE, M.MAX_NUM, M.WAGE, M.COST_PER_ONE",
           "MATCH M INNER JOIN FIELD F ON M.PLACE_ID = F.FIELD_ID",
-          "M.MATCH_ID IN (SELECT MATCH_ID FROM MATCH_APP_MEMBER WHERE MEMBER_ID = '" + userId + "')",
+          "M.MATCH_ID IN (SELECT MATCH_ID FROM MATCH_APP_MEMBER WHERE MEMBER_ID = ?)",
           "");
-  PreparedStatement pstmt = conn.prepareStatement(query);
-  rs = pstmt.executeQuery();
 
-  if (rs.next()) {
+  try {
+    PreparedStatement selectPstmt = conn.prepareStatement(selectQuery);
+    selectPstmt.setString(1, userId);
+    rs = selectPstmt.executeQuery();
+
+    if (rs.next()) {
 %>
 <!-- 내 매치를 표시할 테이블 생성 -->
 <table border="1">
@@ -56,8 +60,13 @@
   %>
 </table>
 <%
-  } else {
-    out.println("<p>참가한 매치가 없습니다.</p>");
+    } else {
+      out.println("<p>참가한 매치가 없습니다.</p>");
+    }
+    rs.close();
+    selectPstmt.close();
+  } catch (SQLException e) {
+    e.printStackTrace();
   }
 %>
 <a href="match.jsp">뒤로 가기</a>
