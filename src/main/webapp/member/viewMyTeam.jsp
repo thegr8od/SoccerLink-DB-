@@ -35,6 +35,6 @@
         pstmt.close();
     %>
 </table>
-<a href="team.jsp">팀 목록으로 돌아가기</a>
+<a href="team.jsp">뒤로 가기</a>
 </body>
 </html>

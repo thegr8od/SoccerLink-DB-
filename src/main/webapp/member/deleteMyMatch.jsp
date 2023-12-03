@@ -68,6 +68,6 @@
     </table>
     <input type="submit" value="매치 취소">
 </form>
-<a href="member.jsp">돌아가기</a>
+<a href="member.jsp">뒤로 가기</a>
 </body>
 </html>

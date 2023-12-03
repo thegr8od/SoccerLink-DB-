@@ -50,6 +50,6 @@
     <input type="number" name="chargeAmount" id="chargeAmount" required>
     <input type="submit" name="charge" value="충전">
 </form>
-<a href="member.jsp">팀 목록으로 돌아가기</a>
+<a href="member.jsp">뒤로 가기</a>
 </body>
 </html>

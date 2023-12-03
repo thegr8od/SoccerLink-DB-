@@ -69,6 +69,6 @@
     e.printStackTrace();
   }
 %>
-
+<a href="match.jsp">뒤로 가기</a>
 </body>
 </html>

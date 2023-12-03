@@ -54,6 +54,6 @@
     </table>
     <input type="submit" value="팀 삭제">
 </form>
-<a href="team.jsp">돌아가기</a>
+<a href="team.jsp">뒤로 가기</a>
 </body>
 </html>
