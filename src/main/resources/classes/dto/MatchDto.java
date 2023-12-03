@@ -1,20 +1,22 @@
 package classes.dto;
 
+import java.util.Date;
+
 public class MatchDto {
     private String matchId;
     private String fName;
     private String fAddress;
     private String type;
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    private String date;
+    private Date date;
     private Integer currentNum;
     private Integer maxNum;
     private String sex;

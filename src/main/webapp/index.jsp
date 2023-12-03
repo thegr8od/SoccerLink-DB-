@@ -29,6 +29,12 @@
 <%
     }
     else{
+        if(user.equals("SOCCERLINK")) {
+%>
+<input type = "button" value="my page" onclick="window.location.href ='admin/admin.jsp'">
+<%
+        }
+        else{
         String apx = "\'";
         StringBuilder where = new StringBuilder();
         where.append("ID_NUMBER = " + apx + user + apx);
@@ -55,6 +61,7 @@
 <input type="button" value="log out" onclick = "window.location.href='common/logOutProc.jsp'">
 <%
     }
+}
 %>
 <h2>SoccerLink</h2>
 <hr>
@@ -95,7 +102,7 @@
             matchDto.setMaxNum(rs.getInt(5));
             matchDto.setSex(rs.getString(6));
             matchDto.setCost(rs.getInt(9));
-            matchDto.setDate(rs.getString(2));
+            matchDto.setDate(rs.getDate(2));
             matchIdList.add(matchId);
             matchDtoList.add(matchDto);
         }
