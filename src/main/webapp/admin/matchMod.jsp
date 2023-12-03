@@ -70,9 +70,9 @@ MATCH MANAGEMENT
         <br>Date_Time <input type="text" name="Date_Time">
         <br>Place_id <input type="text" name="Place_id">
         <br>Type
-        <select>
-            <option value="F" name="Type">Futsal</option>
-            <option value="S" name="Type">Soccer</option>
+        <select name="Type">
+            <option value="F">Futsal</option>
+            <option value="S">Soccer</option>
         </select>
         <br>Max_number <input type="text" name="Max_num">
         <br>Sex_constraint <input type="text" name="Sex_constraint">
