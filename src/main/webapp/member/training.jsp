@@ -7,15 +7,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>매치 목록</title>
+    <title>트레이닝 목록</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body, html {
             margin: 0;
             padding: 0;
+            background-color: #fff; /* 흰색 배경 적용 */
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: #fff;
             color: #333;
         }
 
@@ -23,57 +23,74 @@
             margin-top: 20px;
         }
 
-        .card {
-            background-color: #fff;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-            margin-top: 20px;
-            transition: transform 0.3s ease-in-out;
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        .btn {
-            background-color: #fff;
-            color: #333;
-            border: 1px solid #333;
-            padding: 10px 20px;
-            margin: 5px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-
-        .btn:hover, .btn:focus {
-            background-color: #ccc;
-            color: #333;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .table {
+        table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
         }
 
-        .table th, .table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
+        th, td {
+            padding: 10px;
+            text-align: center;
         }
 
-        .table th {
+        th {
             background-color: #f2f2f2;
         }
 
-        .apply-btn {
-            display: inline-block;
+        .btn {
             padding: 10px 20px;
-            border: 1px solid #333;
+            margin: 5px;
             border-radius: 5px;
-            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
 
-        .apply-btn:hover, .apply-btn:focus {
-            background-color: #ccc;
-            color: #333;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            border: 1px solid #007bff;
+        }
+
+        .btn-primary:hover, .btn-primary:focus {
+            background-color: #0056b3;
+            border: 1px solid #0056b3;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: #fff;
+            border: 1px solid #dc3545;
+        }
+
+        .btn-danger:hover, .btn-danger:focus {
+            background-color: #c82333;
+            border: 1px solid #c82333;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: #fff;
+            border: 1px solid #6c757d;
+        }
+
+        .btn-secondary:hover, .btn-secondary:focus {
+            background-color: #545b62;
+            border: 1px solid #545b62;
+        }
+
+        .navbar {
+            background-color: #fff; /* 흰색 배경 적용 */
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+
+        .navbar-brand img {
+            width: 200px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -149,57 +166,52 @@
     </div>
 </nav>
 <hr>
-
-<a href="viewMyMatch.jsp" class="btn btn-primary">View My Match</a>
-<a href="deleteMyMatch.jsp" class="btn btn-danger">Delete My Match</a>
-<table class="table">
-    <tr>
-        <th>매치 ID</th>
-        <th>날짜/시간</th>
-        <th>장소 이름</th>
-        <th>현재 인원/최대 인원</th>
-        <th>참가비</th>
-        <th>신청</th>
-    </tr>
-    <%
-        String query = "SELECT M.*, F.ADDRESS, (SELECT COUNT(*) FROM MATCH_APP_MEMBER WHERE MATCH_ID = M.MATCH_ID) AS CURRENT_NUM FROM MATCH M INNER JOIN FIELD F ON M.PLACE_ID = F.FIELD_ID";
-        PreparedStatement pstmt = conn.prepareStatement(query);
-        ResultSet matchResultSet = pstmt.executeQuery();
-        while (matchResultSet.next()) {
-            String matchId = matchResultSet.getString("MATCH_ID");
-            Timestamp dateTime = matchResultSet.getTimestamp("DATE_TIME");
-            String placeName = matchResultSet.getString("ADDRESS");
-            int maxNum = matchResultSet.getInt("MAX_NUM");
-            int currentNum = matchResultSet.getInt("CURRENT_NUM");
-            double costPerOne = matchResultSet.getDouble("COST_PER_ONE"); // 참가비 정보를 가져옵니다.
-            boolean isFull = currentNum >= maxNum;
-    %>
-    <tr>
-        <td><%= matchId %></td>
-        <td><%= dateTime.toString() %></td>
-        <td><%= placeName %></td>
-        <td><%= currentNum + "/" + maxNum %></td>
-        <td><%= costPerOne %>원</td>
-        <td>
-            <% if (!isFull) { %>
-            <form action="matchApply.jsp" method="post">
-                <input type="hidden" name="matchId" value="<%= matchId %>">
-                <button type="submit" class="btn btn-sm btn-primary">신청하기</button>
-            </form>
-            <% } else { %>
-            인원이 꽉 찼습니다.
-            <% } %>
-            </span>
-        </td>
-
-        </span>
-        </td>
-    </tr>
-    <%
-        }
-    %>
-</table>
-<a href="member.jsp" class="btn btn-primary">뒤로 가기</a>
+<div class="container">
+    <h1>트레이닝 목록</h1>
+    <a href="viewMyTraining.jsp" class="btn btn-primary">View My Training</a>
+    <a href="makeTrain.jsp" class="btn btn-danger">Make Training</a>
+    <table border="1">
+        <tr>
+            <th>트레이닝 ID</th>
+            <th>날짜/시간</th>
+            <th>주제</th>
+            <th>현재 인원/최대 인원</th>
+            <th>비용</th>
+            <th>신청</th>
+        </tr>
+        <% String query = "SELECT T.*, (SELECT COUNT(*) FROM TRAIN_ENROLLS WHERE CLASS_ID = T.CLASS_ID) AS CURRENT_NUM FROM TRAINING T";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            ResultSet trainingResultSet = pstmt.executeQuery();
+            while (trainingResultSet.next()) {
+                String classId = trainingResultSet.getString("CLASS_ID");
+                Timestamp dateTime = trainingResultSet.getTimestamp("DATE_TIME");
+                String subject = trainingResultSet.getString("SUBJECT");
+                int maxNum = trainingResultSet.getInt("MAX_NUM");
+                int currentNum = trainingResultSet.getInt("CURRENT_NUM");
+                double costPerOne = trainingResultSet.getDouble("COST_PER_ONE");
+                boolean isFull = currentNum >= maxNum;
+        %>
+        <tr>
+            <td><%= classId %></td>
+            <td><%= dateTime.toString() %></td>
+            <td><%= subject %></td>
+            <td><%= currentNum + "/" + maxNum %></td>
+            <td><%= costPerOne %>원</td>
+            <td>
+                <% if (!isFull) { %>
+                <form action="enrollTrain.jsp" method="post">
+                    <input type="hidden" name="classId" value="<%= classId %>">
+                    <input type="submit" class="btn btn-secondary" value="신청하기">
+                </form>
+                <% } else { %>
+                인원이 꽉 찼습니다.
+                <% } %>
+            </td>
+        </tr>
+        <% }
+        %>
+    </table>
+    <a href="member.jsp" class="btn btn-primary">뒤로 가기</a>
 </div>
 </body>
 </html>
