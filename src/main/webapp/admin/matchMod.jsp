@@ -75,7 +75,12 @@ MATCH MANAGEMENT
             <option value="S">Soccer</option>
         </select>
         <br>Max_number <input type="text" name="Max_num">
-        <br>Sex_constraint <input type="text" name="Sex_constraint">
+        <br>Sex_Constraint
+        <select name="Sex_constraint">
+            <option value="M">Only Male</option>
+            <option value="F">Only Female</option>
+            <option value="A">Free For All</option>
+        </select>
         <br>Manager_wage <input type="text" name="Wage">
         <br>Cost_per_Member <input type="text" name="Cost_per_one">
         <br><input type="submit" name="Submit" value="submit">

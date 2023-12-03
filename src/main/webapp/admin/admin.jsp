@@ -28,7 +28,7 @@
         pst = conn.prepareStatement(sqlOutTrain);
         rs = pst.executeQuery();
         rs.next();
-        out.println("트레이닝 지블금액 : "+rs.getInt(1));
+        out.println("트레이닝 지불금액 : "+rs.getInt(1));
     %>
 </head>
 <body>
