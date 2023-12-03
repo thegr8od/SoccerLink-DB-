@@ -21,19 +21,33 @@
     <title>Soccer Link</title>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.jsp"><img src="../image/webLogo.png" style ="width: 200px"></a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            </ul>
+            <div class="d-flex" role="search">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-end">
 <%
     String user = (String) session.getAttribute(SessionConst.USER);
     if(user==null){
 
 %>
-<a href="common/login.jsp">login</a>
-<hr>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="common/login.jsp">login</a>
+                    </li>
 <%
     }
     else{
         if(user.equals("SOCCERLINK")) {
 %>
-<input type = "button" value="my page" onclick="window.location.href ='admin/admin.jsp'">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="admin/admin.jsp">My page</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="common/logOutProc.jsp">Log out</a>
+                    </li>
 <%
         }
         else{
@@ -45,7 +59,10 @@
         rs = pst.executeQuery();
         if (rs.next()) {
 %>
-<input type = "button" value="my page" onclick="window.location.href ='member/member.jsp'">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="member/member.jsp">My page</a>
+                    </li>
+
 <%
         }
         else {
@@ -55,24 +72,44 @@
             rs = pst.executeQuery();
             if (rs.next()) {
 %>
-<input type = "button" value="my page" onclick="window.location.href ='mana/manager.jsp'">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="mana/manager.jsp">My page</a>
+                    </li>
 <%
             }
         }
 %>
-<input type="button" value="log out" onclick = "window.location.href='common/logOutProc.jsp'">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="common/logOutProc.jsp">Log out</a>
+                    </li>
 <%
     }
 }
 %>
-<h2>SoccerLink</h2>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
 <hr>
 </br>
-<label> Match or Training Date : </label>
-<input type="date" name="date" id="date">
-</br>
+<div class="d-flex align-items-center justify-content-start">
+    <form>
+        <fieldset>
+            <legend>검색을 위해 Match 또는 Training을 선택하고 날짜를 선택해주세요.  </legend>
+            <input type="date" name="date" id="date">
+            <button type="button" class="btn btn-primary" onclick="searchMatch()">Match</button>
+            <button type="button" class="btn btn-secondary" onclick="searchTraining()">Training</button>
+        </fieldset>
+    </form>
+</div>
+
+<%--
 <input type ="button" onclick="searchMatch()" value="match">
 <input type ="button" onclick="searchTraining()" value="training">
+--%>
+
+<div class="row mt-3 p-2 g-3">
 <hr>
 <%
     String category = request.getParameter("category");
@@ -132,24 +169,31 @@
                 matchDto.setCurrentNum(currentNum == null? 0:currentNum);
             }
         }
-        %>
-<%--<p>--%>
-<%--    Selected Date: <%=date%>--%>
-<%--</p>--%>
-<%
+
         for(int i =0; i<matchDtoList.size();i++){
 %>
-<p>
-    날짜: <%=matchDtoList.get(i).getDate()%>
-    경기 번호: <%=matchDtoList.get(i).getMatchId()%>
-    구장 이름: <%=matchDtoList.get(i).getfName()%>
-    주소: <%=matchDtoList.get(i).getfAddress()%>
-    종목: <%=matchDtoList.get(i).getType()%>
-    참여인원: <%=matchDtoList.get(i).getCurrentNum()%> /
-    <%=matchDtoList.get(i).getMaxNum()%>
-    성별제한: <%=matchDtoList.get(i).getSex()%>
-    참가비용: <%=matchDtoList.get(i).getCost()%>
-</p>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body justify-content-start" style="display: flex; justify-content: space-between;">
+                <div style="display: flex;justify-content: center;align-items: center;">
+                    <span><%=matchDtoList.get(i).getDate()%></span>
+                </div>
+                <div class ="ms-3">
+                    <h5 class="card-title"><%=matchDtoList.get(i).getfName()%></h5>
+                    <p class="card-text">
+                        경기 번호: <%=matchDtoList.get(i).getMatchId()%>
+                        주소: <%=matchDtoList.get(i).getfAddress()%>
+                    </br>
+                        종목: <%=matchDtoList.get(i).getType()%>
+                        참여인원: <%=matchDtoList.get(i).getCurrentNum()%> / <%=matchDtoList.get(i).getMaxNum()%>
+                        성별제한: <%=matchDtoList.get(i).getSex()%>
+                        참가비용: <%=matchDtoList.get(i).getCost()%>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <%
         }
     }
@@ -173,20 +217,30 @@
 
             while(rs.next()){
 %>
-<p>
-    수강번호: <%=rs.getString(1)%>
-    날짜: <%=rs.getDate(2)%>
-    추천 티어: <%=rs.getString(3)%>
-    강의 주제: <%=rs.getString(4)%>
-    수강료: <%=rs.getString(5)%> 원
-    수강인원: <%=rs.getString(8)%> /
-    <%=rs.getString(6)%>
-    강사: <%=rs.getString(7)%>
-</p>
+<div class="col-4">
+    <div class="card">
+        <div class="card-body justify-content-start" style="display: flex; justify-content: space-between;">
+            <div style="display: flex;justify-content: center;align-items: center;">
+                <span><%=rs.getDate(2)%></span>
+            </div>
+            <div class ="ms-3">
+                <h5 class="card-title"><%=rs.getString(4)%></h5>
+                <p class="card-text">
+                    수강번호: <%=rs.getString(1)%>
+                    추천 티어: <%=rs.getString(3)%>
+                    </br>
+                    수강료: <%=rs.getString(5)%> 원
+                    수강인원: <%=rs.getString(8)%> / <%=rs.getString(6)%>
+                    강사: <%=rs.getString(7)%>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 <%      }
     }
 %>
-<hr>
+</div>
 <form id="searchForm">
 </form>
 <script>

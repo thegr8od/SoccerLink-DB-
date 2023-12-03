@@ -12,7 +12,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 </head>
 <body>
-<a href ="../index.jsp"><img src="../image/webLogo.png" style ="width: 200px; margin-top:10px"></a>
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a href ="../index.jsp"><img src="../image/webLogo.png" style ="width: 200px; margin-top: 10px"></a>
+    </div>
+</nav>
 <hr>
 <div class="d-flex align-items-center justify-content-center">
 <form action="logInProc.jsp" method="post" class = "p-3 border border-black rounded" style ="width: 600px ; margin-top:50px">
