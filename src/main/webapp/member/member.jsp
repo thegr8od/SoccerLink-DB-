@@ -10,12 +10,12 @@
 <body>
 <!-- 기존 버튼들 -->
 <a href="../index.jsp">Soccer Link</a>
-<input type="button" onclick="secession()" value="Secession">
 <a href="match.jsp">Match</a>
 <a href="training.jsp">Training</a>
 <a href="team.jsp">Team</a>
 <a href="cashCharge.jsp">Cashcharge</a>
 <a href="changeInfo.jsp">Changeinfo</a>
+<input type="button" onclick="secession()" value="Secession">
 
 <!-- 사용자 정보 및 충전 금액 표시 -->
 <%

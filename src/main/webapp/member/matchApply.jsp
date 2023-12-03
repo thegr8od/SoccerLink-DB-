@@ -66,7 +66,7 @@
             // 매치 신청 성공
 %><script type="text/javascript">
     alert('매치 신청이 완료되었습니다.');
-    window.location.href = 'member.jsp';
+    window.location.href = 'match.jsp';
 </script><%
 } else {
     // 매치 신청 실패
