@@ -11,7 +11,8 @@
 <html>
 <head>
     <title>Admin page</title>
-    <a href="../index.jsp">Soccer Link</a><br>
+    <a href="../index.jsp">Soccer Link</a>
+    <a href="../common/logOutProc.jsp">Log Out</a>
     <%
         String sqlIncome = SQLx.Selectx("SUM(PREPAID_MONEY)", "MEMBER");
         String sqlOutMatch = SQLx.Selectx("SUM(WAGE)", "MATCH");
@@ -32,13 +33,13 @@
 </head>
 <body>
 <br>
-<a href="userMod.jsp">User</a>
-<a href="teamMod.jsp">Team</a>
-<a href="ownerMod.jsp">Owner</a>
-<a href="fieldMod.jsp">Field</a>
-<a href="matchMod.jsp">Match</a>
-<a href="trainMod.jsp">Training</a>
-<a href="checkInfo.jsp">Check Info</a>
+<input type="button" value="User" name="1" onclick="location.href='userMod.jsp'"/>
+<input type="button" value="Team" name="2" onclick="location.href='teamMod.jsp'"/>
+<input type="button" value="Owner" name="3" onclick="location.href='ownerMod.jsp'"/>
+<input type="button" value="Field" name="4" onclick="location.href='fieldMod.jsp'"/>
+<input type="button" value="Match" name="5" onclick="location.href='matchMod.jsp'"/>
+<input type="button" value="Training" name="6" onclick="location.href='trainMod.jsp'"/>
+<input type="button" value="Check Information" onclick="location.href='checkInfo.jsp'"/>
 <br>
 <%
     out.println("안녕하세요, 관리자님");
