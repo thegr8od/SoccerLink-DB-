@@ -5,10 +5,6 @@ public class MatchDto {
     private String fName;
     private String fAddress;
     private String type;
-    private int currentNum;
-    private int maxNum;
-    private String sex;
-    private int cost;
 
     public String getDate() {
         return date;
@@ -19,6 +15,11 @@ public class MatchDto {
     }
 
     private String date;
+    private Integer currentNum;
+    private Integer maxNum;
+    private String sex;
+    private Integer cost;
+
     public String getMatchId() {
         return matchId;
     }
@@ -51,19 +52,19 @@ public class MatchDto {
         this.type = type;
     }
 
-    public int getCurrentNum() {
+    public Integer getCurrentNum() {
         return currentNum;
     }
 
-    public void setCurrentNum(int currentNum) {
+    public void setCurrentNum(Integer currentNum) {
         this.currentNum = currentNum;
     }
 
-    public int getMaxNum() {
+    public Integer getMaxNum() {
         return maxNum;
     }
 
-    public void setMaxNum(int maxNum) {
+    public void setMaxNum(Integer maxNum) {
         this.maxNum = maxNum;
     }
 
@@ -75,11 +76,11 @@ public class MatchDto {
         this.sex = sex;
     }
 
-    public int getCost() {
+    public Integer getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(Integer cost) {
         this.cost = cost;
     }
 }
