@@ -7,6 +7,13 @@
 <html>
 <head>
     <title>금액 충전</title>
+    <script type="text/javascript">
+        // 충전 완료 후 팝업 메시지 및 페이지 리디렉션을 위한 함수
+        function showChargeComplete() {
+            alert("충전이 완료되었습니다.");
+            window.location.href = "member.jsp";
+        }
+    </script>
 </head>
 <body>
 
@@ -14,28 +21,21 @@
     String userId = (String) session.getAttribute(SessionConst.USER);
     if(request.getParameter("charge") != null) {
         int chargeAmount = Integer.parseInt(request.getParameter("chargeAmount"));
-
         String selectQuery = SQLx.Selectx("PREPAID_MONEY", "MEMBER", "ID_NUMBER = '" + userId + "'", "");
-
         try {
             PreparedStatement pstmt = conn.prepareStatement(selectQuery);
             rs = pstmt.executeQuery();
-
             int currentBalance = 0;
             if(rs.next()) {
                 currentBalance = rs.getInt("PREPAID_MONEY");
             }
-
             int newBalance = currentBalance + chargeAmount;
-
             String[] updateKey = {userId};
             String updateQuery = SQLx.Updatex("MEMBER", "PREPAID_MONEY", Integer.toString(newBalance), updateKey);
             pstmt = conn.prepareStatement(updateQuery);
             int result = pstmt.executeUpdate();
-
             if (result > 0) {
-                out.println("<h2>충전이 완료되었습니다.</h2>");
-                out.println("<p>충전된 금액: " + newBalance + "원</p>");
+                out.println("<script type='text/javascript'>showChargeComplete();</script>"); // 충전 완료 후 팝업 메시지 및 리디렉션
             } else {
                 out.println("<p>충전에 실패하였습니다.</p>");
             }
