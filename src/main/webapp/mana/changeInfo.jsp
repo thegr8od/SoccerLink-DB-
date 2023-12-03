@@ -1,6 +1,6 @@
-<%@ include file="../common/dbconn.jsp" %>
 <%@ page import="classes.SQLx" %>
 <%@ page import="classes.SessionConst" %>
+<%@ include file="../common/dbconn.jsp" %>
 <%--
 
   Created by IntelliJ IDEA.

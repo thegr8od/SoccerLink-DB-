@@ -32,7 +32,7 @@
 //    System.out.println(matchId);
 %>
 <script>
-    alert("<%=matchId%>에 신청되었습니다.");
+    alert("<%=matchId[0]%>에 신청되었습니다.");
     window.location.href = "../manager.jsp";
 </script>
 

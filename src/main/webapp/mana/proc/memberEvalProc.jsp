@@ -40,6 +40,12 @@
             String memberEvalSql = SQLx.Insertx("MAN_EVAL_MEM", data);
             pst = conn.prepareStatement(memberEvalSql);
             pst.executeQuery();
+            %>
+<script>
+    alert("평가되었습니다.");
+    history.go(-1);
+</script>
+<%
         }
     }catch(SQLException e){
 %>
@@ -50,7 +56,3 @@
 <%
     }
 %>
-<script>
-    alert("평가되었습니다.");
-    history.go(-1);
-</script>
