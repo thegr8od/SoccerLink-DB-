@@ -118,8 +118,9 @@
             for(int i = 0 ; i<matchDtoList.size();i++){
                 MatchDto matchDto = matchDtoList.get(i);
                 String matchId = matchDto.getMatchId();
+//                System.out.println(matchId + " : " + matchCurrNum.get(matchId));
                 Integer currentNum = matchCurrNum.get(matchId);
-                matchDto.setCurrentNum(currentNum);
+                matchDto.setCurrentNum(currentNum == null? 0:currentNum);
             }
         }
         %>
