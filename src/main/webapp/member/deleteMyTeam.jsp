@@ -30,5 +30,6 @@
         out.println("<p>오류 발생: " + e.getMessage() + "</p>");
     }
 %>
+<a href="team.jsp">팀 목록으로 돌아가기</a>
 </body>
 </html>

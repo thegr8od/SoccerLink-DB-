@@ -11,7 +11,7 @@
 <body>
 <h1>트레이닝 목록</h1>
 <a href="viewMyTraining.jsp"><button>View My Training</button></a>
-<a href="makeTrain.jsp"><button>Make Training</button></a>
+<a href="makeTraining.jsp"><button>Make Training</button></a>
 <table border="1">
     <tr>
         <th>트레이닝 ID</th>
@@ -55,6 +55,5 @@
         }
     %>
 </table>
-<a href="member.jsp">뒤로 가기</a>
 </body>
 </html>

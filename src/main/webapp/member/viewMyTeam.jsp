@@ -27,6 +27,6 @@
         out.println("<p>가입된 팀이 없습니다.</p>");
     }
 %>
-<a href="team.jsp">뒤로 가기</a>
+<a href="team.jsp">팀 목록 보기</a>
 </body>
 </html>
