@@ -57,5 +57,6 @@
         <input type="submit" value="정보 변경하기">
     </p>
 </form>
+<a href="member.jsp">뒤로 가기</a>
 </body>
 </html>

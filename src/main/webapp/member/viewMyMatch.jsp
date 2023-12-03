@@ -60,6 +60,6 @@
     out.println("<p>참가한 매치가 없습니다.</p>");
   }
 %>
-
+<a href="match.jsp">뒤로 가기</a>
 </body>
 </html>

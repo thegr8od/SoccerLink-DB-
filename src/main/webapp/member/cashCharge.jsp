@@ -47,5 +47,6 @@
     <input type="text" id="amount" name="amount">
     <input type="submit" value="충전하기">
 </form>
+<a href="member.jsp">뒤로 가기</a>
 </body>
 </html>
