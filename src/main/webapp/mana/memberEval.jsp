@@ -1,6 +1,7 @@
 <%@ page import="classes.SQLx" %>
 <%@ page import="classes.SessionConst" %>
-<%@ include file="../common/dbconn.jsp" %><%--
+<%@ include file="../common/dbconn.jsp" %>
+<%--
   Created by IntelliJ IDEA.
   User: 황경모
   Date: 2023-12-03
@@ -10,7 +11,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Member Evaluation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 </head>
 <body>
 <jsp:include page="backgroundCategory.jsp"/>

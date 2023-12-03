@@ -1,6 +1,6 @@
-<%@ include file="../common/dbconn.jsp" %>
 <%@ page import="classes.SQLx" %>
 <%@ page import="classes.SessionConst" %>
+<%@ include file="../common/dbconn.jsp" %>
 <%--
 
   Created by IntelliJ IDEA.
@@ -12,7 +12,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>My information</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 </head>
 <body>
 <jsp:include page="backgroundCategory.jsp"/>

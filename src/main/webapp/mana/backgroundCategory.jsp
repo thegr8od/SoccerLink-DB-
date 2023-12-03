@@ -1,5 +1,6 @@
 <%@ page import="javax.websocket.Session" %>
-<%@ page import="classes.SessionConst" %><%--
+<%@ page import="classes.SessionConst" %>
+<%@ include file="../common/dbconn.jsp" %><%--
   Created by IntelliJ IDEA.
   User: 황경모
   Date: 2023-12-03
@@ -17,9 +18,15 @@
 </script>
 <%
     }
+    String nameSql = "select name from users where id_number = '"+userId+"\'";
+    pst = conn.prepareStatement(nameSql);
+    rs = pst.executeQuery();
+    rs.next();
+    String name = rs.getString(1);
 %>
 <%--고정 화면 버튼--%>
 <a href="../index.jsp">Soccer Link</a><input type="button" value="log out" onclick = "window.location.href='../common/logOutProc.jsp'">
+<span><%=name%> 님 반갑습니다.</span>
 <hr>
 <input type="button" onclick = "window.location.href='changeInfo.jsp'" value="ChangeInfo">
 <input type="button" onclick = "window.location.href='matchAppMana.jsp'" value="Match Apply">

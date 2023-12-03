@@ -5,6 +5,7 @@
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/checkInfo.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/entry/checkInfo.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin/entry" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/fieldMod.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/common/secessionProc.jsp" value="file://$PROJECT_DIR$/src/main/webapp/common" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/mana/proc/memberEvalProc.jsp" value="file://$PROJECT_DIR$/src/main/webapp/mana/proc" />
