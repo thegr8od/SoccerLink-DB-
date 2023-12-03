@@ -2,7 +2,7 @@
 <%@ page import="java.sql.*" %>
 <%@ include file="../common/dbconn.jsp" %>
 <%@ page import="classes.SessionConst" %>
-
+<%@ page import="classes.SQLx" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,7 +52,7 @@
 <body>
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-        <a class="navbar-brand" href="index.jsp"><img src="../image/webLogo.png" style ="width: 200px"></a>
+        <a class="navbar-brand" href="../index.jsp"><img src="../image/webLogo.png" style ="width: 200px"></a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             </ul>

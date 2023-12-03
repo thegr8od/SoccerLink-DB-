@@ -51,7 +51,7 @@
 <body>
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-        <a class="navbar-brand" href="index.jsp"><img src="../image/webLogo.png" style ="width: 200px"></a>
+        <a class="navbar-brand" href="../index.jsp"><img src="../image/webLogo.png" style ="width: 200px"></a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             </ul>
@@ -181,7 +181,7 @@
         <input type="submit" value="매치 취소" class="btn btn-danger">
     </form>
     </table>
-    <a href="member.jsp" class="btn btn-primary">뒤로 가기</a>
+    <a href="match.jsp" class="btn btn-primary">뒤로 가기</a>
 </div>
 </body>
 </html>
