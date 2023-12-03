@@ -9,6 +9,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/common/secessionProc.jsp" value="file://$PROJECT_DIR$/src/main/webapp/common" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/mana/proc/memberEvalProc.jsp" value="file://$PROJECT_DIR$/src/main/webapp/mana/proc" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/member/member.jsp" value="file://$PROJECT_DIR$/src/main/webapp/member" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/response.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
       </map>
     </option>
