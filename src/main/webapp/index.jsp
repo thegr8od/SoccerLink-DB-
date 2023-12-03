@@ -25,6 +25,7 @@
 
 %>
 <a href="common/login.jsp">login</a>
+<hr>
 <%
     }
     else{
@@ -56,21 +57,18 @@
     }
 %>
 <h2>SoccerLink</h2>
+<hr>
 </br>
 <label> Match or Training Date : </label>
 <input type="date" name="date" id="date">
 </br>
 <input type ="button" onclick="searchMatch()" value="match">
 <input type ="button" onclick="searchTraining()" value="training">
+<hr>
 <%
     String category = request.getParameter("category");
     String date = request.getParameter("date");
-//    if(date==null){
-//        // date = 오늘의 날짜;
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        String formattedDate = LocalDate.now().format(formatter);
-//        date = formattedDate;
-//    }
+
     List <MatchDto> matchDtoList = new ArrayList<>();
     List <String> matchIdList = new ArrayList<>();
     if(category == null||category.equals("match")){
@@ -80,7 +78,7 @@
                 "(SELECT DISTINCT MATCH_ID\n" +
                 "FROM MATCH M1\n";
         StringBuilder matchSb= new StringBuilder(matchSearch);
-                if(date!=null) {
+                if(date!=null&&!date.equals("")) {
                     matchSb.append("WHERE M1.DATE_TIME = '" + date+"\'");
                 }
                 matchSb.append(") order by M.date_time desc");
@@ -132,23 +130,53 @@
         for(int i =0; i<matchDtoList.size();i++){
 %>
 <p>
-    Date = <%=matchDtoList.get(i).getDate()%>
-    <%=matchDtoList.get(i).getMatchId()%>
-    <%=matchDtoList.get(i).getfName()%>
-    <%=matchDtoList.get(i).getfAddress()%>
-    <%=matchDtoList.get(i).getType()%>
-    Current Number = <%=matchDtoList.get(i).getCurrentNum()%>/
-    Max Number = <%=matchDtoList.get(i).getMaxNum()%>
-    Sex Constraint = <%=matchDtoList.get(i).getSex()%>
-    Cost = <%=matchDtoList.get(i).getCost()%>
+    날짜: <%=matchDtoList.get(i).getDate()%>
+    경기 번호: <%=matchDtoList.get(i).getMatchId()%>
+    구장 이름: <%=matchDtoList.get(i).getfName()%>
+    주소: <%=matchDtoList.get(i).getfAddress()%>
+    종목: <%=matchDtoList.get(i).getType()%>
+    참여인원: <%=matchDtoList.get(i).getCurrentNum()%> /
+    <%=matchDtoList.get(i).getMaxNum()%>
+    성별제한: <%=matchDtoList.get(i).getSex()%>
+    참가비용: <%=matchDtoList.get(i).getCost()%>
 </p>
 <%
         }
     }
-    else{
+    else{// Training
+            String trainSearch = "select T.CLASS_ID,T.DATE_TIME,T.RECOMMEND_TIER,T.SUBJECT,T.COST_PER_ONE,T.MAX_NUM, U.NAME, count(E.CLASS_ID)\n" +
+                    "from training T inner join TRAIN_ENROLLS E on T.CLASS_ID=E.CLASS_ID\n" +
+                    "inner join USERS U on T.TUTOR_ID = U.ID_NUMBER\n" +
+                    "where T.CLASS_ID IN(\n" +
+                    "    select distinct T1.class_id\n" +
+                    "    from TRAINING T1\n" ;
+            StringBuilder trainSb= new StringBuilder(trainSearch);
+            if(date!=null&&!date.equals("")) {
+                trainSb.append("WHERE T1.DATE_TIME = '" + date+"\'");
 
+            }
+            trainSb.append(")GROUP BY T.CLASS_ID,T.DATE_TIME,T.RECOMMEND_TIER,T.SUBJECT,T.COST_PER_ONE,T.MAX_NUM,U.NAME ");
+            trainSb.append("order by T.date_time desc");
+
+            pst = conn.prepareStatement(trainSb.toString());
+            rs = pst.executeQuery();
+
+            while(rs.next()){
+%>
+<p>
+    수강번호: <%=rs.getString(1)%>
+    날짜: <%=rs.getDate(2)%>
+    추천 티어: <%=rs.getString(3)%>
+    강의 주제: <%=rs.getString(4)%>
+    수강료: <%=rs.getString(5)%> 원
+    수강인원: <%=rs.getString(8)%> /
+    <%=rs.getString(6)%>
+    강사: <%=rs.getString(7)%>
+</p>
+<%      }
     }
 %>
+<hr>
 <form id="searchForm">
 </form>
 <script>
