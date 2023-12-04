@@ -1,0 +1,32 @@
+Auto Commit과 트랜잭션 고립화 수준 Level 1(read committed)만으로 동시성 제어가 가능하다고 판단했다.
+때문에, SQL문을 통한 고립화 수준을 변경하는 등의 조작을 하지 않았다.
+오히려, 다른 트랜잭션에서 변경한 내용을 읽을 수 있어야 한다.
+
+아래는 그 이유이고, 기능별로 설명하도록 하겠다.
+
+1. Sign up(common) / Match Make(admin) / Team Make(member) / Training Make(member)
+위의 기능을 실행할 때에는 Select와 Insert가 쓰인다.
+level 1 수준에서는 먼저 Commit된 것을 읽을 수 있기 때문에
+Select를 통한 중복검사로 key 값을 미리 필터링하거나,
+Insert 시에 Primary key 제약에 의해 동일한 key 값이 삽입되지 못한다.
+
+2. Match enroll(member) / Team enroll(member) / Train enroll(member) / Match Apply(manager)
+위의 기능을 실행할 때에는 Insert가 쓰인다.
+최대 인원에 따라 enroll을 제한해야 하며,
+현재 인원을 즉시 확인할 수 있도록 하기 때문에
+commit된 것을 즉시 반영할 수 있는 level 1 수준을 이용해야 한다.
+
+3. 각종 조회
+커밋된 것을 즉시 확인해야 하는 실시간 시스템을 지향하기에
+commit된 것을 즉시 반영할 수 있는 level 1 수준을 이용해야 한다.
+
+4. Cash
+Member는 각자 독립된 ID를 사용하며,
+Member 간 Cash 전송이나 거래는 불가능하다.
+때문의 Cash의 Charge/refund는 한 트랜잭션에서만 동작하며
+Cash의 Charge/refund가 영향을 미치는 튜플도 현재 로그인된 계정의 ID를 key로 가지는 튜플뿐이다.
+때문에, 고립수준을 변경하는 등 추가적인 동시성 제어가 필요하지 않다.
+
+
+
+
