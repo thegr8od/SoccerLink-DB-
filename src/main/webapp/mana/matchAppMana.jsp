@@ -18,14 +18,88 @@
 <head>
     <title>Match Apply</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .btn {
+            background-color: #fff;
+            color: #333;
+            border: 1px solid #333;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .btn:hover, .btn:focus {
+            background-color: #ccc;
+            color: #333;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+        }
+
+        .apply-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .apply-btn:hover, .apply-btn:focus {
+            background-color: #ccc;
+            color: #333;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 <body>
-<jsp:include page="backgroundCategory.jsp"/>
+<jsp:include page="backgroundImage.jsp"/>
+
 <h3>매치 매니저 신청</h3>
-    <label> Match Date : </label>
-    <input type="date" name="date" id="date">
-    <input type ="button" onclick ="matchReload()" value="검색">
-    <input type="button" onclick ="myMatch()" value="나의 매치">
+<div class = "ms-3">
+    <div class="d-flex align-items-center justify-content-start">
+                <div class="mw-3 d-flex align-items-center" >
+                    <label for="date" class="form-label me-2">날짜</label>
+                    <input type="date" name="date" id="date">
+                </div>
+                <input type ="button" class="mw-3" onclick ="matchReload()" value="검색">
+                <input type="button" class="mw-3" onclick ="myMatch()" value="나의 매치">
+    </div>
+</div>
     <hr>
 <%
     String myMatchFind = request.getParameter("myMatchFind");
