@@ -79,7 +79,7 @@
   - 3-1. Sign Up Screen (/common/signUp.jsp): 회원가입 화면입니다. Member/Manager를 구분하여 회원가입에 필요한 정보를 입력받습니다.
   - 3-2. Sign Up Process (/common/signUpProc.jsp): 회원가입 화면에서 post된 정보를 Users/Member/Manager table에 삽입합니다.
   - 3-3. Secession Process (/common/sessionProc.jsp): 버튼을 눌러 탈퇴의사를 재확인하고, 확인될 시에 접속하고 있는 USER를 table에서 delete합니다.
-  - 
+   
 **4. Admin**
   - 4-1. 메인 화면
     - 4-1-1. Admin Screen (/admin/admin.jsp): 관리자 모드의 메인 화면입니다. 각 메뉴로 이동할 수 있습니다.
