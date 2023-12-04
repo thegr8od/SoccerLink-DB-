@@ -168,7 +168,7 @@
             while (matchResultSet.next()) {
                 String matchId = matchResultSet.getString(1);
                 Timestamp dateTime = matchResultSet.getTimestamp(2);
-                String placeName = matchResultSet.getString(3);
+                String placeName = matchResultSet.getString(10);
                 int maxNum = matchResultSet.getInt(5);
                 int currentNum = matchResultSet.getInt(11);
                 double costPerOne = matchResultSet.getDouble(9); // 참가비 정보를 가져옵니다.
