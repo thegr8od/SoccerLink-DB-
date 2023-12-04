@@ -21,7 +21,7 @@
         double costPerOne = 0;
 
         if (costRs.next()) {
-            costPerOne = costRs.getDouble("COST_PER_ONE");
+            costPerOne = costRs.getDouble(1);
         }
 
         // 사용자 잔액 차감

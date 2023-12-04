@@ -29,7 +29,7 @@
     double prepaidMoney = 0.0;
 
     if (moneyRs.next()) {
-        prepaidMoney = moneyRs.getDouble("PREPAID_MONEY");
+        prepaidMoney = moneyRs.getDouble(1);
     }
 
     // 매치 비용 조회
@@ -39,7 +39,7 @@
     double matchCost = 0.0;
 
     if (costRs.next()) {
-        matchCost = costRs.getDouble("COST_PER_ONE");
+        matchCost = costRs.getDouble(1);
     }
 
     // 잔액과 비용 비교

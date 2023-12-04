@@ -168,8 +168,8 @@
                 rs = pstmt.executeQuery();
 
                 while (rs.next()) {
-                    String teamId = rs.getString("TEAM_ID");
-                    String teamName = rs.getString("TEAM_NAME");
+                    String teamId = rs.getString(1);
+                    String teamName = rs.getString(2);
             %>
             <tr>
                 <td><%= teamId %></td>
