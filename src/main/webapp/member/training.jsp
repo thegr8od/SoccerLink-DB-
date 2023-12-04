@@ -183,12 +183,12 @@
             PreparedStatement pstmt = conn.prepareStatement(query);
             ResultSet trainingResultSet = pstmt.executeQuery();
             while (trainingResultSet.next()) {
-                String classId = trainingResultSet.getString("CLASS_ID");
-                Timestamp dateTime = trainingResultSet.getTimestamp("DATE_TIME");
-                String subject = trainingResultSet.getString("SUBJECT");
-                int maxNum = trainingResultSet.getInt("MAX_NUM");
-                int currentNum = trainingResultSet.getInt("CURRENT_NUM");
-                double costPerOne = trainingResultSet.getDouble("COST_PER_ONE");
+                String classId = trainingResultSet.getString(1);
+                Timestamp dateTime = trainingResultSet.getTimestamp(2);
+                String subject = trainingResultSet.getString(3);
+                int maxNum = trainingResultSet.getInt(4);
+                int currentNum = trainingResultSet.getInt(5);
+                double costPerOne = trainingResultSet.getDouble(6);
                 boolean isFull = currentNum >= maxNum;
         %>
         <tr>
