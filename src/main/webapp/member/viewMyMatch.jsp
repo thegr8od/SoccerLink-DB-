@@ -167,13 +167,13 @@
     </tr>
     <%
       do {
-        String matchId = rs.getString("MATCH_ID");
-        Timestamp dateTime = rs.getTimestamp("DATE_TIME");
-        String placeName = rs.getString("ADDRESS");
-        String type = rs.getString("TYPE");
-        int maxNum = rs.getInt("MAX_NUM");
-        double wage = rs.getDouble("WAGE");
-        double costPerOne = rs.getDouble("COST_PER_ONE");
+        String matchId = rs.getString(1);
+        Timestamp dateTime = rs.getTimestamp(2);
+        String placeName = rs.getString(3);
+        String type = rs.getString(4);
+        int maxNum = rs.getInt(5);
+        double wage = rs.getDouble(6);
+        double costPerOne = rs.getDouble(7);
     %>
     <tr>
       <td><%= matchId %></td>

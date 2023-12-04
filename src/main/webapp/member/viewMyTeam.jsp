@@ -152,9 +152,9 @@
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                String teamId = rs.getString("TEAM_ID");
-                String teamName = rs.getString("TEAM_NAME");
-                String teamTier = rs.getString("TEAM_TIER") != null ? rs.getString("TEAM_TIER") : "N/A";
+                String teamId = rs.getString(1);
+                String teamName = rs.getString(2);
+                String teamTier = rs.getString(3) != null ? rs.getString(3) : "N/A";
         %>
         <tr>
             <td><%= teamId %></td>

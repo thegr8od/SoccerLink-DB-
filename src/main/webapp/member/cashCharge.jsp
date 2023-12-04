@@ -134,7 +134,7 @@
                 rs = pstmt.executeQuery();
                 int currentBalance = 0;
                 if(rs.next()) {
-                    currentBalance = rs.getInt("PREPAID_MONEY");
+                    currentBalance = rs.getInt(1);
                 }
                 int newBalance = currentBalance + chargeAmount;
                 String[] updateKey = {userId};

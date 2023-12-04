@@ -164,10 +164,10 @@
             pstmt.setString(1, userId);
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                String classId = rs.getString("CLASS_ID");
-                Timestamp dateTime = rs.getTimestamp("DATE_TIME");
-                String subject = rs.getString("SUBJECT");
-                String tutorName = rs.getString("NAME");
+                String classId = rs.getString(1);
+                Timestamp dateTime = rs.getTimestamp(2);
+                String subject = rs.getString(3);
+                String tutorName = rs.getString(4);
         %>
         <tr>
             <td><%= classId %></td>
