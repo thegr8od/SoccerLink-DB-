@@ -117,7 +117,7 @@
 
     <div class="my-3">
         <a href="changeInfo.jsp" class="btn btn-primary">개인정보 변경</a>
-        <a href="matchAppMana.jsp" class="btn btn-success">매치 매니지 신청</a>
+        <a href="matchAppMana.jsp" class="btn btn-success">매치 매니저 신청</a>
         <a href="memberEval.jsp" class="btn btn-warning">플레이어 평가</a>
         <button type="button" class="btn btn-danger" onclick="secession()">Secession</button>
     </div>

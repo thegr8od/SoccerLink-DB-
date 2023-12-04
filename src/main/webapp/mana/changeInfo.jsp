@@ -42,15 +42,15 @@
             <legend></legend>
             <div class="mb-3">
                 <label for="job" class="form-label">직업 </label>
-                <input type="text" name="job" id="job" class="form-control" placeholder="<%=currentJob%>">
+                <input type="text" name="job" id="job" value =<%=currentJob%> class="form-control" placeholder="<%=currentJob%>">
             </div>
             <div class="mb-3">
                 <label for="pw" class="form-label">비밀번호</label>
-                <input type="password" name ="pw" id="pw" class="form-control">
+                <input type="password" name ="pw" id="pw" class="form-control"  value =<%=currentPw%> minLength="9" maxLength="20">
             </div>
             <div class="mb-3">
                 <label for="account" class="form-label">계좌번호</label>
-                <input type="text" name ="account" id="account" class="form-control" placeholder="<%=currentAccount%>">
+                <input type="text" name ="account" id="account" value =<%=currentAccount%> class="form-control" placeholder="<%=currentAccount%>">
             </div>
             <button type="submit" class="btn btn-primary">수정</button>
         </fieldset>

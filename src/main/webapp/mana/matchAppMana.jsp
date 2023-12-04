@@ -96,11 +96,21 @@
                     <label for="date" class="form-label me-2">날짜</label>
                     <input type="date" name="date" id="date">
                 </div>
-                <input type ="button" class="mw-3" onclick ="matchReload()" value="검색">
-                <input type="button" class="mw-3" onclick ="myMatch()" value="나의 매치">
+                <input type ="button" class ="ms-3 btn btn-primary"  onclick ="matchReload()" value="검색">
+                <input type="button" class="ms-3 btn btn-primary" onclick ="myMatch()" value="나의 매치">
     </div>
 </div>
     <hr>
+<table class="table">
+    <tr>
+        <th>매치 ID</th>
+        <th>날짜</th>
+        <th>구장이름</th>
+        <th>주소</th>
+        <th>종목</th>
+        <th>임금</th>
+        <th>신청</th>
+    </tr>
 <%
     String myMatchFind = request.getParameter("myMatchFind");
     boolean myMatchFindBoolean = Boolean.parseBoolean(myMatchFind);
@@ -129,43 +139,43 @@
     pst = conn.prepareStatement(matchSb.toString());
     rs = pst.executeQuery();
     while(rs.next()){
-        %>
-<p>
-
-    <%
         if(rs.getString(7) ==null || rs.getString(7).equals("null")){
-    %>
-    <form action ="proc/matchAppManaProc.jsp" method ="post">
-    날짜: <%=rs.getDate(2)%>
-    경기 번호: <%=rs.getString(1)%>
-    구장 이름: <%=rs.getString(10)%>
-    주소: <%=rs.getString(11)%>
-    종목: <%=rs.getString(4)%>
-    임금: <%=rs.getString(8)%>
-    <input type = "hidden" name = "matchId" value = "<%=rs.getString(1)%>">
-    <input type = "hidden" name = "userId" value = "<%=(String) session.getAttribute(SessionConst.USER)%>">
-    <input type ="submit" value ="신청하기">
-    </form>
+        %>
+    <tr>
+        <td><%= rs.getString((1)) %></td>
+        <td><%= rs.getDate(2) %></td>
+        <td><%= rs.getString(10) %></td>
+        <td><%= rs.getString(11) %></td>
+        <td><%= rs.getString(4) %></td>
+        <td><%= rs.getInt(8) %>원</td>
+        <td>
+            <form action="proc/matchAppManaProc.jsp" method="post">
+                <input type="hidden" name="matchId" value="<%= rs.getString(1) %>">
+                <input type = "hidden" name = "userId" value = "<%=(String) session.getAttribute(SessionConst.USER)%>">
+                <button type="submit" class="btn btn-sm btn-primary">신청하기</button>
+            </form>
+        </td>
+    </tr>
     <%
         }
         else {
     %>
-    날짜: <%=rs.getDate(2)%>
-    경기 번호: <%=rs.getString(1)%>
-    구장 이름: <%=rs.getString(10)%>
-    주소: <%=rs.getString(11)%>
-    종목: <%=rs.getString(4)%>
-    임금: <%=rs.getString(8)%>
-    <span>신청불가</span>
+    <tr>
+        <td><%= rs.getString((1)) %></td>
+        <td><%= rs.getDate(2) %></td>
+        <td><%= rs.getString(10) %></td>
+        <td><%= rs.getString(11) %></td>
+        <td><%= rs.getString(4) %></td>
+        <td><%= rs.getInt(8) %>원</td>
+        <td>
+            <span>신청불가</span>
+        </td>
+    </tr>
     <%
         }
-    %>
-
-</p>
-<%
     }
 %>
-
+</table>
 
 <script>
     function matchReload(){
