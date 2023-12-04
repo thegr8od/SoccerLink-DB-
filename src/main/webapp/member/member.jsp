@@ -139,11 +139,11 @@
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                name = rs.getString("NAME");
-                sex = rs.getString("SEX");
-                yob = rs.getString("YOB");
-                job = rs.getString("JOB");
-                prepaidMoney = rs.getInt("PREPAID_MONEY");
+                name = rs.getString(1);
+                sex = rs.getString(2);
+                yob = rs.getString(3);
+                job = rs.getString(4);
+                prepaidMoney = rs.getInt(5);
             }
             rs.close();
             pstmt.close();
