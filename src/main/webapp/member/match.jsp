@@ -166,12 +166,12 @@
             PreparedStatement pstmt = conn.prepareStatement(query);
             ResultSet matchResultSet = pstmt.executeQuery();
             while (matchResultSet.next()) {
-                String matchId = matchResultSet.getString("MATCH_ID");
-                Timestamp dateTime = matchResultSet.getTimestamp("DATE_TIME");
-                String placeName = matchResultSet.getString("ADDRESS");
-                int maxNum = matchResultSet.getInt("MAX_NUM");
-                int currentNum = matchResultSet.getInt("CURRENT_NUM");
-                double costPerOne = matchResultSet.getDouble("COST_PER_ONE"); // 참가비 정보를 가져옵니다.
+                String matchId = matchResultSet.getString(1);
+                Timestamp dateTime = matchResultSet.getTimestamp(2);
+                String placeName = matchResultSet.getString(3);
+                int maxNum = matchResultSet.getInt(4);
+                int currentNum = matchResultSet.getInt(5);
+                double costPerOne = matchResultSet.getDouble(6); // 참가비 정보를 가져옵니다.
                 boolean isFull = currentNum >= maxNum;
         %>
         <tr>
