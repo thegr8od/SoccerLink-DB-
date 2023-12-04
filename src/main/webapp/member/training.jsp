@@ -185,10 +185,10 @@
             while (trainingResultSet.next()) {
                 String classId = trainingResultSet.getString(1);
                 Timestamp dateTime = trainingResultSet.getTimestamp(2);
-                String subject = trainingResultSet.getString(3);
-                int maxNum = trainingResultSet.getInt(4);
-                int currentNum = trainingResultSet.getInt(5);
-                double costPerOne = trainingResultSet.getDouble(6);
+                String subject = trainingResultSet.getString(5);
+                int maxNum = trainingResultSet.getInt(7);
+                int currentNum = trainingResultSet.getInt(10);
+                double costPerOne = trainingResultSet.getDouble(9);
                 boolean isFull = currentNum >= maxNum;
         %>
         <tr>

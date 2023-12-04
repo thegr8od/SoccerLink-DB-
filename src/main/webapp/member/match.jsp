@@ -169,9 +169,9 @@
                 String matchId = matchResultSet.getString(1);
                 Timestamp dateTime = matchResultSet.getTimestamp(2);
                 String placeName = matchResultSet.getString(3);
-                int maxNum = matchResultSet.getInt(4);
-                int currentNum = matchResultSet.getInt(5);
-                double costPerOne = matchResultSet.getDouble(6); // 참가비 정보를 가져옵니다.
+                int maxNum = matchResultSet.getInt(5);
+                int currentNum = matchResultSet.getInt(11);
+                double costPerOne = matchResultSet.getDouble(9); // 참가비 정보를 가져옵니다.
                 boolean isFull = currentNum >= maxNum;
         %>
         <tr>
