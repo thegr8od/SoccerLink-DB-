@@ -15,7 +15,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 </head>
 <body>
-<jsp:include page="backgroundCategory.jsp"/>
+<jsp:include page="backgroundImage.jsp"/>
 <%
     String userId = (String) session.getAttribute(SessionConst.USER);
     String memberSearchSql = "select m.DATE_TIME,m.MATCH_ID, a.MEMBER_ID, u.NAME\n" +

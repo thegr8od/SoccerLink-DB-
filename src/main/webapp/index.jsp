@@ -93,21 +93,27 @@
 </nav>
 <hr>
 </br>
-<div class="d-flex align-items-center justify-content-start">
-    <form>
-        <fieldset>
-            <legend>검색을 위해 Match 또는 Training을 선택하고 날짜를 선택해주세요.  </legend>
-            <input type="date" name="date" id="date">
-            <button type="button" class="btn btn-primary" onclick="searchMatch()">Match</button>
-            <button type="button" class="btn btn-secondary" onclick="searchTraining()">Training</button>
-        </fieldset>
-    </form>
+<div class = "ms-3">
+    <h5>검색을 위해 Match 또는 Training을 선택하고 날짜를 선택해주세요.</h5>
+    <div class="d-flex align-items-center justify-content-start">
+        <form action="index.jsp" class="d-flex align-items-center">
+            <fieldset class="d-flex align-items-center">
+                <div class=" d-flex align-items-center" >
+                    <label for="date" class="form-label me-2">날짜</label>
+                    <input type="date" name="date" id="date">
+                </div>
+                <div class="ms-3 d-flex align-items-center" >
+                    <label for="category" class="form-label me-2 text-nowrap">매치/트레이닝</label>
+                    <select id="category" name="category" class="form-select">
+                        <option value="match" selected>Match</option>
+                        <option value="training">Training</option>
+                    </select>
+                </div>
+                <input type="submit" class="ms-3 btn btn-primary" value="search">
+            </fieldset>
+        </form>
+    </div>
 </div>
-
-<%--
-<input type ="button" onclick="searchMatch()" value="match">
-<input type ="button" onclick="searchTraining()" value="training">
---%>
 
 <div class="row mt-3 p-2 g-3">
 <hr>
@@ -243,31 +249,5 @@
 </div>
 <form id="searchForm">
 </form>
-<script>
-    function searchMatch(){
-        const searchForm = document.querySelector("#searchForm");
-        const date = document.querySelector("#date");
-        searchForm.appendChild(date)
-        var categoryInput = document.createElement('input');
-        categoryInput.type = 'text';
-        categoryInput.name = 'category';
-        categoryInput.value = 'match';
-        searchForm.appendChild(categoryInput);
-        searchForm.action = "index.jsp";
-        searchForm.submit();
-    }
-    function searchTraining(){
-        const searchForm = document.querySelector("#searchForm");
-        const date = document.querySelector("#date");
-        searchForm.appendChild(date)
-        var categoryInput = document.createElement('input');
-        categoryInput.type = 'text';
-        categoryInput.name = 'category';
-        categoryInput.value = 'training';
-        searchForm.appendChild(categoryInput);
-        searchForm.action = "index.jsp";
-        searchForm.submit();
-    }
-</script>
 </body>
 </html>
