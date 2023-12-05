@@ -138,7 +138,8 @@
 
     List <MatchDto> matchDtoList = new ArrayList<>();
     List <String> matchIdList = new ArrayList<>();
-    if(category == null||category.equals("match")){
+    if(category == null);
+    else if(category.equals("match")){
         String matchSearch = "SELECT M.*, F.NAME,F.ADDRESS FROM MATCH M \n" +
                 "INNER JOIN FIELD F ON M.PLACE_ID = F.FIELD_ID\n" +
                 "WHERE M.MATCH_ID IN\n" +
