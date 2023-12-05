@@ -152,16 +152,20 @@
         if ("POST".equalsIgnoreCase(request.getMethod())) {
             String dateTime = request.getParameter("date");
             String subject = request.getParameter("subject");
-            String recommendTier = request.getParameter("recommendTier");
+            String recommendTier = request.getParameter("recommendTier").toUpperCase();
             String place = request.getParameter("place");
             int maxNum = Integer.parseInt(request.getParameter("maxNum"));
             double wage = Double.parseDouble(request.getParameter("wage"));
             double costPerOne = Double.parseDouble(request.getParameter("costPerOne"));
-            String tutorId = (String) session.getAttribute(SessionConst.USER);  // 세션에서 tutorId 가져오기
+            String tutorId = (String) session.getAttribute(SessionConst.USER);
             Random rand = new Random();
             String classId = "C" + (100 + rand.nextInt(900)) + "-" + (10 + rand.nextInt(90)) + "-" + (1000 + rand.nextInt(9000));
 
-            if (tutorId != null && !tutorId.isEmpty()) {
+            boolean isValidTier = recommendTier.matches("^[ABCD]$");
+
+            if (!isValidTier) {
+                out.println("<p>올바른 추천 티어를 입력하세요 (A, B, C, D).</p>");
+            } else if (tutorId != null && !tutorId.isEmpty()) {
                 String insertQuery = SQLx.Insertx("TRAINING", new String[]{classId, dateTime, tutorId, recommendTier, subject, place, String.valueOf(maxNum), String.valueOf(wage), String.valueOf(costPerOne)});
                 PreparedStatement trainingPst = conn.prepareStatement(insertQuery);
                 int result = trainingPst.executeUpdate();
