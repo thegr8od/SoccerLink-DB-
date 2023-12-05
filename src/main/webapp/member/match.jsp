@@ -158,11 +158,12 @@
             <th>날짜/시간</th>
             <th>장소 이름</th>
             <th>현재 인원/최대 인원</th>
+            <th>평균 티어</th>
             <th>참가비</th>
             <th>신청</th>
         </tr>
         <%
-            String query = "SELECT M.*, F.ADDRESS, (SELECT COUNT(*) FROM MATCH_APP_MEMBER WHERE MATCH_ID = M.MATCH_ID) AS CURRENT_NUM FROM MATCH M INNER JOIN FIELD F ON M.PLACE_ID = F.FIELD_ID";
+            String query = "SELECT M.*, F.ADDRESS, (SELECT COUNT(*) FROM MATCH_APP_MEMBER WHERE MATCH_ID = M.MATCH_ID) AS CURRENT_NUM, MV.MATCH_TIER FROM MATCH M INNER JOIN FIELD F ON M.PLACE_ID = F.FIELD_ID LEFT JOIN MATCH_EVAL_VIEW MV ON M.MATCH_ID = MV.MATCH_ID";
             PreparedStatement pstmt = conn.prepareStatement(query);
             ResultSet matchResultSet = pstmt.executeQuery();
             while (matchResultSet.next()) {
@@ -172,7 +173,8 @@
                 int maxNum = matchResultSet.getInt(5);
                 int currentNum = matchResultSet.getInt(11);
                 double costPerOne = matchResultSet.getDouble(9);
-                String formattedCost = String.format("%.0f", costPerOne);// 참가비 정보를 가져옵니다.
+                String matchTier = matchResultSet.getString(12); // Retrieves the match tier
+                String formattedCost = String.format("%.0f", costPerOne);
                 boolean isFull = currentNum >= maxNum;
         %>
         <tr>
@@ -180,6 +182,7 @@
             <td><%= dateTime.toString() %></td>
             <td><%= placeName %></td>
             <td><%= currentNum + "/" + maxNum %></td>
+            <td><%= matchTier %></td>
             <td><%= formattedCost %>원</td>
             <td>
         <% if (!isFull) { %>
