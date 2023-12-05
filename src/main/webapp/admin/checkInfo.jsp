@@ -100,7 +100,7 @@
             rscnt++;
         }
     }
-    else if (category.equals("Match")){
+     else if (category.equals("Match")){
         sql = SQLx.Selectx("*","MATCH NATURAL JOIN MATCH_EVAL_VIEW NATURAL JOIN " +
                         "(SELECT MATCH_ID, COUNT(MEMBER_ID) FROM MATCH_APP_MEMBER GROUP BY MATCH_ID)",
                 "ORDER BY DATE_TIME DESC");
