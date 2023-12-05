@@ -68,7 +68,6 @@
     </style>
 </head>
 <body>
-<body>
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
         <a class="navbar-brand" href="../index.jsp"><img src="../image/webLogo.png" style ="width: 200px"></a>
@@ -143,6 +142,7 @@
 
 <div class="container">
     <a href="viewMyTeam.jsp" class="btn btn-primary">View My Team</a>
+    <a href="makeTeam.jsp" class="btn btn-success" style="margin-left: 10px;">Create New Team</a>
     <a href="deleteMyTeam.jsp" class="btn btn-danger">Delete My Team</a>
     <h1>팀 목록 및 신청</h1>
 
