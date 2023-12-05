@@ -140,12 +140,13 @@
         String yob = "";
         String job = "";
         int prepaidMoney = 0;
+        String tier = ""; // 티어 정보를 저장할 변수
 
         if (userId != null) {
-            String query = "SELECT NAME, SEX, YOB, JOB, PREPAID_MONEY FROM USERS JOIN MEMBER ON USERS.ID_NUMBER = MEMBER.ID_NUMBER WHERE USERS.ID_NUMBER = ?";
-            PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, userId);
-            rs = pstmt.executeQuery();
+            String userInfoQuery = "SELECT NAME, SEX, YOB, JOB, PREPAID_MONEY FROM USERS JOIN MEMBER ON USERS.ID_NUMBER = MEMBER.ID_NUMBER WHERE USERS.ID_NUMBER = ?";
+            PreparedStatement userInfoPstmt = conn.prepareStatement(userInfoQuery);
+            userInfoPstmt.setString(1, userId);
+            rs = userInfoPstmt.executeQuery();
 
             if (rs.next()) {
                 name = rs.getString(1);
@@ -154,8 +155,21 @@
                 job = rs.getString(4);
                 prepaidMoney = rs.getInt(5);
             }
+
+            // 사용자의 평균 티어를 조회하는 쿼리
+            String tierQuery = "SELECT TIER FROM MEMBER_EVAL_VIEW WHERE MEM_ID = ?";
+            PreparedStatement tierPstmt = conn.prepareStatement(tierQuery);
+            tierPstmt.setString(1, userId);
+            ResultSet tierRs = tierPstmt.executeQuery();
+
+            if (tierRs.next()) {
+                tier = tierRs.getString("TIER"); // 티어 정보 저장
+            }
+
             rs.close();
-            pstmt.close();
+            userInfoPstmt.close();
+            tierRs.close();
+            tierPstmt.close();
         }
     %>
 
@@ -166,6 +180,7 @@
             <p class="card-text">생년월일: <%= yob %></p>
             <p class="card-text">직업: <%= job %></p>
             <p class="card-text">충전된 금액: <%= prepaidMoney %>원</p>
+            <p class="card-text">티어: <%= tier %></p> <!-- 티어 정보를 표시 -->
         </div>
     </div>
 
