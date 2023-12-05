@@ -61,10 +61,6 @@
     .table th {
       background-color: #f2f2f2;
     }
-
-    form {
-      display: inline;
-    }
   </style>
 </head>
 <body>
@@ -142,69 +138,55 @@
 
 <div class="container">
   <h1>내 매치</h1>
-  <%
-    String userId = (String) session.getAttribute(SessionConst.USER);
-    String selectQuery = SQLx.Selectx(
-            "M.MATCH_ID, M.DATE_TIME, F.ADDRESS, M.TYPE, M.MAX_NUM, M.WAGE, M.COST_PER_ONE",
-            "MATCH M INNER JOIN FIELD F ON M.PLACE_ID = F.FIELD_ID",
-            "M.MATCH_ID IN (SELECT MATCH_ID FROM MATCH_APP_MEMBER WHERE MEMBER_ID = ?)",
-            "");
-
-    try {
-      PreparedStatement selectPstmt = conn.prepareStatement(selectQuery);
-      selectPstmt.setString(1, userId);
-      rs = selectPstmt.executeQuery();
-
-      if (rs.next()) {
-  %>
-  <!-- 내 매치를 표시할 테이블 생성 -->
-  <table>
+  <table class="table table-hover">
+    <thead>
     <tr>
       <th>매치 ID</th>
       <th>날짜/시간</th>
       <th>장소 이름</th>
       <th>유형</th>
-      <th>참가 인원</th>
-      <th>급여</th>
-      <th>인당 비용</th>
+      <th>현재 인원/최대 인원</th>
     </tr>
+    </thead>
+    <tbody>
     <%
-      do {
-        String matchId = rs.getString(1);
-        Timestamp dateTime = rs.getTimestamp(2);
-        String placeName = rs.getString(3);
-        String type = rs.getString(4);
-        int maxNum = rs.getInt(5);
-        double wage = rs.getDouble(6);
-        String formattedCost1 = String.format("%.0f", wage);
-        double costPerOne = rs.getDouble(7);
-        String formattedCost2 = String.format("%.0f", costPerOne);
+      String userId = (String) session.getAttribute(SessionConst.USER);
+      String selectQuery = "SELECT M.MATCH_ID, M.DATE_TIME, F.ADDRESS, M.TYPE, M.MAX_NUM, (SELECT COUNT(*) FROM MATCH_APP_MEMBER WHERE MATCH_ID = M.MATCH_ID) AS CURRENT_NUM FROM MATCH M INNER JOIN FIELD F ON M.PLACE_ID = F.FIELD_ID WHERE M.MATCH_ID IN (SELECT MATCH_ID FROM MATCH_APP_MEMBER WHERE MEMBER_ID = ?)";
+
+      try {
+        PreparedStatement selectPstmt = conn.prepareStatement(selectQuery);
+        selectPstmt.setString(1, userId);
+        rs = selectPstmt.executeQuery();
+
+        while (rs.next()) {
+          String matchId = rs.getString(1);
+          Timestamp dateTime = rs.getTimestamp(2);
+          String placeName = rs.getString(3);
+          String type = rs.getString(4);
+          int maxNum = rs.getInt(5);
+          int currentNum = rs.getInt(6);
     %>
     <tr>
       <td><%= matchId %></td>
       <td><%= dateTime.toString() %></td>
       <td><%= placeName %></td>
       <td><%= type %></td>
-      <td><%= maxNum %></td>
-      <td><%= formattedCost1 %>원</td>
-      <td><%= formattedCost2 %>원</td>
+      <td><%= currentNum + "/" + maxNum %></td>
     </tr>
     <%
-      } while (rs.next());
-    %>
-  </table>
-  <%
-      } else {
-        out.println("<p>참가한 매치가 없습니다.</p>");
+        }
+        rs.close();
+        selectPstmt.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
       }
-      rs.close();
-      selectPstmt.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  %>
+    %>
+    </tbody>
   </table>
   <a href="match.jsp" class="btn btn-primary">뒤로 가기</a>
 </div>
+
+</body>
+</html>
 </body>
 </html>
