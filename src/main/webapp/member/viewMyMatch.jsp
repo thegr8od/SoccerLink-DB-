@@ -23,14 +23,12 @@
       margin-top: 20px;
     }
 
-    .navbar {
+    .card {
       background-color: #fff;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .navbar-brand img {
-      width: 200px;
-      margin-top: 10px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      margin-top: 20px;
+      transition: transform 0.3s ease-in-out;
     }
 
     .btn {
@@ -49,19 +47,23 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
-    table {
+    .table {
       width: 100%;
       border-collapse: collapse;
     }
 
-    table, th, td {
+    .table th, .table td {
       border: 1px solid #ddd;
       padding: 8px;
       text-align: left;
     }
 
-    th {
+    .table th {
       background-color: #f2f2f2;
+    }
+
+    form {
+      display: inline;
     }
   </style>
 </head>
