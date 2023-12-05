@@ -7,6 +7,7 @@
 <html>
 <head>
     <title>팀 삭제</title>   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body, html {
@@ -17,18 +18,32 @@
             color: #333;
         }
 
-        .navbar {
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar-brand img {
-            width: 200px;
-            margin-top: 10px;
-        }
-
         .container {
             margin-top: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .btn {
+            background-color: #fff;
+            color: #333;
+            border: 1px solid #333;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .btn:hover, .btn:focus {
+            background-color: #ccc;
+            color: #333;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .table {
@@ -46,8 +61,8 @@
             background-color: #f2f2f2;
         }
 
-        .btn {
-            margin: 5px;
+        form {
+            display: inline;
         }
     </style>
 </head>
