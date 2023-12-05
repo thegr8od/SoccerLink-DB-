@@ -61,18 +61,8 @@
             background-color: #f2f2f2;
         }
 
-        .apply-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            border: 1px solid #333;
-            border-radius: 5px;
-            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-
-        .apply-btn:hover, .apply-btn:focus {
-            background-color: #ccc;
-            color: #333;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        form {
+            display: inline;
         }
     </style>
 </head>
