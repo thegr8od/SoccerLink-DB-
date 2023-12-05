@@ -1,0 +1,4 @@
+Repository link : https://github.com/eutopia115/DB_Project
+Contributors Graph : https://github.com/eutopia115/DB_Project/graphs/contributors
+
+eutopia115 = 서동혁 / HwangDuYoung = 황두영 / thegr8od = 김승준

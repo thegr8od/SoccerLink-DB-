@@ -1,12 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="java.util.Random" %>
 <%@ page import="classes.SQLx" %>
-<%@ page import="classes.SessionConst" %>
 <%@ include file="../common/dbconn.jsp" %>
+<%@ page import="classes.SessionConst" %>
 
 <html>
 <head>
-    <title>내 트레이닝 보기</title>
+    <title>새 팀 만들기</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -46,27 +47,32 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .table {
+        label {
+            font-weight: bold;
+        }
+
+        input[type="date"],
+        input[type="text"],
+        input[type="number"] {
             width: 100%;
-            border-collapse: collapse;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
 
-        .table th, .table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
+        input[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
         }
 
-        .table th {
-            background-color: #f2f2f2;
-        }
-
-        form {
-            display: inline;
+        input[type="submit"]:hover {
+            background-color: #555;
         }
     </style>
 </head>
-<body>
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
         <a class="navbar-brand" href="../index.jsp"><img src="../image/webLogo.png" style ="width: 200px"></a>
@@ -139,37 +145,37 @@
 </nav>
 <hr>
 <div class="container">
-    <h1>내 트레이닝 목록</h1>
-    <table class="table">
-        <tr>
-            <th>트레이닝 ID</th>
-            <th>날짜/시간</th>
-            <th>주제</th>
-            <th>강사</th>
-        </tr>
-        <%
-            String userId = (String) session.getAttribute(SessionConst.USER);
-            String query = "SELECT T.CLASS_ID, T.DATE_TIME, T.SUBJECT, U.NAME FROM TRAINING T INNER JOIN TRAIN_ENROLLS E ON T.CLASS_ID = E.CLASS_ID INNER JOIN USERS U ON T.TUTOR_ID = U.ID_NUMBER WHERE E.TUTEE_ID = ?";
-            PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, userId);
-            rs = pstmt.executeQuery();
-            while (rs.next()) {
-                String classId = rs.getString(1);
-                Timestamp dateTime = rs.getTimestamp(2);
-                String subject = rs.getString(3);
-                String tutorName = rs.getString(4);
-        %>
-        <tr>
-            <td><%= classId %></td>
-            <td><%= dateTime.toString() %></td>
-            <td><%= subject %></td>
-            <td><%= tutorName %></td>
-        </tr>
-        <%
-            }
-        %>
-    </table>
-    <a href="training.jsp" class="btn btn-primary">돌아가기</a>
+    <h1>새 팀 만들기</h1>
+    <form action="makeTeam.jsp" method="post">
+        <div class="mb-3">
+            <label for="teamName" class="form-label">팀 이름</label>
+            <input type="text" class="form-control" id="teamName" name="teamName" required>
+        </div>
+        <button type="submit" class="btn btn-primary">팀 만들기</button>
+    </form>
+    <a href="team.jsp" class="btn btn-secondary">돌아가기</a>
 </div>
+
+<%
+    if(request.getMethod().equals("POST")) {
+        String teamName = request.getParameter("teamName");
+        // 팀 ID 생성 (예시: 고유한 값을 기반으로 생성)
+        Random rand = new Random();
+        String teamId = "T" + (100 + rand.nextInt(900)) + "-" + (10 + rand.nextInt(90)) + "-" + (1000 + rand.nextInt(9000));
+
+        // 데이터베이스에 팀 추가
+        String[] data = {teamId, teamName};
+        String sql = SQLx.Insertx("TEAM", data);
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
+            out.println("<script>alert('팀이 성공적으로 생성되었습니다. 팀 ID: " + teamId + "'); location.href='team.jsp';</script>");
+        } catch (SQLException e) {
+            out.println("<script>alert('팀 생성에 실패하였습니다.');</script>");
+            e.printStackTrace();
+        }
+    }
+%>
+
 </body>
 </html>

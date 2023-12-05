@@ -6,7 +6,7 @@
 
 <html>
 <head>
-    <title>팀 삭제</title>
+    <title>팀 삭제</title>   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -59,6 +59,10 @@
 
         .table th {
             background-color: #f2f2f2;
+        }
+
+        form {
+            display: inline;
         }
     </style>
 </head>
@@ -180,7 +184,7 @@
                 }
             %>
         </table>
-        <input type="submit" value="팀 삭제" class="btn btn-primary">
+        <input type="submit" value="팀 삭제" class="btn btn-danger">
     </form>
     <a href="team.jsp" class="btn btn-primary">뒤로 가기</a>
 </div>

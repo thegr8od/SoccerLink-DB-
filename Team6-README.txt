@@ -63,50 +63,50 @@
   - SQLx.java : 쿼리문을 직접 작성하지 않아도 되도록, Parameter만 전달하면 SQL문을 String 형태로 return 하는 class
   - SessionConst : jsp에서 이용하는 상수들이 포함된 Class
   - MatchDto : Match를 조회하는 데 쓰이는 자료구조가 포함된 Class
-    
+
 **include Page**
   - dbconn.jsp : Oracle DB에 연결하는 페이지로, SQL을 이용하는 jsp에 include되어 DB를 가동합니다.
-    
-**1. 메인 화면** 
+
+**1. 메인 화면**
   - 1-1. Main page (index.jsp): SoccerLink Web의 메인페이지로, 로그인 화면으로 이동이 가능합니다. 또한 로그인을 하지 않아도 날짜와 Match/Training을 고르면 그 날짜에 개설된 Match/Training을 확인가능합니다.
-    
-**2. 로그인** 
+
+**2. 로그인**
   - 2-1. Log in screen (/common/login.jsp): 로그인 화면입니다. Member/Manager/Admin으로 로그인이 가능하며, 회원가입 화면으로 Redirect할 수 있는 Button이 있습니다.
   - 2-2. Log in process (/common/logInProc.jsp): Member/Manager/Admin을 구분해 Log in하여 웹에 접속하도록 합니다.
   - 2-3. Log out Process (/common/logInProc.jsp): 버튼을 누르면 invalidate를 통해 Log out하고 메인 화면으로 Redirect합니다.
-    
+
 **3. 회원가입/탈퇴**
   - 3-1. Sign Up Screen (/common/signUp.jsp): 회원가입 화면입니다. Member/Manager를 구분하여 회원가입에 필요한 정보를 입력받습니다.
   - 3-2. Sign Up Process (/common/signUpProc.jsp): 회원가입 화면에서 post된 정보를 Users/Member/Manager table에 삽입합니다.
   - 3-3. Secession Process (/common/sessionProc.jsp): 버튼을 눌러 탈퇴의사를 재확인하고, 확인될 시에 접속하고 있는 USER를 table에서 delete합니다.
-   
+
 **4. Admin**
   - 4-1. 메인 화면
     - 4-1-1. Admin Screen (/admin/admin.jsp): 관리자 모드의 메인 화면입니다. 각 메뉴로 이동할 수 있습니다.
   - 4-2. Users 메뉴 : Delete만 가능, User 정보 Update 및 Insert는 각각 Member/Manager Mypage와 SignUp을 통해 가능합니다.
-    - 4-2-1. User Management Screen (/admin/userMod.jsp): Users table 관리 메인 화면입니다. 
+    - 4-2-1. User Management Screen (/admin/userMod.jsp): Users table 관리 메인 화면입니다.
     - 4-2-2. User Delete Process (/admin/proc/user/delete.jsp): primary key를 입력받아 target user를 DB에서 삭제합니다.
   - 4-3. Team 메뉴 : Update/Delete 가능, Team은 Member의 makeTeam를 통해 가능합니다.
-    - 4-3-1. Team Management Screen (/admin/teamMod.jsp): Team table 관리 메인 화면입니다. 
+    - 4-3-1. Team Management Screen (/admin/teamMod.jsp): Team table 관리 메인 화면입니다.
     - 4-3-2. Team Delete Process (/admin/proc/team/delete.jsp): primary key를 입력받아 target user를 DB에서 삭제합니다.
     - 4-3-3. Team Update Process (/admin/proc/team/update.jsp): primary key를 입력, target attribute를 선택하고 new value를 입력하여 tuple을 update합니다.
   - 4-4. Owner 메뉴
-    - 4-4-1. Owner Management Screen (/admin/ownerMod.jsp): Owner table 관리 메인 화면입니다. 
+    - 4-4-1. Owner Management Screen (/admin/ownerMod.jsp): Owner table 관리 메인 화면입니다.
     - 4-4-2. Owner Delete Process (/admin/proc/owner/delete.jsp): primary key를 입력받아 target user를 DB에서 삭제합니다.
-    - 4-4-3. Owner Update Process (/admin/proc/owner/update.jsp): primary key를 입력, target attribute를 선택하고 new value를 입력하여 tuple을 update합니다. 
+    - 4-4-3. Owner Update Process (/admin/proc/owner/update.jsp): primary key를 입력, target attribute를 선택하고 new value를 입력하여 tuple을 update합니다.
     - 4-4-4. Owner Insert Process (/admin/proc/owner/insert.jsp): attribute별 value를 입력하여 DB에 record를 insert합니다.
   - 4-5. Field 메뉴
-    - 4-5-1. Field Management Screen (/admin/fieldMod.jsp): Owner table 관리 메인 화면입니다. 
+    - 4-5-1. Field Management Screen (/admin/fieldMod.jsp): Owner table 관리 메인 화면입니다.
     - 4-5-2. Field Delete Process (/admin/proc/field/delete.jsp): primary key를 입력받아 target user를 DB에서 삭제합니다.
-    - 4-5-3. Field Update Process (/admin/proc/field/update.jsp): primary key를 입력, target attribute를 선택하고 new value를 입력하여 tuple을 update합니다. 
+    - 4-5-3. Field Update Process (/admin/proc/field/update.jsp): primary key를 입력, target attribute를 선택하고 new value를 입력하여 tuple을 update합니다.
     - 4-5-4. Field Insert Process (/admin/proc/field/insert.jsp): attribute별 value를 입력하여 DB에 record를 insert합니다.
   - 4-6. Match 메뉴
-    - 4-6-1. Match Management Screen (/admin/matchMod.jsp): Owner table 관리 메인 화면입니다. 
+    - 4-6-1. Match Management Screen (/admin/matchMod.jsp): Owner table 관리 메인 화면입니다.
     - 4-6-2. Match Delete Process (/admin/proc/match/delete.jsp): primary key를 입력받아 target user를 DB에서 삭제합니다.
-    - 4-6-3. Match Update Process (/admin/proc/match/update.jsp): primary key를 입력, target attribute를 선택하고 new value를 입력하여 tuple을 update합니다. 
+    - 4-6-3. Match Update Process (/admin/proc/match/update.jsp): primary key를 입력, target attribute를 선택하고 new value를 입력하여 tuple을 update합니다.
     - 4-6-4. Match Insert Process (/admin/proc/match/insert.jsp): attribute별 value를 입력하여 DB에 record를 insert합니다.
   - 4-7. Training 메뉴 : Update/Delete 가능, Team은 Member의 makeTrain를 통해 가능합니다.
-    - 4-7-1. Training Management Screen (/admin/trainMod.jsp): Team table 관리 메인 화면입니다. 
+    - 4-7-1. Training Management Screen (/admin/trainMod.jsp): Team table 관리 메인 화면입니다.
     - 4-7-2. Training Delete Process (/admin/proc/train/delete.jsp): primary key를 입력받아 target user를 DB에서 삭제합니다.
     - 4-7-3. Training Update Process (/admin/proc/train/update.jsp): primary key를 입력, target attribute를 선택하고 new value를 입력하여 tuple을 update합니다.
   - 4-8. 필요한 정보 조회
@@ -149,7 +149,7 @@
     - 5-5-2. Member Evlauate Process (/mana/proc/memberEvalProc.jsp): 페이지에서 Post된 정보를 바탕으로 Man_Eval_Mem table을 update하거나, insert합니다.
 
 **Design** : 이미지 파일, jsp 내부 태그 등을 이용하여 구현함.
-  
+
 
 
 

@@ -1,12 +1,20 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: 김승준
+  Date: 2023-12-05
+  Time: 오전 9:08
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="classes.SQLx" %>
 <%@ page import="classes.SessionConst" %>
 <%@ include file="../common/dbconn.jsp" %>
 
+<!DOCTYPE html>
 <html>
 <head>
-    <title>내 트레이닝 보기</title>
+    <title>내 트레이닝 취소</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -138,38 +146,69 @@
     </div>
 </nav>
 <hr>
+
 <div class="container">
-    <h1>내 트레이닝 목록</h1>
-    <table class="table">
-        <tr>
-            <th>트레이닝 ID</th>
-            <th>날짜/시간</th>
-            <th>주제</th>
-            <th>강사</th>
-        </tr>
-        <%
-            String userId = (String) session.getAttribute(SessionConst.USER);
-            String query = "SELECT T.CLASS_ID, T.DATE_TIME, T.SUBJECT, U.NAME FROM TRAINING T INNER JOIN TRAIN_ENROLLS E ON T.CLASS_ID = E.CLASS_ID INNER JOIN USERS U ON T.TUTOR_ID = U.ID_NUMBER WHERE E.TUTEE_ID = ?";
-            PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, userId);
-            rs = pstmt.executeQuery();
-            while (rs.next()) {
-                String classId = rs.getString(1);
-                Timestamp dateTime = rs.getTimestamp(2);
-                String subject = rs.getString(3);
-                String tutorName = rs.getString(4);
-        %>
-        <tr>
-            <td><%= classId %></td>
-            <td><%= dateTime.toString() %></td>
-            <td><%= subject %></td>
-            <td><%= tutorName %></td>
-        </tr>
-        <%
-            }
-        %>
-    </table>
-    <a href="training.jsp" class="btn btn-primary">돌아가기</a>
+    <h1>내가 참가한 트레이닝</h1>
+    <form method="post">
+        <table class="table">
+            <tr>
+                <th>클래스 ID</th>
+                <th>선택</th>
+            </tr>
+            <%
+                String userId = (String) session.getAttribute(SessionConst.USER);
+                String selectedClassId = request.getParameter("selectedClassId");
+
+                if (selectedClassId != null && !selectedClassId.isEmpty()) {
+                    // 트레이닝 비용 조회
+                    String costQuery = SQLx.Selectx("COST_PER_ONE", "TRAINING", "CLASS_ID = '" + selectedClassId + "'", "");
+                    PreparedStatement costPstmt = conn.prepareStatement(costQuery);
+                    ResultSet costRs = costPstmt.executeQuery();
+                    double costPerOne = 0;
+
+                    if (costRs.next()) {
+                        costPerOne = costRs.getDouble("COST_PER_ONE");
+                    }
+
+                    // TRAIN_ENROLLS에서 선택된 트레이닝 기록 삭제
+                    String deleteQuery = SQLx.Deletex("TRAIN_ENROLLS", new String[]{selectedClassId, userId});
+                    PreparedStatement deletePstmt = conn.prepareStatement(deleteQuery);
+                    int deleteResult = deletePstmt.executeUpdate();
+
+                    if (deleteResult > 0) {
+                        // 사용자 잔액에 환불
+                        String updateMoneyQuery = "UPDATE MEMBER SET PREPAID_MONEY = PREPAID_MONEY + ? WHERE ID_NUMBER = ?";
+                        PreparedStatement updateMoneyPstmt = conn.prepareStatement(updateMoneyQuery);
+                        updateMoneyPstmt.setDouble(1, costPerOne);
+                        updateMoneyPstmt.setString(2, userId);
+                        updateMoneyPstmt.executeUpdate();
+
+                        out.println("<p>트레이닝 취소 및 환불이 완료되었습니다.</p>");
+                    } else {
+                        out.println("<p>트레이닝 취소에 실패했습니다.</p>");
+                    }
+                }
+
+                // 현재 참여 중인 트레이닝 목록 표시
+                String query = SQLx.Selectx("CLASS_ID", "TRAIN_ENROLLS", "TUTEE_ID = '" + userId + "'", "");
+                PreparedStatement pstmt = conn.prepareStatement(query);
+                rs = pstmt.executeQuery();
+
+                while (rs.next()) {
+                    String classId = rs.getString(1);
+            %>
+            <tr>
+                <td><%= classId %></td>
+                <td><input type="radio" name="selectedClassId" value="<%= classId %>"></td>
+            </tr>
+            <%
+                }
+            %>
+        </table>
+        <input type="submit" value="트레이닝 취소" class="btn btn-danger">
+    </form>
+    <a href="training.jsp" class="btn btn-primary">뒤로 가기</a>
 </div>
 </body>
 </html>
+
