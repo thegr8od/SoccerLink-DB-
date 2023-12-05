@@ -138,6 +138,8 @@
         if (checkEnrollmentRs.next()) {
             out.println("<p>이미 참가한 트레이닝입니다.</p>");
         } else {
+
+    if (userId != null && classId != null) {
         // 트레이닝 비용 조회
         String costQuery = SQLx.Selectx("COST_PER_ONE", "TRAINING", "CLASS_ID = '" + classId + "'", "");
         PreparedStatement costPstmt = conn.prepareStatement(costQuery);

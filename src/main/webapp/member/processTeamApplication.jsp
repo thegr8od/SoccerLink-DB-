@@ -140,7 +140,7 @@
                 out.println("<p>팀 신청에 실패하였습니다.</p>");
             }
         } catch (SQLException e) {
-            out.println("<p>오류 발생: " + e.getMessage() + "</p>");
+            out.println("이미 신청한 팀입니다. </p>");
         }
     %>
     <a href="team.jsp" class="btn btn-primary">뒤로 가기</a>
