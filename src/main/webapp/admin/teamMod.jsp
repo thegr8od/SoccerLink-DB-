@@ -30,7 +30,7 @@
                 <div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="attr" id="attr" value="Team_Name" required>
-                        <label class="form-check-label" for="attr">1</label>
+                        <label class="form-check-label" for="attr">팀명</label>
                     </div>
                 </div>
             </div>
