@@ -173,7 +173,9 @@
         String type = rs.getString(4);
         int maxNum = rs.getInt(5);
         double wage = rs.getDouble(6);
+        String formattedCost1 = String.format("%.0f", wage);
         double costPerOne = rs.getDouble(7);
+        String formattedCost2 = String.format("%.0f", costPerOne);
     %>
     <tr>
       <td><%= matchId %></td>
@@ -181,8 +183,8 @@
       <td><%= placeName %></td>
       <td><%= type %></td>
       <td><%= maxNum %></td>
-      <td><%= wage %></td>
-      <td><%= costPerOne %></td>
+      <td><%= formattedCost1 %>원</td>
+      <td><%= formattedCost2 %>원</td>
     </tr>
     <%
       } while (rs.next());

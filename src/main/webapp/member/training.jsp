@@ -14,8 +14,8 @@
         body, html {
             margin: 0;
             padding: 0;
-            background-color: #fff; /* 흰색 배경 적용 */
             font-family: 'Noto Sans KR', sans-serif;
+            background-color: #fff;
             color: #333;
         }
 
@@ -23,74 +23,65 @@
             margin-top: 20px;
         }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .card {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
             margin-top: 20px;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #f2f2f2;
+            transition: transform 0.3s ease-in-out;
         }
 
         .btn {
+            background-color: #fff;
+            color: #333;
+            border: 1px solid #333;
             padding: 10px 20px;
             margin: 5px;
             border-radius: 5px;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
 
-        .btn-primary {
-            background-color: #007bff;
-            color: #fff;
-            border: 1px solid #007bff;
+        .btn:hover, .btn:focus {
+            background-color: #ccc;
+            color: #333;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .btn-primary:hover, .btn-primary:focus {
-            background-color: #0056b3;
-            border: 1px solid #0056b3;
+        .table {
+            width: 100%;
+            border-collapse: collapse;
         }
 
-        .btn-danger {
-            background-color: #dc3545;
-            color: #fff;
-            border: 1px solid #dc3545;
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
         }
 
-        .btn-danger:hover, .btn-danger:focus {
-            background-color: #c82333;
-            border: 1px solid #c82333;
+        .table th {
+            background-color: #f2f2f2;
         }
 
-        .btn-secondary {
-            background-color: #6c757d;
-            color: #fff;
-            border: 1px solid #6c757d;
+        form {
+            display: inline;
+        }
+        .table {
+            border-collapse: collapse;
         }
 
-        .btn-secondary:hover, .btn-secondary:focus {
-            background-color: #545b62;
-            border: 1px solid #545b62;
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
         }
 
-        .navbar {
-            background-color: #fff; /* 흰색 배경 적용 */
-            padding: 10px 0;
-            margin-bottom: 20px;
+        .table th {
+            background-color: #f2f2f2;
         }
 
-        .navbar-brand img {
-            width: 200px;
-            margin-top: 10px;
+        /* 추가된 테이블 스타일 */
+        .table-hover tbody tr:hover {
+            background-color: #f5f5f5;
         }
     </style>
 </head>
@@ -166,11 +157,13 @@
     </div>
 </nav>
 <hr>
+
 <div class="container">
     <h1>트레이닝 목록</h1>
     <a href="viewMyTraining.jsp" class="btn btn-primary">View My Training</a>
     <a href="makeTrain.jsp" class="btn btn-danger">Make Training</a>
-    <table border="1">
+    <a href="deleteMyTraining.jsp" class="btn btn-danger">Delete My Training</a>
+    <table class="table table-hover">
         <tr>
             <th>트레이닝 ID</th>
             <th>날짜/시간</th>
@@ -189,6 +182,7 @@
                 int maxNum = trainingResultSet.getInt(7);
                 int currentNum = trainingResultSet.getInt(10);
                 double costPerOne = trainingResultSet.getDouble(9);
+                String formattedCost = String.format("%.0f", costPerOne);
                 boolean isFull = currentNum >= maxNum;
         %>
         <tr>
@@ -196,7 +190,7 @@
             <td><%= dateTime.toString() %></td>
             <td><%= subject %></td>
             <td><%= currentNum + "/" + maxNum %></td>
-            <td><%= costPerOne %>원</td>
+            <td><%= formattedCost %>원</td>
             <td>
                 <% if (!isFull) { %>
                 <form action="enrollTrain.jsp" method="post">

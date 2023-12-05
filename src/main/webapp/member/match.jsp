@@ -171,7 +171,8 @@
                 String placeName = matchResultSet.getString(10);
                 int maxNum = matchResultSet.getInt(5);
                 int currentNum = matchResultSet.getInt(11);
-                double costPerOne = matchResultSet.getDouble(9); // 참가비 정보를 가져옵니다.
+                double costPerOne = matchResultSet.getDouble(9);
+                String formattedCost = String.format("%.0f", costPerOne);// 참가비 정보를 가져옵니다.
                 boolean isFull = currentNum >= maxNum;
         %>
         <tr>
@@ -179,7 +180,7 @@
             <td><%= dateTime.toString() %></td>
             <td><%= placeName %></td>
             <td><%= currentNum + "/" + maxNum %></td>
-            <td><%= costPerOne %>원</td>
+            <td><%= formattedCost %>원</td>
             <td>
         <% if (!isFull) { %>
     <form action="matchApply.jsp" method="post">
