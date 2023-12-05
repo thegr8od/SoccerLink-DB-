@@ -33,7 +33,7 @@
 <%--    <input type="button" value="Team" name="2" onclick="location.href='teamMod.jsp'" style="font-size: 25pt; font-family: Arial serif; background-color: white; border-radius: 8px; border-color: grey"/>--%>
 <%--    <input type="button" value="Owner" name="3" onclick="location.href='ownerMod.jsp'" style="font-size: 25pt; font-family: Arial serif; background-color: white; border-radius: 8px; border-color:grey"/>--%>
 <%--    <input type="button" value="Field" name="4" onclick="location.href='fieldMod.jsp'" style="font-size: 25pt; font-family: Arial serif; background-color: white; border-radius: 8px; border-color: grey"/>--%>
-<%--    <input type="button" value="Match" name="5" onclick="location.href='matchMod.jsp'" style="font-size: 25pt; font-family: Arial serif; background-color: white; border-radius: 8px; border-color: grey"/>--%>
+<%--    <input type="button" value="Match" name="5" onclick="location.href='matchMod.jsp'" style="font-size:     25pt; font-family: Arial serif; background-color: white; border-radius: 8px; border-color: grey"/>--%>
 <%--    <input type="button" value="Training" name="6" onclick="location.href='trainMod.jsp'" style="font-size: 25pt; font-family: Arial serif; background-color: white; border-radius: 8px; border-color: grey"/>--%>
 <%--    <input type="button" value="Check Information" onclick="location.href='checkInfo.jsp'" style="font-size: 25pt; font-family: Arial serif; background-color: white; border-radius: 8px; border-color: grey"/>--%>
 <%--</div>--%>

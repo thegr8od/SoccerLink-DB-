@@ -2,6 +2,7 @@
 <%@ page import="classes.SQLx" %>
 <%@ page import="java.util.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="proc/loginCtrl.jsp"%>
 <html>
 <head>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" >
@@ -100,7 +101,7 @@
             rscnt++;
         }
     }
-    else if (category.equals("Match")){
+     else if (category.equals("Match")){
         sql = SQLx.Selectx("*","MATCH NATURAL JOIN MATCH_EVAL_VIEW NATURAL JOIN " +
                         "(SELECT MATCH_ID, COUNT(MEMBER_ID) FROM MATCH_APP_MEMBER GROUP BY MATCH_ID)",
                 "ORDER BY DATE_TIME DESC");
@@ -188,7 +189,7 @@
     <%
         }
     %>
-<%for (int i=0; i<=rscnt; i++) {%>
+<%for (int i=1; i<=rscnt; i++) {%>
     <%if(cnt == 5){%>
     <tr>
         <td><%= arr.get(i).get(0) %></td>

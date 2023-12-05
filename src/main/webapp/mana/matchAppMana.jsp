@@ -122,14 +122,41 @@
                 "WHERE M.manager_id = '"+(String)session.getAttribute(SessionConst.USER)+"'AND\n" +
                 "M.MATCH_ID IN (SELECT DISTINCT MATCH_ID\n" +
                 "FROM MATCH M1\n";
+        StringBuilder matchSb= new StringBuilder(matchSearch);
+        if(date!=null&&!date.equals("")) {
+            matchSb.append("WHERE M1.DATE_TIME = '" + date+"\'");
+        }
+        matchSb.append(") order by M.date_time desc");
+
+        pst = conn.prepareStatement(matchSb.toString());
+        rs = pst.executeQuery();
+        while(rs.next()){
+//            if(rs.getString(7) ==null || rs.getString(7).equals("null")){
+%>
+    <tr>
+        <td><%= rs.getString((1)) %></td>
+        <td><%= rs.getDate(2) %></td>
+        <td><%= rs.getString(10) %></td>
+        <td><%= rs.getString(11) %></td>
+        <td><%= rs.getString(4) %></td>
+        <td><%= rs.getInt(8) %>원</td>
+        <td>
+            <form action="proc/matchDeleteManaProc.jsp" method="post">
+                <input type="hidden" name="matchId" value="<%= rs.getString(1) %>">
+                <button type="submit" class="btn btn-sm btn-primary">신청취소</button>
+            </form>
+        </td>
+    </tr>
+    <%
+//            }
     }
+}
     else {
         matchSearch = "SELECT M.*, F.NAME,F.ADDRESS FROM MATCH M \n" +
             "INNER JOIN FIELD F ON M.PLACE_ID = F.FIELD_ID\n" +
             "WHERE M.MATCH_ID IN\n" +
             "(SELECT DISTINCT MATCH_ID\n" +
             "FROM MATCH M1\n";
-    }
     StringBuilder matchSb= new StringBuilder(matchSearch);
     if(date!=null&&!date.equals("")) {
         matchSb.append("WHERE M1.DATE_TIME = '" + date+"\'");
@@ -174,6 +201,7 @@
     <%
         }
     }
+}
 %>
 </table>
 
