@@ -1,4 +1,4 @@
-# DB_TERMPROJECT : SOCCERLINK
+# DB_TermProject : SOCCERLINK
 **TEAM6 : 김승준, 서동혁, 황두영**
   - Youtube Demo :
   - GitHub Repository : https://github.com/eutopia115/DB_Project
@@ -61,7 +61,7 @@
 # 설계 구현(소스코드 별 상세 설명)
 **imported Class**
   - SQLx.java : 쿼리문을 직접 작성하지 않아도 되도록, Parameter만 전달하면 SQL문을 String 형태로 return 하는 class
-  - SessionConst : jsp에서 이용하는 상수들이 포함된 Class
+  - SessionConst : 로그인 하지 않고 바로 이후 url로 이동할 시에 세션 만료 메시지를 띄우기 위한 세션 상수를 저장하는 클래스
   - MatchDto : Match를 조회하는 데 쓰이는 자료구조가 포함된 Class
     
 **include Page**
@@ -128,12 +128,14 @@
     - 5-5-1. Training list (/member/training.jsp): 제공되는 모든 트레이닝 프로그램의 목록을 보여줍니다.
     - 5-5-2. My training (/member/viewMyTraining.jsp): 멤버가 등록한 트레이닝 프로그램의 목록으로, 개인별 맞춤 트레이닝 일정을 관리할 수 있습니다.
     - 5-5-3. Training enroll (/member/nrollTrain.jsp): 새로운 트레이닝 프로그램에 참가 신청을 할 수 있습니다. 트레이닝에 필요한 금액만큼 멤버의 잔액이 차감됩니다.
-    - 5-5-4. Training make (/member/makeTrain.jsp): 멤버가 자신만의 트레이닝 프로그램을 설계하고 만들 수 있는 기능입니다. 이를통해 멤버에게 레슨을 제공할 수 있습니다.
+    - 5-5-4. Team delete (/member/deleteMyTraining.jsp): 자기가 신청한 트레이닝을 취소하고, enroll에서 차감된 만큼의 잔액을 돌려받을 수 있습니다.
+    - 5-5-5. Training make (/member/makeTrain.jsp): 멤버가 자신만의 트레이닝 프로그램을 설계하고 만들 수 있는 기능입니다. 이를통해 멤버에게 레슨을 제공할 수 있습니다.
   - 5-6. 팀 관련 기능
     - 5-6-1. Team list (/member/team.jsp): 등록된 모든 팀의 목록을 보여주며, 멤버는 다양한 팀을 탐색하고 정보를 얻을 수 있습니다.
     - 5-6-2. My team (/member/viewMyTeam.jsp): 멤버가 속한 팀의 정보를 보여줍니다.
     - 5-6-3. Team enroll (/member/processTeamApplication.jsp): 새로운 팀에 가입 신청을 할 수 있습니다.
     - 5-6-4. Team delete (/member/deleteMyTeam.jsp): 멤버가 속한 팀을 탈퇴할 수 있습니다.
+    - 5-6-5. Team make (/member/makeTeam.jsp): 팀을 새로 만들 수 있습니다.
 
 **6. Manager**
   - 5-1. 마이페이지 기능
