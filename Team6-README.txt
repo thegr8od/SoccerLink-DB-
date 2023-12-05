@@ -142,11 +142,12 @@
     - 5-2-1. Change Info (/mana/changeInfo.jsp): 매니저가 자신의 개인 정보를 수정할 수 있는 페이지입니다. 이 페이지를 통해 매니저는 이름, 직업, 생년월일, 계좌번호 등의 정보를 최신 상태로 유지할 수 있습니다.
     - 5-2-2. Change Info Process (/mana/proc/changeManaInfoProc.jsp): 페이지에서 Post된 정보를 바탕으로 접속된 ID_Number를 key로 가지는 tuple을 update합니다.
   - 5-3. 경기 관련 기능
-    - 5-3-1. Match Apply (/mana/matchAppMana.jsp): 모든 경기의 목록을 보여주며, 매니저는 다가오는 경기들에 대한 정보를 확인해 매치의 매니저로 apply할 수 있습니다.
-    - 5-3-2. Match Apply Process (/mana/proc/matchAppManaProc.jsp): 페이지에서 클릭한 Match_ID를 확인하여 Match tuple의 manager attribute에 ID_Number를 update합니다
+    - 5-3-1. Match Apply (/mana/matchAppMana.jsp): 모든 경기의 목록과 자신이 매치 매니저로 속한 목록을 보여주는 기능을 제공하며, 매니저는 다가오는 경기들에 대한 정보를 확인해 매치의 매니저로 apply하거나 cancel할 수 있습니다.
+    - 5-3-2. Match Apply Process (/mana/proc/matchAppManaProc.jsp): 페이지에서 클릭한 Match_ID를 확인하여 Match tuple의 manager attribute에 Manager ID_Number를 update합니다
+    - 5-3-3. Match Cacel Process (/mana/proc/matchDeleteManaProc.jsp):자신이 매치 매니저로 속한 목록에서 Match_ID를 확인하여 Match tuple의 manager attribute에 Manager ID_Number를 null로 update합니다
   - 5-4. 평가 관련 기능
-    - 5-5-1. Member Evlauate (/mana/memberEval.jsp): 매니저로 참가한 경기에 참가한 멤버들의 정보를 보여주고, 티어를 평가합니다.
-    - 5-5-2. Member Evlauate Process (/mana/proc/memberEvalProc.jsp): 페이지에서 Post된 정보를 바탕으로 Man_Eval_Mem table을 update하거나, insert합니다.
+    - 5-4-1. Member Evlauate (/mana/memberEval.jsp): 매니저로 참가한 경기에 참가한 멤버들의 정보를 보여주고, 티어를 평가합니다.
+    - 5-4-2. Member Evlauate Process (/mana/proc/memberEvalProc.jsp): 페이지에서 Post된 정보를 바탕으로 Man_Eval_Mem table을 update하거나, insert합니다.
 
 **Design** : 이미지 파일, jsp 내부 태그 등을 이용하여 구현함.
 
