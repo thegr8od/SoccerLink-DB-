@@ -59,6 +59,15 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-end">
                     <%
                         String user = (String) session.getAttribute(SessionConst.USER);
+                        if(user == null || user.equals("")){
+                    %>
+                    <script>
+                        alert("세션이 만료되었습니다.");
+                        window.location.href = "../common/login.jsp";
+                    </script>
+                    <%
+                            return; // 페이지의 나머지 처리를 중단
+                        }
                         if(user==null){
 
                     %>
@@ -143,23 +152,38 @@
                 costPerOne = costRs.getDouble("COST_PER_ONE");
             }
 
-            // 사용자 잔액 차감
-            String updateMoneyQuery = "UPDATE MEMBER SET PREPAID_MONEY = PREPAID_MONEY - ? WHERE ID_NUMBER = ?";
-            PreparedStatement updateMoneyPstmt = conn.prepareStatement(updateMoneyQuery);
-            updateMoneyPstmt.setDouble(1, costPerOne);
-            updateMoneyPstmt.setString(2, userId);
-            int moneyUpdateResult = updateMoneyPstmt.executeUpdate();
+            // 사용자의 현재 잔액 확인
+            String balanceQuery = SQLx.Selectx("PREPAID_MONEY", "MEMBER", "ID_NUMBER = '" + userId + "'", "");
+            PreparedStatement balancePstmt = conn.prepareStatement(balanceQuery);
+            ResultSet balanceRs = balancePstmt.executeQuery();
+            double currentBalance = 0;
 
-            if (moneyUpdateResult > 0) {
-                // TRAIN_ENROLLS에 신청 데이터 추가
-                String enrollQuery = SQLx.Insertx("TRAIN_ENROLLS", new String[]{classId, userId});
-                PreparedStatement enrollPstmt = conn.prepareStatement(enrollQuery);
-                int enrollResult = enrollPstmt.executeUpdate();
+            if (balanceRs.next()) {
+                currentBalance = balanceRs.getDouble("PREPAID_MONEY");
+            }
 
-                if (enrollResult > 0) {
-                    out.println("<p>트레이닝 신청이 완료되었습니다.</p>");
+            // 잔액 확인 후 처리
+            if (currentBalance >= costPerOne) {
+                // 사용자 잔액 차감
+                String updateMoneyQuery = "UPDATE MEMBER SET PREPAID_MONEY = PREPAID_MONEY - ? WHERE ID_NUMBER = ?";
+                PreparedStatement updateMoneyPstmt = conn.prepareStatement(updateMoneyQuery);
+                updateMoneyPstmt.setDouble(1, costPerOne);
+                updateMoneyPstmt.setString(2, userId);
+                int moneyUpdateResult = updateMoneyPstmt.executeUpdate();
+
+                if (moneyUpdateResult > 0) {
+                    // TRAIN_ENROLLS에 신청 데이터 추가
+                    String enrollQuery = SQLx.Insertx("TRAIN_ENROLLS", new String[]{classId, userId});
+                    PreparedStatement enrollPstmt = conn.prepareStatement(enrollQuery);
+                    int enrollResult = enrollPstmt.executeUpdate();
+
+                    if (enrollResult > 0) {
+                        out.println("<p>트레이닝 신청이 완료되었습니다.</p>");
+                    } else {
+                        out.println("<p>트레이닝 신청에 실패했습니다.</p>");
+                    }
                 } else {
-                    out.println("<p>트레이닝 신청에 실패했습니다.</p>");
+                    out.println("<p>트레이닝 신청 중 오류가 발생했습니다.</p>");
                 }
             } else {
                 out.println("<p>잔액이 부족합니다.</p>");

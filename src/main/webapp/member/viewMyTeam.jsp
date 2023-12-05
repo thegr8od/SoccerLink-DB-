@@ -73,6 +73,15 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-end">
                     <%
                         String user = (String) session.getAttribute(SessionConst.USER);
+                        if(user == null || user.equals("")){
+                    %>
+                    <script>
+                        alert("세션이 만료되었습니다.");
+                        window.location.href = "../common/login.jsp";
+                    </script>
+                    <%
+                            return; // 페이지의 나머지 처리를 중단
+                        }
                         if(user==null){
 
                     %>
@@ -145,6 +154,7 @@
         </tr>
         <%
             String userId = (String) session.getAttribute(SessionConst.USER);
+
             // SQLx.Selectx를 사용하지 않고 직접 SQL 문 작성
             String query = "SELECT T.TEAM_ID, T.TEAM_NAME, TEV.TEAM_TIER FROM TEAM_MEM TM INNER JOIN TEAM T ON TM.TEAM_ID = T.TEAM_ID LEFT JOIN TEAM_EVAL_VIEW TEV ON T.TEAM_ID = TEV.TEAM_ID WHERE TM.MEM_ID = ?";
             PreparedStatement pstmt = conn.prepareStatement(query);

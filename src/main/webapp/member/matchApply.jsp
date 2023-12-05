@@ -6,7 +6,17 @@
 
 <%
     // 현재 세션에서 사용자 ID 가져오기
-    String userId = (String) session.getAttribute(SessionConst.USER);
+    String user = (String) session.getAttribute(SessionConst.USER);
+    if(user == null || user.equals("")){
+%>
+<script>
+    alert("세션이 만료되었습니다.");
+    window.location.href = "../common/login.jsp";
+</script>
+<%
+        return; // 페이지의 나머지 처리를 중단
+    }
+
     // 매치 ID 가져오기
     String matchId = request.getParameter("matchId");
 

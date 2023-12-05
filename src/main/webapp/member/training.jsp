@@ -96,6 +96,15 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-end">
                     <%
                         String user = (String) session.getAttribute(SessionConst.USER);
+                        if(user == null || user.equals("")){
+                    %>
+                    <script>
+                        alert("세션이 만료되었습니다.");
+                        window.location.href = "../common/login.jsp";
+                    </script>
+                    <%
+                            return; // 페이지의 나머지 처리를 중단
+                        }
                         if(user==null){
 
                     %>
