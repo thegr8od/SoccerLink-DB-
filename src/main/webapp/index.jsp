@@ -18,6 +18,10 @@
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" >
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <title>Soccer Link</title>
 </head>
 <body>
@@ -93,8 +97,19 @@
 </nav>
 <hr>
 </br>
+<div id="swiper-container-outer" class="d-flex align-items-center justify-content-start">
+    <div style="width:800px; overflow:hidden; margin:0 auto">
+    <div class="swiper-container" style = "width:100%; height:400px">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" style="background: url('image/slide2.png') center/cover; width: 800px; height: 400px; display: flex; justify-content: center; align-items: center;"></div>
+            <div class="swiper-slide" style="background: url('image/slide3.png') center/cover; width: 800px; height: 400px; display: flex; justify-content: center; align-items: center;"></div>
+            <div class="swiper-slide" style="background: url('image/slide1.png') center/cover; width: 800px; height: 400px; display: flex; justify-content: center; align-items: center;"></div>
+        </div>
+    </div>
+    </div>
+</div>
+<hr>
 <div class = "ms-3">
-    <h5>검색을 위해 Match 또는 Training을 선택하고 날짜를 선택해주세요.</h5>
     <div class="d-flex align-items-center justify-content-start">
         <form action="index.jsp" class="d-flex align-items-center">
             <fieldset class="d-flex align-items-center">
@@ -249,5 +264,32 @@
 </div>
 <form id="searchForm">
 </form>
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        let mySwiper = new Swiper('.swiper-container', {
+            slidesPerView: 'auto',
+            spaceBetween: 10,
+            loop: false,
+            pagination:"true",
+            paginationClickable:"true",
+            navigation:"true",
+            centeredSlides:"true",
+
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+        });
+    });
+
+    function onClickMagazine(magazineId) {
+        window.location.href=`/boards/${magazineId}?category=MAGAZINE`
+    }
+
+    function onClickProduct(productId) {
+        window.location.href=`/products/${productId}`
+    }
+</script>
 </body>
 </html>

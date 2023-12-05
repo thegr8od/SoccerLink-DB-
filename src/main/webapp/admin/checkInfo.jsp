@@ -4,35 +4,77 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Admin page - Check information</title>
-    <a href="../index.jsp">SoccerLink</a>
-    |
-    <a href="../common/logOutProc.jsp">LogOut</a>
-    |
-    <a href="admin.jsp">Back</a>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" >
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+        <style>
+            body, html {
+                margin: 0;
+                padding: 0;
+                font-family: 'Noto Sans KR', sans-serif;
+                background-color: #fff;
+                color: #333;
+            }
+
+            .container {
+                margin-top: 20px;
+            }
+
+            .card {
+                background-color: #fff;
+                border-radius: 15px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+                margin-top: 20px;
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .btn {
+                background-color: #fff;
+                color: #333;
+                border: 1px solid #333;
+                padding: 10px 20px;
+                margin: 5px;
+                border-radius: 5px;
+                transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            }
+
+            .btn:hover, .btn:focus {
+                background-color: #ccc;
+                color: #333;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            .table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            .table th, .table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+
+            .table th {
+                background-color: #f2f2f2;
+            }
+
+            .apply-btn {
+                display: inline-block;
+                padding: 10px 20px;
+                border: 1px solid #333;
+                border-radius: 5px;
+                transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            }
+
+            .apply-btn:hover, .apply-btn:focus {
+                background-color: #ccc;
+                color: #333;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+        </style>
 </head>
 <body>
-<br>
-<br>
-<div style="display:flex;justify-content: center;width: 100%;gap: 100px">
-<input type="button" value="User" name="1" onclick="location.href='userMod.jsp'" style="font-size: 25pt; font-family: Consolas serif; background-color: white; border-radius: 8px; border-color: grey"/>
-<input type="button" value="Team" name="2" onclick="location.href='teamMod.jsp'" style="font-size: 25pt; font-family: Consolas serif; background-color: white; border-radius: 8px; border-color: grey"/>
-<input type="button" value="Owner" name="3" onclick="location.href='ownerMod.jsp'" style="font-size: 25pt; font-family: Consolas serif; background-color: white; border-radius: 8px; border-color:grey"/>
-<input type="button" value="Field" name="4" onclick="location.href='fieldMod.jsp'" style="font-size: 25pt; font-family: Consolas serif; background-color: white; border-radius: 8px; border-color: grey"/>
-<input type="button" value="Match" name="5" onclick="location.href='matchMod.jsp'" style="font-size: 25pt; font-family: Consolas serif; background-color: white; border-radius: 8px; border-color: grey"/>
-<input type="button" value="Training" name="6" onclick="location.href='trainMod.jsp'" style="font-size: 25pt; font-family: Consolas serif; background-color: white; border-radius: 8px; border-color: grey"/>
-<input type="button" value="Check Information" onclick="location.href='checkInfo.jsp'" style="font-size: 25pt; font-family: Consolas serif; background-color: white; border-radius: 8px; border-color: grey"/>
-</div>
-<br>
-<div style="width: 80%; height: 1px; background-color: grey; margin: 0 auto"></div>
-<br>
-<div style="display:flex;justify-content: center;width: 100%;gap: 80px">
-    <div style="font-family: Arial serif; font-size: 20pt; font-style: italic">
-        Check Information : 조회할 정보를 클릭해 주세요.</div>
-<input type ="button" onclick="searchField()" value="Owner & Field" style="font-size: 20pt; font-family: Consolas serif; background-color: white; border-radius: 8px"/>
-<input type ="button" onclick="searchMatch()" value="Match" style="font-size: 20pt; font-family: Consolas serif; background-color: white; border-radius: 8px"/>
-<input type ="button" onclick="searchTrain()" value="Training" style="font-size: 20pt; font-family: Consolas serif; background-color: white; border-radius: 8px"/>
-</div>
+<jsp:include page="menu.jsp"/>
 <%
     String category = request.getParameter("category");
     LinkedList<LinkedList<String>> arr = new LinkedList<>();
@@ -42,7 +84,7 @@
     int cnt = 0;
     int rscnt = 0;
     if (category == null);
-    else if(category.equals("Owner & Field")){
+    else if(category.equals("Owner")){
         sql = SQLx.Selectx("*","FIELD");
         pst = conn.prepareStatement(sql);
         rs = pst.executeQuery();
@@ -102,137 +144,91 @@
     }
 %>
 <br>
+<table class="table">
+    <%if(cnt == 5){%>
+    <tr>
+        <th>구장 ID</th>
+        <th>구장명</th>
+        <th>구장 전화번호</th>
+        <th>소유주 전화번호</th>
+        <th>주소</th>
+    </tr>
+    <%}
+    if (cnt==10) {
+        %>
+    <tr>
+        <th>강의 ID</th>
+        <th>날짜</th>
+        <th>강사 ID</th>
+        <th>추천 티어</th>
+        <th>강의 주제</th>
+        <th>장소</th>
+        <th>최대 인원</th>
+        <th>수업 임금</th>
+        <th>1인당 수강 요금</th>
+        <th>학생 인원</th>
+    </tr>
+    <%
+    }
+    if (cnt==11) {
+    %>
+    <tr>
+        <th>경기 ID</th>
+        <th>날짜</th>
+        <th>구장 ID</th>
+        <th>경기 타입</th>
+        <th>최대 인원</th>
+        <th>성별 제한</th>
+        <th>매치 매니저 ID</th>
+        <th>매니저 임금</th>
+        <th>1인당 참가비</th>
+        <th>매치 티어</th>
+        <th>현재 인원</th>
+    </tr>
+    <%
+        }
+    %>
 <%for (int i=0; i<=rscnt; i++) {%>
-<div style="display:flex;justify-content: center;width: 100%;gap: 20px">
     <%if(cnt == 5){%>
-    <div style="float: left;width: 8%;">
-        <%out.print(arr.get(i).get(0));%>
-    </div>
-    <div style="float: left;width: 16%;">
-        <%out.print(arr.get(i).get(1));%>
-    </div>
-    <div style="float: left;width: 8%;">
-        <%out.print(arr.get(i).get(2));%>
-    </div>
-    <div style="float: left;width: 8%;">
-        <%out.print(arr.get(i).get(3));%>
-    </div>
-    <div style="float: left;width: 16%;">
-        <%out.print(arr.get(i).get(4));%>
-    </div>
+    <tr>
+        <td><%= arr.get(i).get(0) %></td>
+        <td><%= arr.get(i).get(1) %></td>
+        <td><%= arr.get(i).get(2) %></td>
+        <td><%= arr.get(i).get(3) %></td>
+        <td><%= arr.get(i).get(4) %></td>
+    </tr>
     <%}%>
     <%if(cnt == 11){%>
-    <div style="float: left;width: 8%;">
-        <%out.print(arr.get(i).get(0));%>
-    </div>
-    <div style="float: left;width: 8%;">
-        <%out.print(arr.get(i).get(1));%>
-    </div>
-    <div style="float: left;width: 8%;">
-        <%out.print(arr.get(i).get(2));%>
-    </div>
-    <div style="float: left;width: 4%;">
-        <%out.print(arr.get(i).get(3));%>
-    </div>
-    <div style="float: left;width: 4%;">
-        <%out.print(arr.get(i).get(4));%>
-    </div>
-    <div style="float: left;width: 7%;">
-        <%out.print(arr.get(i).get(5));%>
-    </div>
-    <div style="float: left;width: 8%;">
-        <%out.print(arr.get(i).get(6));%>
-    </div>
-    <div style="float: left;width: 6%;">
-        <%out.print(arr.get(i).get(7));%>
-    </div>
-    <div style="float: left;width: 6%;">
-        <%out.print(arr.get(i).get(8));%>
-    </div>
-    <div style="float: left;width: 6%;">
-        <%out.print(arr.get(i).get(9));%>
-    </div>
-    <div style="float: left;width: 6%;">
-        <%out.print(arr.get(i).get(10));%>
-    </div>
+    <tr>
+    <td><%= arr.get(i).get(0) %></td>
+    <td><%= arr.get(i).get(1) %></td>
+    <td><%= arr.get(i).get(2) %></td>
+    <td><%= arr.get(i).get(3) %></td>
+    <td><%= arr.get(i).get(4) %></td>
+    <td><%= arr.get(i).get(5) %></td>
+    <td><%= arr.get(i).get(6) %></td>
+    <td><%= arr.get(i).get(7) %></td>
+    <td><%= arr.get(i).get(8) %></td>
+    <td><%= arr.get(i).get(9) %></td>
+    <td><%= arr.get(i).get(10) %></td>
+    </tr>
     <%}%>
     <%if(cnt == 10){%>
-    <div style="float: left;width: 8%;">
-        <%out.print(arr.get(i).get(0));%>
-    </div>
-    <div style="float: left;width: 8%;">
-        <%out.print(arr.get(i).get(1));%>
-    </div>
-    <div style="float: left;width: 8%;">
-        <%out.print(arr.get(i).get(2));%>
-    </div>
-    <div style="float: left;width: 8%;">
-        <%out.print(arr.get(i).get(3));%>
-    </div>
-    <div style="float: left;width: 8%;">
-        <%out.print(arr.get(i).get(4));%>
-    </div>
-    <div style="float: left;width: 16%;">
-        <%out.print(arr.get(i).get(5));%>
-    </div>
-    <div style="float: left;width: 6%;">
-        <%out.print(arr.get(i).get(6));%>
-    </div>
-    <div style="float: left;width: 6%;">
-        <%out.print(arr.get(i).get(7));%>
-    </div>
-    <div style="float: left;width: 6%;">
-        <%out.print(arr.get(i).get(8));%>
-    </div>
-    <div style="float: left;width: 3%;">
-        <%out.print(arr.get(i).get(9));%>
-    </div>
-    <%}%>
-</div>
-    <%if(cnt == 5){%>
-    <div style="width: 62%; height: 1px; background-color: grey; margin: 0 auto">
-    <%}%>
-    <%if(cnt == 11){%>
-    <div style="width: 83%; height: 1px; background-color: grey; margin: 0 auto">
-    <%}%>
-    <%if(cnt == 10){%>
-    <div style="width: 88%; height: 1px; background-color: grey; margin: 0 auto">
-    <%}%>
-</div>
-<%}%>
-<form id="searchForm">
-</form>
-<script>
-    function searchField(){
-        const searchForm = document.querySelector("#searchForm");
-        var categoryInput = document.createElement('input');
-        categoryInput.type = 'text';
-        categoryInput.name = 'category';
-        categoryInput.value = 'Owner & Field';
-        searchForm.appendChild(categoryInput);
-        searchForm.action = "checkInfo.jsp";
-        searchForm.submit();
+    <tr>
+        <td><%= arr.get(i).get(0) %></td>
+        <td><%= arr.get(i).get(1) %></td>
+        <td><%= arr.get(i).get(2) %></td>
+        <td><%= arr.get(i).get(3) %></td>
+        <td><%= arr.get(i).get(4) %></td>
+        <td><%= arr.get(i).get(5) %></td>
+        <td><%= arr.get(i).get(6) %></td>
+        <td><%= arr.get(i).get(7) %></td>
+        <td><%= arr.get(i).get(8) %></td>
+        <td><%= arr.get(i).get(9) %></td>
+    </tr>
+    <%}
     }
-    function searchMatch(){
-        const searchForm = document.querySelector("#searchForm");
-        var categoryInput = document.createElement('input');
-        categoryInput.type = 'text';
-        categoryInput.name = 'category';
-        categoryInput.value = 'Match';
-        searchForm.appendChild(categoryInput);
-        searchForm.action = "checkInfo.jsp";
-        searchForm.submit();
-    }
-    function searchTrain(){
-        const searchForm = document.querySelector("#searchForm");
-        var categoryInput = document.createElement('input');
-        categoryInput.type = 'text';
-        categoryInput.name = 'category';
-        categoryInput.value = 'Training';
-        searchForm.appendChild(categoryInput);
-        searchForm.action = "checkInfo.jsp";
-        searchForm.submit();
-    }
-</script>
+%>
+</table>
 </body>
 </html>
