@@ -60,8 +60,8 @@
 
 # 설계 구현(소스코드 별 상세 설명)
 **imported Class**
-  - SQLx.java : 쿼리문을 직접 작성하지 않아도 되도록, Parameter만 전달하면 SQL문을 String 형태로 return 하는 class
-  - SessionConst : 로그인 하지 않고 바로 이후 url로 이동할 시에 세션 만료 메시지를 띄우기 위한 세션 상수를 저장하는 클래스
+  - SQLx.java : 쿼리문을 직접 작성하지 않아도 되도록, Parameter만 전달하면 SQL문을 String 형태로 return 하는 Class
+  - SessionConst : 로그인 하지 않고 바로 이후 url로 이동할 시에 세션 만료 메시지를 띄우기 위한 세션 상수를 저장하는 Class
   - MatchDto : Match를 조회하는 데 쓰이는 자료구조가 포함된 Class
     
 **include Page**
