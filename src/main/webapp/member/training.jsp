@@ -168,6 +168,7 @@
             <th>트레이닝 ID</th>
             <th>날짜/시간</th>
             <th>주제</th>
+            <th>추천 수준</th>
             <th>현재 인원/최대 인원</th>
             <th>비용</th>
             <th>신청</th>
@@ -179,6 +180,7 @@
                 String classId = trainingResultSet.getString(1);
                 Timestamp dateTime = trainingResultSet.getTimestamp(2);
                 String subject = trainingResultSet.getString(5);
+                String tier = trainingResultSet.getString(4);
                 int maxNum = trainingResultSet.getInt(7);
                 int currentNum = trainingResultSet.getInt(10);
                 double costPerOne = trainingResultSet.getDouble(9);
@@ -189,6 +191,7 @@
             <td><%= classId %></td>
             <td><%= dateTime.toString() %></td>
             <td><%= subject %></td>
+            <td><%= tier %></td>
             <td><%= currentNum + "/" + maxNum %></td>
             <td><%= formattedCost %>원</td>
             <td>
