@@ -141,10 +141,10 @@
 <hr>
 
 <div class="container">
+    <h1>팀 목록 및 신청</h1>
     <a href="viewMyTeam.jsp" class="btn btn-primary">View My Team</a>
     <a href="makeTeam.jsp" class="btn btn-success" style="margin-left: 10px;">Create New Team</a>
     <a href="deleteMyTeam.jsp" class="btn btn-danger">Delete My Team</a>
-    <h1>팀 목록 및 신청</h1>
 
     <table class="table">
         <tr>

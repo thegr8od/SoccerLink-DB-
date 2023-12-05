@@ -21,11 +21,20 @@
                     errorMessage = "올바른 성별 값을 입력하세요 (M 또는 F).";
                 }
             } else if (selectedField.equals("yob")) {
-                updateQuery = SQLx.Updatex("USERS", "YOB", newValue, new String[]{userId});
+                int yob = Integer.parseInt(newValue);
+                if (yob >= 1900 && yob <= 2023) {
+                    updateQuery = SQLx.Updatex("USERS", "YOB", newValue, new String[]{userId});
+                } else {
+                    errorMessage = "출생년도는 1900년에서 2023년 사이여야 합니다.";
+                }
             } else if (selectedField.equals("job")) {
                 updateQuery = SQLx.Updatex("USERS", "JOB", newValue, new String[]{userId});
             } else if (selectedField.equals("passwd")) {
-                updateQuery = SQLx.Updatex("USERS", "PASSWD", newValue, new String[]{userId});
+                if (newValue.length() > 8) {
+                    updateQuery = SQLx.Updatex("USERS", "PASSWD", newValue, new String[]{userId});
+                } else {
+                    errorMessage = "비밀번호는 9자리 이상이어야 합니다.";
+                }
             } else {
                 errorMessage = "올바른 필드를 선택하세요.";
             }
@@ -41,6 +50,8 @@
             }
         } catch (SQLException e) {
             errorMessage = "오류 발생: " + e.getMessage();
+        } catch (NumberFormatException e) {
+            errorMessage = "출생연도는 숫자여야 합니다.";
         }
     }
     // 사용자 정보 조회 SQL

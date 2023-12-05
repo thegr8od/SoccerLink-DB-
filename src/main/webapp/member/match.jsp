@@ -62,18 +62,26 @@
             background-color: #f2f2f2;
         }
 
-        .apply-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            border: 1px solid #333;
-            border-radius: 5px;
-            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        form {
+            display: inline;
+        }
+        .table {
+            border-collapse: collapse;
         }
 
-        .apply-btn:hover, .apply-btn:focus {
-            background-color: #ccc;
-            color: #333;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+        }
+
+        /* 추가된 테이블 스타일 */
+        .table-hover tbody tr:hover {
+            background-color: #f5f5f5;
         }
     </style>
 </head>
@@ -150,9 +158,11 @@
 </nav>
 <hr>
 
+<div class="container">
+    <h1>매치 목록</h1>
     <a href="viewMyMatch.jsp" class="btn btn-primary">View My Match</a>
     <a href="deleteMyMatch.jsp" class="btn btn-danger">Delete My Match</a>
-    <table class="table">
+    <table class="table table-hover">
         <tr>
             <th>매치 ID</th>
             <th>날짜/시간</th>
