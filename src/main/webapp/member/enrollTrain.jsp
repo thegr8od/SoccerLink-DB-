@@ -18,37 +18,32 @@
             color: #333;
         }
 
-        .navbar {
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar-brand img {
-            width: 200px;
-            margin-top: 10px;
-        }
-
         .container {
             margin-top: 20px;
         }
 
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .table th, .table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        .table th {
-            background-color: #f2f2f2;
+        .card {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
+            transition: transform 0.3s ease-in-out;
         }
 
         .btn {
+            background-color: #fff;
+            color: #333;
+            border: 1px solid #333;
+            padding: 10px 20px;
             margin: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .btn:hover, .btn:focus {
+            background-color: #ccc;
+            color: #333;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>

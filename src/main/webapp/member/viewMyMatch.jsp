@@ -61,6 +61,10 @@
     .table th {
       background-color: #f2f2f2;
     }
+
+    form {
+      display: inline;
+    }
   </style>
 </head>
 <body>
