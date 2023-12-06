@@ -90,15 +90,17 @@
         <th>날짜</th>
         <th>플레이어 ID</th>
         <th>플레이어 이름</th>
+        <th>현재 티어</th>
         <th>티어</th>
         <th>신청</th>
     </tr>
 
 <%
     String userId = (String) session.getAttribute(SessionConst.USER);
-    String memberSearchSql = "select m.DATE_TIME,m.MATCH_ID, a.MEMBER_ID, u.NAME\n" +
+    String memberSearchSql = "select m.DATE_TIME,m.MATCH_ID, a.MEMBER_ID, u.NAME, ev.TIER\n" +
             "from match m inner join MATCH_APP_MEMBER a on m.MATCH_ID = a.MATCH_ID\n" +
             "inner join users u on a.MEMBER_ID=u.ID_NUMBER\n" +
+            "inner join MEMBER_EVAL_VIEW  ev on ev.MEM_ID = u.ID_NUMBER " +
             "where m.MANAGER_ID = '"+userId+"\'";
     pst = conn.prepareStatement(memberSearchSql);
     rs = pst.executeQuery();
@@ -110,6 +112,7 @@
             <td><%=rs.getDate(1)%></td>
             <td><%=rs.getString(3)%></td>
             <td><%=rs.getString(4)%></td>
+            <td><%=rs.getString(5)%></td>
             <td>
                 <select name="tier" required>
                     <option value="A">A</option>
