@@ -188,4 +188,35 @@
 %>
 
 </body>
+</html><%
+    if(request.getMethod().equals("POST")) {
+        String teamName = request.getParameter("teamName");
+
+        Random rand = new Random();
+        String teamId = "T" + (100 + rand.nextInt(900)) + "-" + (10 + rand.nextInt(90)) + "-" + (1000 + rand.nextInt(9000));
+
+        // 데이터베이스에 팀 추가
+        String[] data = {teamId, teamName};
+        String sql = SQLx.Insertx("TEAM", data);
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
+%>
+<script>
+    alert('팀이 성공적으로 생성되었습니다. 팀 ID: <%= teamId %>');
+    window.location.href = 'team.jsp'; // 팀 목록 페이지로 리디렉션
+</script>
+<%
+} catch (SQLException e) {
+%>
+<script>
+    alert('팀 생성 중 오류가 발생했습니다.');
+    window.location.href = 'team.jsp';
+</script>
+<%
+        }
+    }
+%>
+
+</body>
 </html>
