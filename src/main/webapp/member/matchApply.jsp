@@ -6,8 +6,8 @@
 
 <%
     // 현재 세션에서 사용자 ID 가져오기
-    String user = (String) session.getAttribute(SessionConst.USER);
-    if(user == null || user.equals("")){
+    String userId = (String) session.getAttribute(SessionConst.USER);
+    if(userId == null || userId.equals("")){
 %>
 <script>
     alert("세션이 만료되었습니다.");
