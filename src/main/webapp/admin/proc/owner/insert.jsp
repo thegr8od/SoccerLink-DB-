@@ -18,9 +18,20 @@
     String[] data = new String[2];
     data[0] = request.getParameter("Owner_HP");
     data[1] = request.getParameter("Name");
-    String sql = SQLx.Insertx("OWNER", data);
+    String sql = SQLx.Selectx("OWNER_HP", "OWNER", "Where owner_HP = '" +data[0]+"'");
+    pst = conn.prepareStatement(sql);
+    rs = pst.executeQuery();
+    if(rs.next()){
+%>
+<script>
+    alert("이미 존재하는 전화번호입니다.")
+    window.location.href = "../../admin.jsp"
+</script>
+<%}else {
+    sql = SQLx.Insertx("OWNER", data);
     pst = conn.prepareStatement(sql);
     pst.executeUpdate();
+    }
 %>
 <script>
     alert("성공적으로 삽입되었습니다.")

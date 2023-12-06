@@ -98,8 +98,8 @@
                 <input type="text" name="Place_id" id="key5" class="form-control" placeholder="장소ID를 입려하시오.(장소가 등록되어 있어야 합니다)" required>
             </div>
             <div class="mb-3">
-                <label for="role" class="form-label">매치유형</label>
-                <select id="role" name = "role" class="form-select" required>
+                <label for="TYPE" class="form-label">매치유형</label>
+                <select id="TYPE" name = "TYPE" class="form-select" required>
                     <option value="F" selected>풋살</option>
                     <option value="S">축구</option>
                 </select>
