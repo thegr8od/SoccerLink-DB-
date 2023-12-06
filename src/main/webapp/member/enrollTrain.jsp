@@ -146,20 +146,20 @@
             String costQuery = SQLx.Selectx("COST_PER_ONE", "TRAINING", "CLASS_ID = '" + classId + "'", "");
             PreparedStatement costPstmt = conn.prepareStatement(costQuery);
             ResultSet costRs = costPstmt.executeQuery();
-            double costPerOne = 0;
+            int costPerOne = 0;
 
             if (costRs.next()) {
-                costPerOne = costRs.getDouble("COST_PER_ONE");
+                costPerOne = costRs.getInt(1);
             }
 
             // 사용자의 현재 잔액 확인
             String balanceQuery = SQLx.Selectx("PREPAID_MONEY", "MEMBER", "ID_NUMBER = '" + userId + "'", "");
             PreparedStatement balancePstmt = conn.prepareStatement(balanceQuery);
             ResultSet balanceRs = balancePstmt.executeQuery();
-            double currentBalance = 0;
+            int currentBalance = 0;
 
             if (balanceRs.next()) {
-                currentBalance = balanceRs.getDouble("PREPAID_MONEY");
+                currentBalance = balanceRs.getInt(1);
             }
 
             // 잔액 확인 후 처리
@@ -167,7 +167,7 @@
                 // 사용자 잔액 차감
                 String updateMoneyQuery = "UPDATE MEMBER SET PREPAID_MONEY = PREPAID_MONEY - ? WHERE ID_NUMBER = ?";
                 PreparedStatement updateMoneyPstmt = conn.prepareStatement(updateMoneyQuery);
-                updateMoneyPstmt.setDouble(1, costPerOne);
+                updateMoneyPstmt.setInt(1, costPerOne);
                 updateMoneyPstmt.setString(2, userId);
                 int moneyUpdateResult = updateMoneyPstmt.executeUpdate();
 

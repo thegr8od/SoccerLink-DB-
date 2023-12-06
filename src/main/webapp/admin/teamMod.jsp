@@ -23,7 +23,7 @@
             <legend>팀정보 수정</legend>
             <div class="mb-3">
                 <label for="key" class="form-label">팀 ID</label>
-                <input type="text" name="key" id="key" class="form-control" placeholder="삭제시킬 유저의 ID_NUMBER을 입력하시오." required>
+                <input type="text" name="key" id="key" class="form-control" placeholder="수정하실 팀의 ID_NUMBER를 입력하시오." required>
             </div>
             <div class="mb-3">
                 <label for="attr" class="form-label">수정할 속성을 고르시오</label>
@@ -49,7 +49,7 @@
             <legend>팀 삭제</legend>
             <div class="mb-3">
                 <label for="key2" class="form-label">팀 ID</label>
-                <input type="text" name="key" id="key2" class="form-control" placeholder="삭제시킬 팀의 ID_NUMBER을 입력하시오." required>
+                <input type="text" name="key" id="key2" class="form-control" placeholder="삭제시킬 팀의 ID_NUMBER를 입력하시오." required>
             </div>
             <button type="submit" class="btn btn-primary">submit</button>
         </fieldset>

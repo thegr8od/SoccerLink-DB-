@@ -29,7 +29,7 @@
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="attr" id="attr2" value="Field_HP" required>
-                        <label class="form-check-label" for="attr2">핸드폰번호</label>
+                        <label class="form-check-label" for="attr2">구장 전화번호</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="attr" id="attr3" value="Address" required>
@@ -73,8 +73,12 @@
                 <input type="text" name="Field_HP" id="key5" class="form-control" placeholder="필드 전화번호를 입력하시오." required>
             </div>
             <div class="mb-3">
-                <label for="key6" class="form-label">필드 주소</label>
-                <input type="text" name="Field_HP" id="key6" class="form-control" placeholder="필드 주소를 입력하시오." required>
+                <label for="key6" class="form-label">소유주 전화번호</label>
+                <input type="text" name="Owner_HP" id="key6" class="form-control" placeholder="소유주 전화번호를 입력하시오." required>
+            </div>
+            <div class="mb-3">
+                <label for="key7" class="form-label">필드 주소</label>
+                <input type="text" name="Field_HP" id="key7" class="form-control" placeholder="필드 주소를 입력하시오." required>
             </div>
             <button type="submit" class="btn btn-primary">submit</button>
         </fieldset>

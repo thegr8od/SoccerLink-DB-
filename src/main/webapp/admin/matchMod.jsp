@@ -30,11 +30,11 @@
                 <div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="attr" id="attr1" value="Date_Time" required>
-                        <label class="form-check-label" for="attr1">소유자 핸드폰번호</label>
+                        <label class="form-check-label" for="attr1">날짜</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="attr" id="attr2" value="Place_id" required>
-                        <label class="form-check-label" for="attr2">장소ID</label>
+                        <label class="form-check-label" for="attr2">구장ID</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="attr" id="attr3" value="Type" required>
@@ -46,7 +46,7 @@
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="attr" id="attr5" value="Sex_constraint" required>
-                        <label class="form-check-label" for="attr5">성별제약</label>
+                        <label class="form-check-label" for="attr5">성별제한</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="attr" id="attr6" value="Manager_id" required>
@@ -54,7 +54,7 @@
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="attr" id="attr7" value="Wage" required>
-                        <label class="form-check-label" for="attr7">비용</label>
+                        <label class="form-check-label" for="attr7">매니저 임금</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="attr" id="attr8" value="Cost_per_one" required>
@@ -76,7 +76,7 @@
         <fieldset>
             <legend>매치 삭제</legend>
             <div class="mb-3">
-                <label for="key3" class="form-label">소유자 핸드폰 번호</label>
+                <label for="key3" class="form-label">MATCH ID 입력</label>
                 <input type="text" name="key" id="key3" class="form-control" placeholder="삭제할 소유자의 ID_NUMBER을 입력하시오." required>
             </div>
             <button type="submit" class="btn btn-primary">submit</button>
@@ -117,8 +117,8 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="Wage" class="form-label">비용</label>
-                <input type="text" name="Wage" id="Wage" class="form-control" placeholder="비용" required>
+                <label for="Wage" class="form-label">매니저 임금</label>
+                <input type="text" name="Wage" id="Wage" class="form-control" placeholder="매니저 임금" required>
             </div>
             <div class="mb-3">
                 <label for="Cost_per_one" class="form-label">1인당 비용</label>

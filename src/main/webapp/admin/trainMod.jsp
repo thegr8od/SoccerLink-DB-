@@ -47,15 +47,15 @@
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="attr" id="attr5" value="Max_num">
-                        <label class="form-check-label" for="attr5">최대숫자</label>
+                        <label class="form-check-label" for="attr5">최대인원</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="attr" id="attr6" value="Wage">
-                        <label class="form-check-label" for="attr6">비용</label>
+                        <label class="form-check-label" for="attr6">튜터 임금</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="attr" id="attr7" value="Cost_per_one">
-                        <label class="form-check-label" for="attr7">1인당비용</label>
+                        <label class="form-check-label" for="attr7">1인당 비용</label>
                     </div>
                 </div>
             </div>

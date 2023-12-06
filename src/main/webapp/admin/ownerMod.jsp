@@ -55,7 +55,7 @@
             <legend>소유주 삭제</legend>
             <div class="mb-3">
                 <label for="key3" class="form-label">소유주 핸드폰 번호</label>
-                <input type="text" name="key" id="key3" class="form-control" placeholder="삭제할 소유주의 ID_NUMBER을 입력하시오." required>
+                <input type="text" name="key" id="key3" class="form-control" placeholder="삭제할 소유주의 핸드폰 번호를 입력하시오." required>
             </div>
             <button type="submit" class="btn btn-primary">submit</button>
         </fieldset>
