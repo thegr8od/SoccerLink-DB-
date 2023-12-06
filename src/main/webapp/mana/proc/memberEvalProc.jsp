@@ -29,10 +29,13 @@
         pst = conn.prepareStatement(checkEvalSql);
         rs = pst.executeQuery();
         if(rs.next()){
+            String memberEvalSql = SQLx.Updatex("MAN_EVAL_MEM","EVAL_TIER",data[2],data);
+            pst = conn.prepareStatement(memberEvalSql);
+            pst.executeQuery();
 %>
     <script>
-        alert("이미 평가된 플레이어입니다.");
-        history.go(-1);
+        alert("평가되었습니다.");
+        window.location.href ="../memberEval.jsp";
     </script>
 <%
         }
@@ -43,7 +46,7 @@
             %>
 <script>
     alert("평가되었습니다.");
-    history.go(-1);
+    window.location.href ="../memberEval.jsp";
 </script>
 <%
         }
