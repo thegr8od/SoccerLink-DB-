@@ -144,15 +144,29 @@
             int result = pstmt.executeUpdate();
 
             if (result > 0) {
-                out.println("<p>팀 신청이 완료되었습니다.</p>");
-            } else {
-                out.println("<p>팀 신청에 실패하였습니다.</p>");
-            }
-        } catch (SQLException e) {
-            out.println("이미 신청한 팀입니다. </p>");
+    %>
+    <script>
+        alert("팀 신청이 완료되었습니다.");
+        window.location.href = "team.jsp"; // 원하는 페이지로 리디렉션
+    </script>
+    <%
+    } else {
+    %>
+    <script>
+        alert("팀 신청에 실패하였습니다.");
+        window.location.href = "team.jsp"; // 원하는 페이지로 리디렉션
+    </script>
+    <%
+        }
+    } catch (SQLException e) {
+    %>
+    <script>
+        alert("이미 신청한 팀입니다.");
+        window.location.href = "team.jsp"; // 원하는 페이지로 리디렉션
+    </script>
+    <%
         }
     %>
-    <a href="team.jsp" class="btn btn-primary">뒤로 가기</a>
 </div>
 </body>
 </html>

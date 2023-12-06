@@ -1,9 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="java.util.Random" %>
 <%@ page import="classes.SQLx" %>
-<%@ page import="classes.SessionConst" %>
 <%@ include file="../common/dbconn.jsp" %>
-
+<%@ page import="classes.SessionConst" %>
 <html>
 <head>
     <title>트레이닝 신청 처리</title>
@@ -140,53 +140,78 @@
         ResultSet checkEnrollmentRs = checkEnrollmentPstmt.executeQuery();
 
         if (checkEnrollmentRs.next()) {
-            out.println("<p>이미 참가한 트레이닝입니다.</p>");
-        } else {
-            // 트레이닝 비용 조회
-            String costQuery = SQLx.Selectx("COST_PER_ONE", "TRAINING", "CLASS_ID = '" + classId + "'", "");
-            PreparedStatement costPstmt = conn.prepareStatement(costQuery);
-            ResultSet costRs = costPstmt.executeQuery();
-            int costPerOne = 0;
+%>
+<script type="text/javascript">
+    alert('이미 참가한 트레이닝입니다.');
+    window.location.href = 'training.jsp';
+</script>
+<%
+} else {
+    // 트레이닝 비용 조회
+    String costQuery = SQLx.Selectx("COST_PER_ONE", "TRAINING", "CLASS_ID = '" + classId + "'", "");
+    PreparedStatement costPstmt = conn.prepareStatement(costQuery);
+    ResultSet costRs = costPstmt.executeQuery();
+    int costPerOne = 0;
 
-            if (costRs.next()) {
-                costPerOne = costRs.getInt(1);
-            }
+    if (costRs.next()) {
+        costPerOne = costRs.getInt(1);
+    }
 
-            // 사용자의 현재 잔액 확인
-            String balanceQuery = SQLx.Selectx("PREPAID_MONEY", "MEMBER", "ID_NUMBER = '" + userId + "'", "");
-            PreparedStatement balancePstmt = conn.prepareStatement(balanceQuery);
-            ResultSet balanceRs = balancePstmt.executeQuery();
-            int currentBalance = 0;
+    // 사용자의 현재 잔액 확인
+    String balanceQuery = SQLx.Selectx("PREPAID_MONEY", "MEMBER", "ID_NUMBER = '" + userId + "'", "");
+    PreparedStatement balancePstmt = conn.prepareStatement(balanceQuery);
+    ResultSet balanceRs = balancePstmt.executeQuery();
+    int currentBalance = 0;
 
-            if (balanceRs.next()) {
-                currentBalance = balanceRs.getInt(1);
-            }
+    if (balanceRs.next()) {
+        currentBalance = balanceRs.getInt(1);
+    }
 
-            // 잔액 확인 후 처리
-            if (currentBalance >= costPerOne) {
-                // 사용자 잔액 차감
-                String updateMoneyQuery = "UPDATE MEMBER SET PREPAID_MONEY = PREPAID_MONEY - ? WHERE ID_NUMBER = ?";
-                PreparedStatement updateMoneyPstmt = conn.prepareStatement(updateMoneyQuery);
-                updateMoneyPstmt.setInt(1, costPerOne);
-                updateMoneyPstmt.setString(2, userId);
-                int moneyUpdateResult = updateMoneyPstmt.executeUpdate();
+    // 잔액 확인 후 처리
+    if (currentBalance >= costPerOne) {
+        // 사용자 잔액 차감
+        String updateMoneyQuery = "UPDATE MEMBER SET PREPAID_MONEY = PREPAID_MONEY - ? WHERE ID_NUMBER = ?";
+        PreparedStatement updateMoneyPstmt = conn.prepareStatement(updateMoneyQuery);
+        updateMoneyPstmt.setInt(1, costPerOne);
+        updateMoneyPstmt.setString(2, userId);
+        int moneyUpdateResult = updateMoneyPstmt.executeUpdate();
 
-                if (moneyUpdateResult > 0) {
-                    // TRAIN_ENROLLS에 신청 데이터 추가
-                    String enrollQuery = SQLx.Insertx("TRAIN_ENROLLS", new String[]{classId, userId});
-                    PreparedStatement enrollPstmt = conn.prepareStatement(enrollQuery);
-                    int enrollResult = enrollPstmt.executeUpdate();
+        if (moneyUpdateResult > 0) {
+            // TRAIN_ENROLLS에 신청 데이터 추가
+            String enrollQuery = SQLx.Insertx("TRAIN_ENROLLS", new String[]{classId, userId});
+            PreparedStatement enrollPstmt = conn.prepareStatement(enrollQuery);
+            int enrollResult = enrollPstmt.executeUpdate();
 
-                    if (enrollResult > 0) {
-                        out.println("<p>트레이닝 신청이 완료되었습니다.</p>");
-                    } else {
-                        out.println("<p>트레이닝 신청에 실패했습니다.</p>");
-                    }
-                } else {
-                    out.println("<p>트레이닝 신청 중 오류가 발생했습니다.</p>");
-                }
-            } else {
-                out.println("<p>잔액이 부족합니다.</p>");
+            if (enrollResult > 0) {
+%>
+<script type="text/javascript">
+    alert('트레이닝 신청이 완료되었습니다.');
+    window.location.href = 'training.jsp';
+</script>
+<%
+} else {
+%>
+<script type="text/javascript">
+    alert('트레이닝 신청에 실패했습니다.');
+    window.location.href = 'training.jsp';
+</script>
+<%
+    }
+} else {
+%>
+<script type="text/javascript">
+    alert('트레이닝 신청 중 오류가 발생했습니다.');
+    window.location.href = 'training.jsp';
+</script>
+<%
+    }
+} else {
+%>
+<script type="text/javascript">
+    alert('잔액이 부족합니다.');
+    window.location.href = 'training.jsp';
+</script>
+<%
             }
         }
     }
