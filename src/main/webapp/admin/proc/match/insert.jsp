@@ -18,7 +18,7 @@
     String[] data = new String[9];
     data[1] = request.getParameter("Date_Time");
     data[2] = request.getParameter("Place_id");
-    data[3] = request.getParameter("Type");
+    data[3] = request.getParameter("TYPE");
     data[4] = request.getParameter("Max_num");
     data[5] = request.getParameter("Sex_constraint");
     data[6] = "null";
