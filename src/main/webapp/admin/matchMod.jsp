@@ -66,7 +66,7 @@
                 <label for="value" class="form-label">새로운 값</label>
                 <input type="text" name="value" id="value" class="form-control" placeholder="새로운 값을 입력하시오." required>
             </div>
-            <button type    ="submit" class="btn btn-primary">submit</button>
+            <button type="submit" class="btn btn-primary">submit</button>
         </fieldset>
     </form>
 </div>
